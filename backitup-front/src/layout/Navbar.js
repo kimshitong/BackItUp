@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom"
 
 export default function Navbar() {
   return (
@@ -6,7 +7,7 @@ export default function Navbar() {
       <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
         <div className="container-fluid">
           <a className="navbar-brand" to="/">
-            BackItUp
+            BackItUp {/* add functionality: clicking this will return to homepage */}
           </a>
           <button
             className="navbar-toggler"
@@ -20,9 +21,13 @@ export default function Navbar() {
             <span className="navbar-toggler-icon"></span>
           </button>
 
-          <button className="btn btn-outline-light" to="/adduser">
+          {/* to insert conditional functionality
+            if not logged in, show sign up button
+            if logged in, show create post button
+          */}
+          <Link className="btn btn-outline-light" to="/adduser">
             Sign Up
-          </button>
+          </Link>
         </div>
       </nav>
     </div>
