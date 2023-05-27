@@ -25,11 +25,11 @@ export default function Home() {
             <table className="table border shadow">
                 <thead>
                     <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Title</th>
-                    <th scope="col">Founder</th> {/* change to 'Company'? */}
-                    <th scope="col">Description</th> {/* see google sheet for db architecture, cell e37 */}
-                    <th scope="col">Action</th>
+                        <th scope="col">#</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Founder</th> {/* change to 'Company'? */}
+                        <th scope="col">Description</th> {/* see google sheet for db architecture, cell e37 */}
+                        <th scope="col">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -37,11 +37,11 @@ export default function Home() {
                         posts.map((post, index) => (
                             <tr>
                             <th scope="row" key="index">{index + 1}</th>
-                            <td>{post.POST_title}</td>
-                            <td>{post.USER_ID}</td>
-                            <td>{post.POST_CREATE_DT}</td> {/* placeholder, replace with short desc */}
+                            <td>{post.postTitle}</td>
+                            <td>{post.user.userName}</td>
+                            <td>{post.postDescription}</td>
                             <td>
-                                <Link className="btn btn-outline-light" to="/post">
+                                <Link className="btn btn-outline-primary" to={'/post/' + post.postID} >
                                     View
                                 </Link>
                             </td>

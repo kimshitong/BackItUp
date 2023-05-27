@@ -18,7 +18,8 @@ function App() {
         <Routes>
           <Route exact path ="/" element={<Home/>} />
           <Route exact path ="/adduser" element={<AddUser/>} />
-          <Route exact path ="/post" element={<Post/>} /> {/* find a way to make this a unique link for each project */}
+          <Route path ="/post" element={<Post/>} /> {/* find a way to make this a unique link for each project */}
+          <Route path ="/post/:id" element={<Post/>} /> {/* find a way to make this a unique link for each project */}
           <Route exact path ="/invest" element={<Invest/>} /> {/* find a way to make this a unique link for each project */}
           <Route exact path ="/admin" element={<Admin/>} />
         </Routes>
