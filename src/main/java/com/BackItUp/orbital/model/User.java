@@ -8,22 +8,22 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "USER_ID")
-    private Integer USER_ID;
+    private Integer userID;
 
     @Column(name = "USER_NAME")
-    private String USER_NAME;
+    private String userName;
     @Column(name = "USER_EMAIL")
-    private String USER_EMAIL;
+    private String userEmail;
     @Column(name = "USER_HP")
-    private String USER_HP;
+    private String userHP;
     @Column(name = "USER_PASS")
-    private String USER_PASS;
+    private String userPass;
     @Column(name = "USER_TYPE")
-    private String USER_TYPE;
+    private String userType;
     @Column(name = "USER_VERIFIED")
-    private Boolean USER_VERIFIED;
+    private Boolean userVerified;
     @Column(name = "USER_EVIDENCE")
-    private byte[] USER_EVIDENCE;
+    private byte[] userEvidence;
     @OneToOne
     @JoinColumn(name = "WALLET_ID")
     private Wallet wallet;
@@ -33,77 +33,77 @@ public class User {
     }
 
     public User(CreateUserRequest request, Wallet wallet) {
-        this.USER_NAME = request.getUSER_NAME();
-        this.USER_EMAIL = request.getUSER_EMAIL();
-        this.USER_HP = request.getUSER_HP();
-        this.USER_TYPE = request.getUSER_TYPE();
-        this.USER_PASS = request.getUSER_PASS();
-        this.USER_VERIFIED = false;
+        this.userName = request.getUSER_NAME();
+        this.userEmail = request.getUSER_EMAIL();
+        this.userHP = request.getUSER_HP();
+        this.userType = request.getUSER_TYPE();
+        this.userPass = request.getUSER_PASS();
+        this.userVerified = false;
         this.wallet = wallet;
     }
 
-    public Integer getUSER_ID() {
-        return USER_ID;
+    public Integer getUserID() {
+        return userID;
     }
 
-    public void setUSER_ID(Integer USER_ID) {
-        this.USER_ID = USER_ID;
+    public void setUserID(Integer userID) {
+        this.userID = userID;
     }
 
-    public String getUSER_NAME() {
-        return USER_NAME;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUSER_NAME(String USER_NAME) {
-        this.USER_NAME = USER_NAME;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public String getUSER_EMAIL() {
-        return USER_EMAIL;
+    public String getUserEmail() {
+        return userEmail;
     }
 
-    public void setUSER_EMAIL(String USER_EMAIL) {
-        this.USER_EMAIL = USER_EMAIL;
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
     }
 
-    public String getUSER_HP() {
-        return USER_HP;
+    public String getUserHP() {
+        return userHP;
     }
 
-    public void setUSER_HP(String USER_HP) {
-        this.USER_HP = USER_HP;
+    public void setUserHP(String userHP) {
+        this.userHP = userHP;
     }
 
-    public String getUSER_PASS() {
-        return USER_PASS;
+    public String getUserPass() {
+        return userPass;
     }
 
-    public void setUSER_PASS(String USER_PASS) {
-        this.USER_PASS = USER_PASS;
+    public void setUserPass(String userPass) {
+        this.userPass = userPass;
     }
 
-    public String getUSER_TYPE() {
-        return USER_TYPE;
+    public String getUserType() {
+        return userType;
     }
 
-    public void setUSER_TYPE(String USER_TYPE) {
-        this.USER_TYPE = USER_TYPE;
+    public void setUserType(String userType) {
+        this.userType = userType;
     }
 
-    public Boolean getUSER_VERIFIED() {
-        return USER_VERIFIED;
+    public Boolean getUserVerified() {
+        return userVerified;
     }
 
-    public void setUSER_VERIFIED(Boolean USER_VERIFIED) {
-        this.USER_VERIFIED = USER_VERIFIED;
+    public void setUserVerified(Boolean userVerified) {
+        this.userVerified = userVerified;
     }
 
-    public byte[] getUSER_EVIDENCE() {
-        return USER_EVIDENCE;
+    public byte[] getUserEvidence() {
+        return userEvidence;
     }
 
-    public void setUSER_EVIDENCE(byte[] USER_EVIDENCE) {
-        this.USER_EVIDENCE = USER_EVIDENCE;
+    public void setUserEvidence(byte[] userEvidence) {
+        this.userEvidence = userEvidence;
     }
 
     public Wallet getWallet() {
