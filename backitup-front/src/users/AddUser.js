@@ -21,13 +21,6 @@ export default function AddUser() {
     const onSubmit = async (event) => {
         event.preventDefault()
         try {
-            // Create a wallet.java
-            // const walletResponse = await axios.get('http://localhost:8080/api/wallet', {})
-            // var data =walletResponse.data;
-            // var walletId = walletResponse.data.WALLET_ID;
-            // console.log(walletId)
-            // console.log(data)
-
             const data = {
                 USER_NAME: name,
                 USER_HP: "0122155420",
@@ -39,6 +32,7 @@ export default function AddUser() {
 
       
               console.log(data)
+              
             // Create a user with the created wallet.java
             const response = await axios.post('http://localhost:8080/api/createUser', data, {
                 headers: {

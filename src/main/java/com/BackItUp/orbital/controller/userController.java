@@ -1,10 +1,14 @@
 package com.BackItUp.orbital.controller;
 
-import com.BackItUp.orbital.model.user;
-import com.BackItUp.orbital.model.CreateUserRequest;
-import com.BackItUp.orbital.model.wallet;
-import com.BackItUp.orbital.repository.walletRepo;
+import com.BackItUp.orbital.model.User;
 import com.BackItUp.orbital.repository.userRepo;
+
+import com.BackItUp.orbital.model.CreateUserRequest;
+
+import com.BackItUp.orbital.model.Wallet;
+import com.BackItUp.orbital.repository.walletRepo;
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,23 +25,12 @@ public class userController {
     private walletRepo WALLETRepository;
 
     @PostMapping("/api/createUser")
-    user newUser(@RequestBody CreateUserRequest request) {
-        wallet newWallet = new wallet(0,0);
-        System.out.println("test");
+    User newUser(@RequestBody CreateUserRequest request) {
+
+        Wallet newWallet = new Wallet(0,0);
         WALLETRepository.save(newWallet);
 
-        System.out.println(request.toString());
-
-        String username = request.getUSER_NAME();
-        String email = request.getUSER_EMAIL();
-        System.out.println(email);
-
-        String hp = request.getUSER_HP();
-        System.out.println(hp);
-        String type = request.getUSER_TYPE();
-        String password = request.getUSER_PASS();
-
-        user newUser = new user(username,hp,email,password,type,false,newWallet.getWallet_ID());
+        User newUser = new User(request, newWallet );
 
         System.out.println(newUser);
 
@@ -46,7 +39,7 @@ public class userController {
     }
 
     @GetMapping("/users")
-    List<user> getAllUsers() {
+    List<User> getAllUsers() {
         return userRepository.findAll();
     }
 

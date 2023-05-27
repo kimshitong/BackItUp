@@ -8,7 +8,7 @@ export default function Home() {
     const [posts, setPosts] = useState([])
 
     useEffect(() => {
-        console.log('xx')
+        loadPosts();
     }, [] );
 
     // Get list of posts from database
@@ -16,6 +16,7 @@ export default function Home() {
         const result = await axios.get("http://localhost:8080/api/listPost") // change the link
         setPosts(result.data)
         console.log(result.data);
+        console.log("xex")
     }
 
   return (

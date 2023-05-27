@@ -1,6 +1,6 @@
 package com.BackItUp.orbital.controller;
 
-import com.BackItUp.orbital.model.wallet;
+import com.BackItUp.orbital.model.Wallet;
 import com.BackItUp.orbital.repository.walletRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -14,8 +14,8 @@ public class walletController {
     private walletRepo WALLETRepository;
 
     @GetMapping("/api/wallet")
-    public wallet createWallet() {
-        wallet newWallet = new wallet();
+    public Wallet createWallet() {
+        Wallet newWallet = new Wallet();
         newWallet.setActiveBalance(0);
         newWallet.setFrozenBalance(0);
         System.out.println("test");
