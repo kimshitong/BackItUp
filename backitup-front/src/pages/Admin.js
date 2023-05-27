@@ -13,14 +13,20 @@ export default function Admin() {
 
     // Get list of users from database
     const loadUsers = async () => {
-        const result = await axios.get("http://localhost:8080/users") // change the link
+        const result = await axios.get("http://localhost:8080/users")
         console.log(result);
         setUsers(result.data)
         console.log(result.data);
     }
 
-    const clickVerify = () => {
-        // figure out how to update database
+    const clickVerify = (userID) => {
+        axios.get(`http://localhost:8080/${userID}/verify`)
+        alert("Successfully verified! Please refresh the page.")
+    }
+
+    const clickUnverify = (userID) => {
+        axios.get(`http://localhost:8080/${userID}/unverify`)
+        alert("Successfully unverified! Please refresh the page.")
     }
 
   return (
@@ -57,7 +63,10 @@ export default function Admin() {
                             </td>
                             <td>{user.userEvidence}</td>
                             <td>
-                                <button className='btn btn-outline-primary max-2' onClick={clickVerify}>Verify</button>
+                                {!user.userVerified
+                                    ? <button className='btn btn-outline-primary max-2' onClick={() => clickVerify(user.userID)}>Verify</button>
+                                    : <button className='btn btn-outline-primary max-2' onClick={() => clickUnverify(user.userID)}>Unverify</button>
+                                }
                             </td>
                         </tr>
                         ))

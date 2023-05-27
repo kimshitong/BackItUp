@@ -11,7 +11,7 @@ export default function AddUser() {
         userEmail: "",
         userHP: "",
         userPass: "",
-        userType: "Founder",
+        userType: "",
         userVerified: false,
         userEvidence: ""
     })
@@ -64,45 +64,93 @@ export default function AddUser() {
                 <h2 className="text-center m-4">Start your journey today.</h2>
                 <form onSubmit={(event) => onSubmit(event)}>
                 <div className="mb-3">
-                    <label htmlFor="Name" className="form-label">
+                    <label
+                        htmlFor="Name"
+                        className="form-label">
                         Name
                     </label>
-                    <input type={"text"} className="form-control" placeholder="Kim" name="name" value={name} onChange={(event) => handleChange(event)}/>
+                    <input
+                        type={"text"}
+                        className="form-control"
+                        placeholder="Kim"
+                        name="name"
+                        value={name}
+                        onChange={(event) => handleChange(event)}
+                    />
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="Email" className="form-label">
+                    <label
+                        htmlFor="Email"
+                        className="form-label">
                         Email
                     </label>
-                    <input type={"text"} className="form-control" placeholder="kim@backitup.com" name="email" value={email} onChange={(event) => handleChange(event)}/>
+                    <input
+                        type={"text"}
+                        className="form-control"
+                        placeholder="kim@backitup.com"
+                        name="email"
+                        value={email}
+                        onChange={(event) => handleChange(event)}
+                    />
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="HP" className="form-label">
+                    <label
+                        htmlFor="HP"
+                        className="form-label">
                         HP Number
                     </label>
-                    <input type={"text"} className="form-control" placeholder="+65 9123 4567" name="hp" value={hp} onChange={(event) => handleChange(event)}/>
+                    <input
+                        type={"text"}
+                        className="form-control"
+                        placeholder="+65 9123 4567"
+                        name="hp"
+                        value={hp}
+                        onChange={(event) => handleChange(event)}
+                    />
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="Password" className="form-label">
+                    <label
+                        htmlFor="Password"
+                        className="form-label">
                         Password
                     </label>
-                    <input type={"text"} className="form-control" placeholder="Please choose a strong password e.g. 0Rb1tA1!" name="password" value={password} onChange={(event) => handleChange(event)}/>
+                    <input 
+                        type={"text"} 
+                        className="form-control"
+                        placeholder="Please choose a strong password e.g. 0Rb1tA1!"
+                        name="password"
+                        value={password}
+                        onChange={(event) => handleChange(event)}
+                    />
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="Type" className="form-label">
+                    <label
+                        htmlFor="Type"
+                        className="form-label">
                         Account Type
                     </label>
                     <br></br>
                     <select name="type" id="selectList" onChange={(event) => handleChange(event)}>
+                        <option value="" selected disabled hidden>Choose one...</option>
                         <option value={type}>Founder</option>
                         <option value={type}>Investor</option>
                     </select>
                 </div>
                
                 <div className="mb-3">
-                    <label htmlFor="Evidence" className="form-label">
+                    <label
+                        htmlFor="Evidence"
+                        className="form-label">
                         Documents
                     </label>
-                    <input type={"text"} className="form-control" placeholder="Insert public shareable link" name="evidence" value={evidence} onChange={(event) => handleChange(event)}/>
+                    <input
+                        type={"text"}
+                        className="form-control"
+                        placeholder="Insert public shareable link"
+                        name="evidence"
+                        value={evidence}
+                        onChange={(event) => handleChange(event)}
+                    />
                 </div>
                 <button type="submit" className="btn btn-outline-primary">Submit</button>
                 </form>
