@@ -36,4 +36,44 @@ public class Share {
     public void setShareId(Integer shareId) {
         this.shareId = shareId;
     }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Integer getShareCountTotal() {
+        return shareCountTotal;
+    }
+
+    public void setShareCountTotal(Integer shareCountTotal) {
+        this.shareCountTotal = shareCountTotal;
+    }
+
+    public Integer getShareCountCurrent() {
+        return shareCountCurrent;
+    }
+
+    public void setShareCountCurrent(Integer shareCountCurrent) {
+        this.shareCountCurrent = shareCountCurrent;
+    }
+
+    public Integer getShareCountPrice() {
+        return shareCountPrice;
+    }
+
+    public void setShareCountPrice(Integer shareCountPrice) {
+        this.shareCountPrice = shareCountPrice;
+    }
+
+    public Integer getShareDividend() {
+        return shareDividend;
+    }
+
+    public void setShareDividend(Integer shareDividend) {
+        this.shareDividend = shareDividend;
+    }
 }
