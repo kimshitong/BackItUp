@@ -36,9 +36,6 @@ public class Post {
     @Column(name = "POST_STATUS")
     private Integer postStatus;
 
-    @Column(name = "POST_RAISE_MIN")
-    private Integer postRaiseMin;
-
     @Column(name = "POST_CREATE_DT")
     private LocalDateTime postCreateDT;
 
@@ -121,14 +118,6 @@ public class Post {
 
     public void setPostStatus(Integer postStatus) {
         this.postStatus = postStatus;
-    }
-
-    public Integer getPostRaiseMin() {
-        return postRaiseMin;
-    }
-
-    public void setPostRaiseMin(Integer postRaiseMin) {
-        this.postRaiseMin = postRaiseMin;
     }
 
     public LocalDateTime getPostCreateDT() {

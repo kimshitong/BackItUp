@@ -16,6 +16,8 @@ public class Share {
 
     @Column(name = "SHARE_COUNT_TOTAL")
     private Integer shareCountTotal;
+    @Column(name = "SHARE_COUNT_MIN")
+    private Integer shareCountMin;
 
     @Column(name = "SHARE_COUNT_CURRENT")
     private Integer shareCountCurrent;
@@ -51,6 +53,14 @@ public class Share {
 
     public void setShareCountTotal(Integer shareCountTotal) {
         this.shareCountTotal = shareCountTotal;
+    }
+
+    public Integer getShareCountMin() {
+        return shareCountMin;
+    }
+
+    public void setShareCountMin(Integer shareCountMin) {
+        this.shareCountMin = shareCountMin;
     }
 
     public Integer getShareCountCurrent() {
