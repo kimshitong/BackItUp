@@ -8,41 +8,44 @@ public class Wallet {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer WALLET_ID;
-    private Integer ACTIVE_BALANCE;
-    private Integer FROZEN_BALANCE;
+    @Column(name = "WALLET_ID")
+    private Integer walletId;
+    @Column(name = "ACTIVE_BALANCE")
+    private Integer activeBalance;
+    @Column(name = "FROZEN_BALANCE")
+    private Integer frozenBalance;
 
 
     public Wallet() {
     }
 
     public Wallet(Integer activeBalance, Integer frozenBalance) {
-        this.ACTIVE_BALANCE = activeBalance;
-        this.FROZEN_BALANCE = frozenBalance;
+        this.activeBalance = activeBalance;
+        this.frozenBalance = frozenBalance;
     }
 
     public Integer getWallet_ID() {
-        return WALLET_ID;
+        return walletId;
     }
 
     public void setWallet_ID(Integer wallet_ID) {
-        this.WALLET_ID = wallet_ID;
+        this.walletId = wallet_ID;
     }
 
     public Integer getActiveBalance() {
-        return ACTIVE_BALANCE;
+        return activeBalance;
     }
 
     public void setActiveBalance(Integer activeBalance) {
-        this.ACTIVE_BALANCE = activeBalance;
+        this.activeBalance = activeBalance;
     }
 
     public Integer getFrozenBalance() {
-        return FROZEN_BALANCE;
+        return frozenBalance;
     }
 
     public void setFrozenBalance(Integer frozenBalance) {
-        this.FROZEN_BALANCE = frozenBalance;
+        this.frozenBalance = frozenBalance;
     }
 
 
