@@ -12,7 +12,7 @@ public class User {
 
     @Column(name = "USER_NAME")
     private String userName;
-    @Column(name = "USER_EMAIL")
+    @Column(name = "USER_EMAIL", unique = true)
     private String userEmail;
     @Column(name = "USER_HP")
     private String userHP;
@@ -23,23 +23,29 @@ public class User {
     @Column(name = "USER_VERIFIED")
     private Boolean userVerified;
     @Column(name = "USER_EVIDENCE")
-    private byte[] userEvidence;
+    private String userEvidence;
+    @Column(name = "USER_DESCRIPTION")
+    private String userDescription;
     @OneToOne
     @JoinColumn(name = "WALLET_ID")
     private Wallet wallet;
+
+    @OneToOne
+    @JoinColumn(name = "CREATOR_ID")
+    private User creator;
 
 
     public User() {
     }
 
-    public User(CreateUserRequest request, Wallet wallet) {
-        this.userName = request.getUSER_NAME();
-        this.userEmail = request.getUSER_EMAIL();
-        this.userHP = request.getUSER_HP();
-        this.userType = request.getUSER_TYPE();
-        this.userPass = request.getUSER_PASS();
-        this.userVerified = false;
-        this.wallet = wallet;
+    public User(String userName, String userEmail, String userHP, String userPass, String userType, Boolean userVerified, String userEvidence) {
+        this.userName = userName;
+        this.userEmail = userEmail;
+        this.userHP = userHP;
+        this.userPass = userPass;
+        this.userType = userType;
+        this.userVerified = userVerified;
+        this.userEvidence = userEvidence;
     }
 
     public Integer getUserID() {
@@ -64,6 +70,14 @@ public class User {
 
     public void setUserEmail(String userEmail) {
         this.userEmail = userEmail;
+    }
+
+    public String getUserDescription() {
+        return userDescription;
+    }
+
+    public void setUserDescription(String userDescription) {
+        this.userDescription = userDescription;
     }
 
     public String getUserHP() {
@@ -98,11 +112,11 @@ public class User {
         this.userVerified = userVerified;
     }
 
-    public byte[] getUserEvidence() {
+    public String getUserEvidence() {
         return userEvidence;
     }
 
-    public void setUserEvidence(byte[] userEvidence) {
+    public void setUserEvidence(String userEvidence) {
         this.userEvidence = userEvidence;
     }
 

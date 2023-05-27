@@ -3,19 +3,17 @@ package com.BackItUp.orbital.controller;
 import com.BackItUp.orbital.model.User;
 import com.BackItUp.orbital.repository.userRepo;
 
-import com.BackItUp.orbital.model.CreateUserRequest;
-
 import com.BackItUp.orbital.model.Wallet;
 import com.BackItUp.orbital.repository.walletRepo;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @RestController
@@ -27,17 +25,16 @@ public class userController {
     private walletRepo WALLETRepository;
 
     @PostMapping("/api/createUser")
-    User newUser(@RequestBody CreateUserRequest request) {
+    User newUser(@RequestBody User user) {
 
         Wallet newWallet = new Wallet(0,0);
         WALLETRepository.save(newWallet);
 
-        User newUser = new User(request, newWallet );
+        user.setWallet(newWallet);
 
-        System.out.println(newUser);
+        System.out.println(user);
 
-
-        return userRepository.save(newUser);
+        return userRepository.save(user);
     }
 
     @GetMapping("/api/unverifiedFounder")
@@ -64,6 +61,31 @@ public class userController {
         userRepository.save(user);
 
         return true;
+    }
+
+//    @PostMapping("/api/createCompany")
+//    User newUser(@RequestBody CreateUserRequest request) {
+//
+//        Wallet newWallet = new Wallet(0,0);
+//        WALLETRepository.save(newWallet);
+//
+//
+//        return userRepository.save();
+//    }
+
+
+
+    @GetMapping("/api/verifyFounder/{email}/{password}")
+    public Boolean verifyUser(@PathVariable("email") String userEmail,@PathVariable("password") String userPass) {
+        // Retrieve the user record from the database
+        Optional<User> optionalUser = userRepository.findByUserEmailAndUserPass(userEmail,userPass);
+
+
+        if (optionalUser.isEmpty()) {
+            return false;
+        }
+        User user = optionalUser.get();
+        return (Objects.equals(user.getUserType(), "Founder") && user.getUserVerified());
     }
     @GetMapping("/{id}/unverify")
     public Boolean unverifyUser(@PathVariable("id") Integer userId) {
