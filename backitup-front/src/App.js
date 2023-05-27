@@ -1,11 +1,27 @@
 import './App.css';
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css"
 import Navbar from "./layout/Navbar"
+import Home from "./pages/Home"
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
+import AddUser from "./users/AddUser"
+import Project from './pages/Project'
+import Donate from './pages/Donate'
+
 
 function App() {
   return (
     <div className="App">
-      <Navbar />
+      <Router>
+        <Navbar />
+
+        <Routes>
+          <Route exact path ="/" element={<Home/>} />
+          <Route exact path ="/adduser" element={<AddUser/>} />
+          <Route exact path ="/project" element={<Project/>} /> {/* find a way to make this a unique link for each project */}
+          <Route exact path ="/donate" element={<Donate/>} /> {/* find a way to make this a unique link for each project */}
+        </Routes>
+
+      </Router>
     </div>
   );
 }
