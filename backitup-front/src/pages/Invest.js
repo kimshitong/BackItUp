@@ -13,11 +13,11 @@ export default function Invest() {
         setAmount(result);
     }
 
-    // Post user donation info to database
+    // Post user investment info to database
     const onSubmit = async (event) => {
         event.preventDefault()
-        await axios.post("http://localhost:8080/user", amt) // change link as necessary
-        navigate("/")
+        // await axios.post("http://localhost:8080/user", amt) // change link as necessary
+        navigate("/thanks")
     }
 
   return (

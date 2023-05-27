@@ -7,13 +7,18 @@ export default function AddUser() {
     let navigate = useNavigate()
 
     const [user, setUser] = useState({
-        name: "",
-        email: ""
+        userName: "",
+        userEmail: "",
+        userHP: "",
+        userPass: "",
+        userType: "Founder",
+        userVerified: false,
+        userEvidence: ""
     })
 
-    const {name, email} = user;
+    const {name, email, hp, password, type, verified, evidence} = user;
 
-    const onInputChange = (event) => {
+    const handleChange = (event) => {
         setUser({...user, [event.target.name]: event.target.value});
     }
 
@@ -22,15 +27,15 @@ export default function AddUser() {
         event.preventDefault()
         try {
             const data = {
-                USER_NAME: name,
-                USER_HP: "0122155420",
-                USER_EMAIL: email,
-                USER_PASS: "password",
-                USER_TYPE: "user"
+                userName: name,
+                userEmail: email,
+                userHP: hp,
+                userPass: password,
+                userType: type,
+                userVerified: false,
+                userEvidence: evidence
               };
-            
 
-      
               console.log(data)
               
             // Create a user with the created wallet.java
@@ -56,21 +61,50 @@ export default function AddUser() {
     <div className="container">
         <div className="row">
             <div className="col-md-6 offset-md-3 border rounded p-4 mt-2 shadow">
-                <h2 className="text-center m-4">Register User</h2>
+                <h2 className="text-center m-4">Start your journey today.</h2>
                 <form onSubmit={(event) => onSubmit(event)}>
                 <div className="mb-3">
                     <label htmlFor="Name" className="form-label">
                         Name
                     </label>
-                    <input type={"text"} className="form-control" placeholder="Enter your name..." name="name" value={name} onChange={(event) => onInputChange(event)}/>
+                    <input type={"text"} className="form-control" placeholder="Kim" name="name" value={name} onChange={(event) => handleChange(event)}/>
                 </div>
                 <div className="mb-3">
                     <label htmlFor="Email" className="form-label">
                         Email
                     </label>
-                    <input type={"text"} className="form-control" placeholder="kim@backitup.com" name="email" value={email} onChange={(event) => onInputChange(event)}/>
+                    <input type={"text"} className="form-control" placeholder="kim@backitup.com" name="email" value={email} onChange={(event) => handleChange(event)}/>
                 </div>
-                    <button type="submit" className="btn btn-outline-primary">Submit</button>
+                <div className="mb-3">
+                    <label htmlFor="HP" className="form-label">
+                        HP Number
+                    </label>
+                    <input type={"text"} className="form-control" placeholder="+65 9123 4567" name="hp" value={hp} onChange={(event) => handleChange(event)}/>
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="Password" className="form-label">
+                        Password
+                    </label>
+                    <input type={"text"} className="form-control" placeholder="Please choose a strong password e.g. 0Rb1tA1!" name="password" value={password} onChange={(event) => handleChange(event)}/>
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="Type" className="form-label">
+                        Account Type
+                    </label>
+                    <br></br>
+                    <select name="type" id="selectList" onChange={(event) => handleChange(event)}>
+                        <option value={type}>Founder</option>
+                        <option value={type}>Investor</option>
+                    </select>
+                </div>
+               
+                <div className="mb-3">
+                    <label htmlFor="Evidence" className="form-label">
+                        Documents
+                    </label>
+                    <input type={"text"} className="form-control" placeholder="Insert public shareable link" name="evidence" value={evidence} onChange={(event) => handleChange(event)}/>
+                </div>
+                <button type="submit" className="btn btn-outline-primary">Submit</button>
                 </form>
             </div>
             

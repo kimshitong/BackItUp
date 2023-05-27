@@ -7,6 +7,7 @@ import AddUser from "./users/AddUser"
 import Post from './pages/Post'
 import Invest from './pages/Invest'
 import Admin from './pages/Admin';
+import Thanks from './pages/Thanks';
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
           <Route path ="/post/:id" element={<Post/>} /> {/* find a way to make this a unique link for each project */}
           <Route exact path ="/invest" element={<Invest/>} /> {/* find a way to make this a unique link for each project */}
           <Route exact path ="/admin" element={<Admin/>} />
+          <Route exact path ="/thanks" element={<Thanks/>} />
         </Routes>
 
       </Router>
