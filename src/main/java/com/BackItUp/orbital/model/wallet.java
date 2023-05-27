@@ -13,10 +13,11 @@ public class wallet {
     private Integer ACTIVE_BALANCE;
     private Integer FROZEN_BALANCE;
 
-    public WALLET() {
+
+    public wallet() {
     }
 
-    public WALLET(Integer activeBalance, Integer frozenBalance) {
+    public wallet(Integer activeBalance, Integer frozenBalance) {
         this.ACTIVE_BALANCE = activeBalance;
         this.FROZEN_BALANCE = frozenBalance;
     }
