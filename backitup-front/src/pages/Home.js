@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
+import { Link } from "react-router-dom"
 
 export default function Home() {
 
     // Initialise homepage to be blank
-    const [projects, setProjects] = useState([])
+    const [posts, setPosts] = useState([])
 
     useEffect(() => {
         console.log('xx')
     }, [] );
 
-    // Get list of projects from database
-    const loadProjects = async() => {
-        const result = await axios.get("http://localhost:8080/users") // change the link
-        setProjects(result.data)
+    // Get list of posts from database
+    const loadPosts = async() => {
+        const result = await axios.get("http://localhost:8080/api/listPost") // change the link
+        setPosts(result.data)
         console.log(result.data);
     }
 
@@ -32,15 +33,16 @@ export default function Home() {
                 </thead>
                 <tbody>
                     {
-                        projects.map((project, index) => (
+                        posts.map((post, index) => (
                             <tr>
                             <th scope="row" key="index">{index + 1}</th>
-                            <td>{project.title}</td>
-                            <td>{project.username}</td>
-                            <td>{project.description}</td>
+                            <td>{post.POST_title}</td>
+                            <td>{post.USER_ID}</td>
+                            <td>{post.POST_CREATE_DT}</td> {/* placeholder, replace with short desc */}
                             <td>
-                                <button className='btn btn-outline-primary max-2'>View</button>
-                                <button className='btn btn-primary max-2'>Donate</button>
+                                <Link className="btn btn-outline-light" to="/post">
+                                    View
+                                </Link>
                             </td>
                         </tr>
                         ))

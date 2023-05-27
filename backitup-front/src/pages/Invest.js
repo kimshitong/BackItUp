@@ -2,7 +2,7 @@ import axios from 'axios'
 import React, { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 
-export default function Donate() {
+export default function Invest() {
 
     let navigate = useNavigate()
 
@@ -33,7 +33,7 @@ export default function Donate() {
                         </label>
                         <input type={"text"} className="form-control" placeholder="Enter a number..." name="amt" value={amt} onChange={(event) => onInputChange(event)}/>
                     </div>
-                    <button type="submit" className="btn btn-outline-primary">Donate Now!</button>
+                    <button type="submit" className="btn btn-outline-primary">Invest Now!</button>
                 </form>
             </div>
         </div>
