@@ -12,5 +12,6 @@ public interface userRepo extends JpaRepository<User, Integer> {
 //    user save(String username);
     List<User> findByUserTypeAndUserVerified(String userType, Boolean userVerified);
     Optional<User> findByUserEmailAndUserPass(String userEmail, String userPass);
+    User findUserByUserEmail(String userEmail);
 
 }

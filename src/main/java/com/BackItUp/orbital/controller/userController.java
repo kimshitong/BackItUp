@@ -37,6 +37,21 @@ public class userController {
         return userRepository.save(user);
     }
 
+    @PostMapping("/api/createCompany/{email}")
+    User newCompany(@RequestBody User user,@PathVariable("email") String userEmail) {
+
+        Wallet newWallet = new Wallet(0,0);
+        WALLETRepository.save(newWallet);
+
+        user.setCreator(userRepository.findUserByUserEmail(userEmail));
+        user.setWallet(newWallet);
+
+        System.out.println(user);
+
+        return userRepository.save(user);
+    }
+
+
     @GetMapping("/api/unverifiedFounder")
     List<User> getUnverifiedFounders() {
         return userRepository.findByUserTypeAndUserVerified("Founder", Boolean.TRUE);

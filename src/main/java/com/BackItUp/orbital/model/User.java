@@ -1,5 +1,7 @@
 package com.BackItUp.orbital.model;
+import com.BackItUp.orbital.repository.userRepo;
 import jakarta.persistence.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Entity
 @Table(name = "USER")
@@ -34,7 +36,6 @@ public class User {
     @JoinColumn(name = "CREATOR_ID")
     private User creator;
 
-
     public User() {
     }
 
@@ -47,6 +48,17 @@ public class User {
         this.userVerified = userVerified;
         this.userEvidence = userEvidence;
     }
+
+    public User(String userName, String userEmail, String userHP, String userPass) {
+        this.userName = userName;
+        this.userEmail = userEmail;
+        this.userHP = userHP;
+        this.userPass = userPass;
+        this.userType = "Company";
+        this.userVerified = true;
+        this.userEvidence = "Company Account";
+    }
+
 
     public Integer getUserID() {
         return userID;
@@ -62,6 +74,14 @@ public class User {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public User getCreator() {
+        return creator;
+    }
+
+    public void setCreator(User creator) {
+        this.creator = creator;
     }
 
     public String getUserEmail() {
