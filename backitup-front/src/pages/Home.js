@@ -7,14 +7,18 @@ export default function Home() {
     const [projects, setProjects] = useState([])
 
     useEffect(() => {
-        console.log('xx')
+        loadProjects();
     }, [] );
 
     // Get list of projects from database
     const loadProjects = async() => {
-        const result = await axios.get("http://localhost:8080/users") // change the link
+        console.log("xex")
+
+        const result = await axios.get("http://localhost:8080/api/listPost") // change the link
         setProjects(result.data)
+        // list of posts : [ [], [], ['name' : ,':']]
         console.log(result.data);
+        console.log("xex")
     }
 
   return (
@@ -35,9 +39,9 @@ export default function Home() {
                         projects.map((project, index) => (
                             <tr>
                             <th scope="row" key="index">{index + 1}</th>
-                            <td>{project.title}</td>
-                            <td>{project.username}</td>
-                            <td>{project.description}</td>
+                            <td>{project.post_TITLE}</td>
+                            <td>{project.user.user_NAME}</td>
+                            <td>{project.post_CONTENT}</td>
                             <td>
                                 <button className='btn btn-outline-primary max-2'>View</button>
                                 <button className='btn btn-primary max-2'>Donate</button>

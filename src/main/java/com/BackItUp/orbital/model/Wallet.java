@@ -1,23 +1,22 @@
 package com.BackItUp.orbital.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
-public class wallet {
+@Table(name = "WALLET")
+public class Wallet {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer WALLET_ID;
     private Integer ACTIVE_BALANCE;
     private Integer FROZEN_BALANCE;
 
 
-    public wallet() {
+    public Wallet() {
     }
 
-    public wallet(Integer activeBalance, Integer frozenBalance) {
+    public Wallet(Integer activeBalance, Integer frozenBalance) {
         this.ACTIVE_BALANCE = activeBalance;
         this.FROZEN_BALANCE = frozenBalance;
     }
