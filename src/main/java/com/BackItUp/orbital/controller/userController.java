@@ -89,6 +89,7 @@ public class userController {
             return null;
         }
         User user = optionalUser.get();
+        System.out.println("user received" + user.getUserID().toString());
         return user.getUserID();
     }
 
