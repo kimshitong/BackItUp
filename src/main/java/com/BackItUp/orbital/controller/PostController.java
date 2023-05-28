@@ -1,15 +1,13 @@
 package com.BackItUp.orbital.controller;
 
-import com.BackItUp.orbital.model.Post;
-import com.BackItUp.orbital.model.User;
+import com.BackItUp.orbital.model.*;
 import com.BackItUp.orbital.repository.postRepo;
+import com.BackItUp.orbital.repository.shareRepo;
+import com.BackItUp.orbital.repository.userRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,22 +15,24 @@ import java.util.Optional;
 @CrossOrigin("http://localhost:3000")
 public class PostController {
     @Autowired
-    private postRepo PostRepository;
+    private userRepo userRepository;
+    @Autowired
+    private shareRepo shareRepository;
+    @Autowired
+    private postRepo postRepository;
 
-    @GetMapping("/api/listPost")
-    public List<Post> getAllPosts() {
-        return PostRepository.findAll();
+    @PostMapping("/api/createPost")
+    Post newPost(@RequestBody PostCreation response) {
+
+        User Company = userRepository.findById(response.getUserID()).get();
+
+        Share newShare = new Share(Company,response.getShareCountTotal(),response.getShareCountMin(),response.getShareCountCurrent(),response.getShareCountPrice());
+
+        shareRepository.save(newShare);
+
+        Post newPost = new Post(Company, response.getPostTitle(), response.getPostDescription(), response.getPostContent(),response.getPostURL(),newShare,response.getPostStatus(),response.getPostCreateDT(),response.getPostExpiredDT());
+
+        return postRepository.save(newPost);
     }
 
-    @GetMapping("/{id}/post")
-    public Post findPost(@PathVariable("id") Integer POST_ID) {
-        // Retrieve the user record from the database
-        Optional<Post> optionalPost = PostRepository.findById(POST_ID);
-
-        Post post = optionalPost.get();
-
-        // Update the user_verified field
-
-        return post;
-    }
 }

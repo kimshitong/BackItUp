@@ -23,13 +23,21 @@ public class Share {
     private Integer shareCountCurrent;
 
     @Column(name = "SHARE_COUNT_PRICE")
-    private Integer shareCountPrice;
+    private double shareCountPrice;
 
     @Column(name = "SHARE_DIVIDEND")
     private Integer shareDividend;
 
     // Getters and setters
+    public Share(){}
 
+    public Share(User user, Integer shareCountTotal, Integer shareCountMin, Integer shareCountCurrent, double shareCountPrice) {
+        this.user = user;
+        this.shareCountTotal = shareCountTotal;
+        this.shareCountMin = shareCountMin;
+        this.shareCountCurrent = shareCountCurrent;
+        this.shareCountPrice = shareCountPrice;
+    }
 
     public Integer getShareId() {
         return shareId;
@@ -71,11 +79,11 @@ public class Share {
         this.shareCountCurrent = shareCountCurrent;
     }
 
-    public Integer getShareCountPrice() {
+    public double getShareCountPrice() {
         return shareCountPrice;
     }
 
-    public void setShareCountPrice(Integer shareCountPrice) {
+    public void setShareCountPrice(Long shareCountPrice) {
         this.shareCountPrice = shareCountPrice;
     }
 

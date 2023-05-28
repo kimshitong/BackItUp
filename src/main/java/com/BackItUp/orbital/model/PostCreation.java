@@ -1,0 +1,132 @@
+package com.BackItUp.orbital.model;
+
+import java.time.LocalDateTime;
+
+public class PostCreation {
+    private String postTitle;
+    private String postDescription;
+    private String postContent;
+    private String postURL;
+    private int userID;
+
+    private int shareCountTotal;
+    private int shareCountMin;
+    private int shareCountCurrent;
+    private double shareCountPrice;
+    private int postStatus;
+    private LocalDateTime postCreateDT;
+    private LocalDateTime postExpiredDT;
+
+    // Constructors, getters, and setters
+    public PostCreation(String postTitle, String postDescription, String postContent, String postURL, int userID, int shareCountTotal, int shareCountMin, int shareCountCurrent, double shareCountPrice, int postStatus, LocalDateTime postCreateDT, LocalDateTime postExpiredDT) {
+        this.postTitle = postTitle;
+        this.postDescription = postDescription;
+        this.postContent = postContent;
+        this.postURL = postURL;
+        this.userID = userID;
+        this.shareCountTotal = shareCountTotal;
+        this.shareCountMin = shareCountMin;
+        this.shareCountCurrent = shareCountCurrent;
+        this.shareCountPrice = shareCountPrice;
+        this.postStatus = postStatus;
+        this.postCreateDT = postCreateDT;
+        this.postExpiredDT = postExpiredDT;
+    }
+
+    public LocalDateTime getPostExpiredDT() {
+        return postExpiredDT;
+    }
+
+    public void setPostExpiredDT(LocalDateTime postExpiredDT) {
+        this.postExpiredDT = postExpiredDT;
+    }
+
+    public String getPostTitle() {
+        return postTitle;
+    }
+
+    public void setPostTitle(String postTitle) {
+        this.postTitle = postTitle;
+    }
+
+    public String getPostDescription() {
+        return postDescription;
+    }
+
+    public void setPostDescription(String postDescription) {
+        this.postDescription = postDescription;
+    }
+
+    public String getPostContent() {
+        return postContent;
+    }
+
+    public void setPostContent(String postContent) {
+        this.postContent = postContent;
+    }
+
+    public String getPostURL() {
+        return postURL;
+    }
+
+    public void setPostURL(String postURL) {
+        this.postURL = postURL;
+    }
+
+    public int getUserID() {
+        return userID;
+    }
+
+    public void setUserID(int userID) {
+        this.userID = userID;
+    }
+
+    public int getShareCountTotal() {
+        return shareCountTotal;
+    }
+
+    public void setShareCountTotal(int shareCountTotal) {
+        this.shareCountTotal = shareCountTotal;
+    }
+
+    public int getShareCountMin() {
+        return shareCountMin;
+    }
+
+    public void setShareCountMin(int shareCountMin) {
+        this.shareCountMin = shareCountMin;
+    }
+
+    public int getShareCountCurrent() {
+        return shareCountCurrent;
+    }
+
+    public void setShareCountCurrent(int shareCountCurrent) {
+        this.shareCountCurrent = shareCountCurrent;
+    }
+
+    public double getShareCountPrice() {
+        return shareCountPrice;
+    }
+
+    public void setShareCountPrice(double shareCountPrice) {
+        this.shareCountPrice = shareCountPrice;
+    }
+
+    public int getPostStatus() {
+        return postStatus;
+    }
+
+    public void setPostStatus(int postStatus) {
+        this.postStatus = postStatus;
+    }
+
+    public LocalDateTime getPostCreateDT() {
+        return postCreateDT;
+    }
+
+    public void setPostCreateDT(LocalDateTime postCreateDT) {
+        this.postCreateDT = postCreateDT;
+    }
+}
+
