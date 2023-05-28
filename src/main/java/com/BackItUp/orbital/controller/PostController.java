@@ -39,4 +39,11 @@ public class PostController {
         return postRepository.findAll();
     }
 
+
+    @GetMapping("/api/post/{id}")
+    Post findPost(@PathVariable("id") Integer postId){
+        return postRepository.findById(postId).get();
+    }
+
+
 }

@@ -33,9 +33,11 @@ export default function Navbar({isAuth, setIsAuth, currUser}) {
                   <p className="text-white">Hello {currUser.userName}</p>
                   
                   {
-                    if (isCompany) {
-
-                    }
+                    isCompany &&
+                    <Link className="btn btn-outline-light m-2" to="/create">
+                    Create Post
+                    </Link>
+                    
           
                   }
                   <Link className="btn btn-outline-light m-2" to="/">
