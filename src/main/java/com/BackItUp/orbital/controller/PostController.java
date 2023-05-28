@@ -34,5 +34,9 @@ public class PostController {
 
         return postRepository.save(newPost);
     }
+    @GetMapping("/api/listPosts")
+    List<Post> listPosts(){
+        return postRepository.findAll();
+    }
 
 }
