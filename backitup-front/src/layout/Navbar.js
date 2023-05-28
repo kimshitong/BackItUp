@@ -1,7 +1,12 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom"
 
 export default function Navbar({isAuth, setIsAuth, currUser}) {
+
+  console.log(isAuth.isLoggedIn, "status of log in");
+  
+  const isCompany = axios.post(`http://localhost:8080/api/verifyCompany/${currUser.userEmail}/${currUser.userPass}`)
 
   return (
     <div>
@@ -23,20 +28,29 @@ export default function Navbar({isAuth, setIsAuth, currUser}) {
           </button>
 
           <div>
-              {!isAuth.isLoggedIn
-              ? <><Link className="btn btn-outline-light m-2" to="/login">
-                Log In
-                </Link> 
-                <Link className="btn btn-outline-light m-2" to="/adduser">
-                    Sign Up
-                </Link>
+              {isAuth.isLoggedIn
+              ? <>
+                  <p className="text-white">Hello {currUser.userName}</p>
+                  
+                  {
+                    if (isCompany) {
+
+                    }
+          
+                  }
+                  <Link className="btn btn-outline-light m-2" to="/">
+                  Log Out
+                  </Link>
                 </>
               : <>
-                Hello {currUser.userName}
-                <Link className="btn btn-outline-light m-2" to="/">
-                Log Out
-                </Link>
+                  <Link className="btn btn-outline-light m-2" to="/login">
+                    Log In
+                  </Link> 
+                  <Link className="btn btn-outline-light m-2" to="/adduser">
+                    Sign Up
+                  </Link>
                 </>
+               
               }
           </div>
 

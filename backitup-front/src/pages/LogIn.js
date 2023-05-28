@@ -2,7 +2,7 @@ import axios from 'axios'
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-export default function LogIn({currUser, setIsAuth}) {
+export default function LogIn({setCurrUser, setIsAuth}) {
 
     let navigate = useNavigate()
 
@@ -17,18 +17,28 @@ export default function LogIn({currUser, setIsAuth}) {
     // Post user registration info to database
     const onSubmit = async (event) => {
         event.preventDefault()
-        const details = {
-            userEmail: email,
-            userPass: password
-        }
+        try {
+            const details = {
+                userEmail: email,
+                userPass: password
+            }
 
-        const isVerified = await axios.post(`http://localhost:8080/api/verifyUser/${details.userEmail}/${details.userPass}`)
-        if (isVerified === null) {
-            alert('You have input an incorrect email/password. Please refresh and resubmit the form.')
-        } else {
-            setIsAuth([true, isVerified])
-            const currUser = await axios.get(`http://localhost:8080/api/user/${isVerified}`)
-            navigate("/")
+            const isVerified = await axios.get(`http://localhost:8080/api/verifyUser/${details.userEmail}/${details.userPass}`)
+            console.log(isVerified.data, "hhahahahahaa");
+
+            if (isVerified == undefined) {
+                alert('You have input an incorrect email/password. Please refresh and resubmit the form.')
+            } else {
+                setIsAuth({ isLoggedIn: true, userID: isVerified.data })
+                const currResponse = await axios.get(`http://localhost:8080/api/user/${isVerified.data}`).then()
+                const curr = currResponse.data
+                setCurrUser(curr)
+                navigate("/")
+                console.log("login SUCCESS");
+            }
+        } catch (error) {
+            console.error(error);
+            console.log("diu")
         }
 
     };

@@ -2,7 +2,7 @@ import axios from 'axios'
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-export default function AddUser() {
+export default function CreatePost({currUser}) {
 
     let navigate = useNavigate()
 
@@ -43,7 +43,7 @@ export default function AddUser() {
               console.log(data)
               
             // Create a user with the created wallet.java
-            const response = await axios.post('http://localhost:8080/api/createPost/{}', data, {
+            const response = await axios.post(`http://localhost:8080/api/createPost/${currUser.userEmail}`, data, {
                 headers: {
                   'Content-Type': 'application/json'
                 }
@@ -76,7 +76,7 @@ export default function AddUser() {
                     <input
                         type={"text"}
                         className="form-control"
-                        placeholder="Kim"
+                        placeholder="Tinder for Pets"
                         name="post_TITLE"
                         value={post_TITLE}
                         onChange={(event) => handleChange(event)}
@@ -91,7 +91,7 @@ export default function AddUser() {
                     <input
                         type={"text"}
                         className="form-control"
-                        placeholder="kim@backitup.com"
+                        placeholder="A summary of why your idea will change the world..."
                         name="post_CONTENT"
                         value={post_CONTENT}
                         onChange={(event) => handleChange(event)}
@@ -106,7 +106,7 @@ export default function AddUser() {
                     <input
                         type={"text"}
                         className="form-control"
-                        placeholder="+65 9123 4567"
+                        placeholder="Ensure it is publicly visible!"
                         name="postURL"
                         value={postURL}
                         onChange={(event) => handleChange(event)}
@@ -121,7 +121,7 @@ export default function AddUser() {
                     <input 
                         type={"text"} 
                         className="form-control"
-                        placeholder="Please choose a strong password e.g. 0Rb1tA1!"
+                        placeholder="999"
                         name="SHARE_COUNT_TOTAL"
                         value={SHARE_COUNT_TOTAL}
                         onChange={(event) => handleChange(event)}
@@ -136,7 +136,7 @@ export default function AddUser() {
                     <input 
                         type={"text"} 
                         className="form-control"
-                        placeholder="Please choose a strong password e.g. 0Rb1tA1!"
+                        placeholder="Round off to the nearest 0.01"
                         name="SHARE_COUNT_PRICE"
                         value={SHARE_COUNT_PRICE}
                         onChange={(event) => handleChange(event)}
@@ -152,7 +152,7 @@ export default function AddUser() {
                     <input
                         type={"text"}
                         className="form-control"
-                        placeholder="Insert public shareable link"
+                        placeholder="1"
                         name="SHARE_COUNT_MIN"
                         value={SHARE_COUNT_MIN}
                         onChange={(event) => handleChange(event)}
