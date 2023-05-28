@@ -23,6 +23,7 @@ export default function LogIn({currUser, setIsAuth}) {
         }
 
         const isVerified = await axios.post(`http://localhost:8080/api/verifyUser/${details.userEmail}/${details.userPass}`)
+
         if (isVerified === null) {
             alert('You have input an incorrect email/password. Please refresh and resubmit the form.')
         } else {
