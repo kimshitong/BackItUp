@@ -1,7 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom"
 
 export default function Navbar() {
+  
+  const [isAuth, setIsAuth] = useState(false)
+
+  const handleLogin = () => {
+    setIsAuth(true)
+  }
+
+  const handleLogout = () => {
+    setIsAuth(false)
+  }
+
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -25,9 +36,20 @@ export default function Navbar() {
             if not logged in, show sign up button
             if logged in, show create post button
           */}
-          <Link className="btn btn-outline-light" to="/adduser">
-            Sign Up
-          </Link>
+          {
+            isAuth
+              ? <><Link onClick={handleLogin} className="btn btn-outline-light" to="/login">
+                Log In
+                </Link> 
+                <Link className="btn btn-outline-light" to="/adduser">
+                    Sign Up
+                </Link>
+                </>
+              : <Link onClick={handleLogout} className="btn btn-outline-light" to="/">
+                Log Out
+                </Link> 
+          }
+          
         </div>
       </nav>
     </div>
