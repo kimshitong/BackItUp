@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 @RestController
@@ -37,13 +36,13 @@ public class userController {
         return userRepository.save(user);
     }
 
-    @PostMapping("/api/createCompany/{email}")
-    User newCompany(@RequestBody User user,@PathVariable("email") String userEmail) {
+    @PostMapping("/api/createCompany/{creatorId}")
+    User newCompany(@RequestBody User user,@PathVariable("creatorId") Integer creatorId) {
 
         Wallet newWallet = new Wallet(0,0);
         WALLETRepository.save(newWallet);
 
-        user.setCreator(userRepository.findUserByUserEmail(userEmail));
+        user.setCreator(userRepository.findById(creatorId).get());
         user.setWallet(newWallet);
 
         System.out.println(user);
@@ -78,30 +77,35 @@ public class userController {
         return true;
     }
 
-//    @PostMapping("/api/createCompany")
-//    User newUser(@RequestBody CreateUserRequest request) {
-//
-//        Wallet newWallet = new Wallet(0,0);
-//        WALLETRepository.save(newWallet);
-//
-//
-//        return userRepository.save();
-//    }
 
 
-
-    @GetMapping("/api/verifyFounder/{email}/{password}")
-    public Boolean verifyUser(@PathVariable("email") String userEmail,@PathVariable("password") String userPass) {
+    @GetMapping("/api/verifyUser/{email}/{password}")
+    public Integer verifyUser(@PathVariable("email") String userEmail,@PathVariable("password") String userPass) {
         // Retrieve the user record from the database
         Optional<User> optionalUser = userRepository.findByUserEmailAndUserPass(userEmail,userPass);
 
 
         if (optionalUser.isEmpty()) {
-            return false;
+            return null;
         }
         User user = optionalUser.get();
-        return (Objects.equals(user.getUserType(), "Founder") && user.getUserVerified());
+        return user.getUserID();
     }
+
+    @GetMapping("/api/user/{userID}")
+    public User getUser(@PathVariable("userID") Integer userID) {
+        // Retrieve the user record from the database
+        Optional<User> optionalUser = userRepository.findById(userID);
+
+
+        if (optionalUser.isEmpty()) {
+            return null;
+        }
+        User user = optionalUser.get();
+
+        return user;
+    }
+
     @GetMapping("/{id}/unverify")
     public Boolean unverifyUser(@PathVariable("id") Integer userId) {
         // Retrieve the user record from the database

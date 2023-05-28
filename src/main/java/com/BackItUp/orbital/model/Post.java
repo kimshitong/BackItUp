@@ -56,6 +56,19 @@ public class Post {
 
     // Getters and setters
 
+
+    public Post(User user, String postTitle, String postDescription, String postContent, String postURL, Share share, Integer postStatus, LocalDateTime postCreateDT, LocalDateTime postExpireDT) {
+        this.user = user;
+        this.postTitle = postTitle;
+        this.postDescription = postDescription;
+        this.postContent = postContent;
+        this.postURL = postURL;
+        this.share = share;
+        this.postStatus = postStatus;
+        this.postCreateDT = postCreateDT;
+        this.postExpireDT = postExpireDT;
+    }
+
     public Integer getPostID() {
         return postID;
     }
