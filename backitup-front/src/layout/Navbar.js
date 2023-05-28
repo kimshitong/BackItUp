@@ -1,17 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom"
 
-export default function Navbar() {
-  
-  const [isAuth, setIsAuth] = useState(false)
-
-  const handleLogin = () => {
-    setIsAuth(true)
-  }
-
-  const handleLogout = () => {
-    setIsAuth(false)
-  }
+export default function Navbar({isAuth, setIsAuth, currUser}) {
 
   return (
     <div>
@@ -32,23 +22,24 @@ export default function Navbar() {
             <span className="navbar-toggler-icon"></span>
           </button>
 
-          {/* to insert conditional functionality
-            if not logged in, show sign up button
-            if logged in, show create post button
-          */}
-          {
-            isAuth
-              ? <><Link onClick={handleLogin} className="btn btn-outline-light" to="/login">
+          <div>
+              {!isAuth.isLoggedIn
+              ? <><Link className="btn btn-outline-light m-2" to="/login">
                 Log In
                 </Link> 
-                <Link className="btn btn-outline-light" to="/adduser">
+                <Link className="btn btn-outline-light m-2" to="/adduser">
                     Sign Up
                 </Link>
                 </>
-              : <Link onClick={handleLogout} className="btn btn-outline-light" to="/">
+              : <>
+                Hello {currUser.userName}
+                <Link className="btn btn-outline-light m-2" to="/">
                 Log Out
-                </Link> 
-          }
+                </Link>
+                </>
+              }
+          </div>
+
           
         </div>
       </nav>

@@ -10,16 +10,20 @@ import Admin from './pages/Admin';
 import Thanks from './pages/Thanks';
 import { useState } from 'react';
 import LogIn from './pages/LogIn';
+import CreatePost from './pages/CreatePost';
 
 
 function App() {
 
-  const [isAuth, setIsAuth] = useState(false)
+  const [isAuth, setIsAuth] = useState([])
+  const [currUser, setCurrUser] = useState([])
+
+  const { isLoggedIn, userID } = isAuth
 
   return (
     <div className="App">
       <Router>
-        <Navbar auth={isAuth}/>
+        <Navbar isAuth={isAuth} setIsAuth={setIsAuth} currUser={currUser} setCurrUser={setCurrUser}/>
 
         <Routes>
           <Route exact path ="/" element={<Home/>} />
@@ -29,7 +33,8 @@ function App() {
           <Route exact path ="/invest" element={<Invest/>} /> {/* find a way to make this a unique link for each project */}
           <Route exact path ="/admin" element={<Admin/>} />
           <Route exact path ="/thanks" element={<Thanks/>} />
-          <Route exact path ="/login" element={<LogIn/>} />
+          <Route exact path ="/login" currUser={currUser} setIsAuth={setIsAuth} element={<LogIn/>} />
+          <Route path ="/create" element={<CreatePost />} />
         </Routes>
 
       </Router>

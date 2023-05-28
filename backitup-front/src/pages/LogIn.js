@@ -2,7 +2,7 @@ import axios from 'axios'
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-export default function LogIn() {
+export default function LogIn({currUser, setIsAuth}) {
 
     let navigate = useNavigate()
 
@@ -22,13 +22,15 @@ export default function LogIn() {
             userPass: password
         }
 
-        const database = await axios.post('http://localhost:8080/users')
-        console.log(database.data);
-        
-        // @kim, need a backend function to check the details against the database
+        const isVerified = await axios.post(`http://localhost:8080/api/verifyUser/${details.userEmail}/${details.userPass}`)
+        if (isVerified === null) {
+            alert('You have input an incorrect email/password. Please refresh and resubmit the form.')
+        } else {
+            setIsAuth([true, isVerified])
+            const currUser = await axios.get(`http://localhost:8080/api/user/${isVerified}`)
+            navigate("/")
+        }
 
-
-        navigate("/")
     };
 
   return (
