@@ -92,6 +92,42 @@ public class userController {
         System.out.println("user received" + user.getUserID().toString());
         return user.getUserID();
     }
+    @GetMapping("/api/verifyCompany/{email}/{password}")
+    public Integer verifyCompany(@PathVariable("email") String userEmail,@PathVariable("password") String userPass) {
+        // Retrieve the user record from the database
+        Optional<User> optionalUser = userRepository.findByUserEmailAndUserPass(userEmail,userPass);
+
+
+        if (optionalUser.isEmpty()) {
+            return null;
+        }
+        User user = optionalUser.get();
+
+
+        if(user.getUserType() == "Company" && user.getUserVerified()){
+            return user.getUserID();
+        }else{
+            return null;
+        }
+    }
+    @GetMapping("/api/verifyFounder/{email}/{password}")
+    public Integer verifyFounder(@PathVariable("email") String userEmail,@PathVariable("password") String userPass) {
+        // Retrieve the user record from the database
+        Optional<User> optionalUser = userRepository.findByUserEmailAndUserPass(userEmail,userPass);
+
+
+        if (optionalUser.isEmpty()) {
+            return null;
+        }
+        User user = optionalUser.get();
+
+
+        if(user.getUserType() == "Founder" && user.getUserVerified()){
+            return user.getUserID();
+        }else{
+            return null;
+        }
+    }
 
     @GetMapping("/api/user/{userID}")
     public User getUser(@PathVariable("userID") Integer userID) {
