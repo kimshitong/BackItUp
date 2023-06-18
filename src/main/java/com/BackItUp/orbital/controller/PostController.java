@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @CrossOrigin("http://localhost:3000")
@@ -39,10 +38,37 @@ public class PostController {
         return postRepository.findAll();
     }
 
+    @GetMapping("/api/listPosts/{status}")
+    List<Post> listPostsByStatus(@PathVariable("status") Integer status){
+        return postRepository.findByPostStatus(status);
+    }
+
+
 
     @GetMapping("/api/post/{id}")
     Post findPost(@PathVariable("id") Integer postId){
         return postRepository.findById(postId).get();
+    }
+
+
+    @GetMapping("/api/post/{verification}/{id}/{dt}")
+    boolean verifyPost(@PathVariable("id") Integer postId, @PathVariable("dt") LocalDateTime dt, @PathVariable("verification") String verification){
+        Post post = postRepository.findById(postId).get();
+
+        if(post == null || !post.isPendingStatus()) {
+            return false;
+        }
+
+        if(verification == "verify"){
+            post.verify(dt);
+        }else if( verification == "unverify"){
+            post.unverify(dt);
+        }else{
+            return false;
+        }
+
+        postRepository.save(post);
+        return true;
     }
 
 

@@ -1,0 +1,129 @@
+package com.BackItUp.orbital.model;
+
+import jakarta.persistence.*;
+
+import java.time.LocalDateTime;
+
+@Entity
+@Table(name = "topup")
+public class Topup {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "TOPUP_ID")
+    private Integer withdrawalID;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "WALLET_ID", nullable = false)
+    private Wallet wallet;
+
+    @Column(name = "TOPUP_AMOUNT")
+    private double topupAmount;
+    @Column(name = "TOPUP_PAYNOW")
+    private Integer topupPaynow;
+
+    @Column(name = "TOPUP_EVIDENCE")
+    private byte[] topupEvidence;
+
+    @Column(name = "TOPUP_VERIFIED")
+    private Integer topupVerified;
+    @Column(name = "TOPUP_DT")
+    private LocalDateTime topupDT;
+    @Column(name = "TOPUP_DONE_DT")
+    private LocalDateTime topupDoneDT;
+
+    public Topup() {
+    }
+
+    public Topup(Wallet wallet, double topupAmount, Integer topupPaynow, Integer topupVerified, LocalDateTime topupDT) {
+        this.wallet = wallet;
+        this.topupAmount = topupAmount;
+        this.topupPaynow = topupPaynow;
+        this.topupEvidence = topupEvidence;
+        this.topupVerified = topupVerified;
+        this.topupDT = topupDT;
+    }
+
+    public Integer getWithdrawalID() {
+        return withdrawalID;
+    }
+
+    public void setWithdrawalID(Integer withdrawalID) {
+        this.withdrawalID = withdrawalID;
+    }
+
+    public Wallet getWallet() {
+        return wallet;
+    }
+
+    public void setWallet(Wallet wallet) {
+        this.wallet = wallet;
+    }
+
+    public double getTopupAmount() {
+        return topupAmount;
+    }
+
+    public void setTopupAmount(double topupAmount) {
+        this.topupAmount = topupAmount;
+    }
+
+    public Integer getTopupPaynow() {
+        return topupPaynow;
+    }
+
+    public void setTopupPaynow(Integer topupPaynow) {
+        this.topupPaynow = topupPaynow;
+    }
+
+    public byte[] getTopupEvidence() {
+        return topupEvidence;
+    }
+
+    public void setTopupEvidence(byte[] topupEvidence) {
+        this.topupEvidence = topupEvidence;
+    }
+
+    public Integer isTopupVerified() {
+        return topupVerified;
+    }
+
+    public boolean isPendingStatus() {
+        return topupVerified == 0;
+    }
+
+
+    public boolean verify(LocalDateTime dt) {
+        setTopupDoneDT(dt);
+        setTopupVerified(1);
+
+        return true;
+    }
+    public boolean unverify(LocalDateTime dt) {
+        setTopupDoneDT(dt);
+        setTopupVerified(-1);
+
+        return true;
+    }
+
+
+    public void setTopupVerified(int topupVerified) {
+        this.topupVerified = topupVerified;
+    }
+
+    public LocalDateTime getTopupDT() {
+        return topupDT;
+    }
+
+    public void setTopupDT(LocalDateTime topupDT) {
+        this.topupDT = topupDT;
+    }
+
+    public LocalDateTime getTopupDoneDT() {
+        return topupDoneDT;
+    }
+
+    public void setTopupDoneDT(LocalDateTime topupDoneDT) {
+        this.topupDoneDT = topupDoneDT;
+    }
+}

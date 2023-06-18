@@ -55,6 +55,10 @@ public class Share {
         this.user = user;
     }
 
+    public Integer getRemainingShare() {
+        return shareCountTotal - shareCountMin;
+    }
+
     public Integer getShareCountTotal() {
         return shareCountTotal;
     }
@@ -78,6 +82,9 @@ public class Share {
     public void setShareCountCurrent(Integer shareCountCurrent) {
         this.shareCountCurrent = shareCountCurrent;
     }
+    public double SharePriceCalculator(int amount) {
+        return shareCountPrice * amount;
+    }
 
     public double getShareCountPrice() {
         return shareCountPrice;
@@ -93,5 +100,12 @@ public class Share {
 
     public void setShareDividend(Integer shareDividend) {
         this.shareDividend = shareDividend;
+    }
+
+    public Boolean validSharePurchaseAmount(Integer shareAmount) {
+        return shareAmount < getShareCountMin();
+    }
+    public Boolean sufficientShare(Integer shareAmount) {
+        return shareAmount > getRemainingShare();
     }
 }

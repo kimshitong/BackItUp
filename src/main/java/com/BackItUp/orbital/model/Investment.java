@@ -2,6 +2,8 @@ package com.BackItUp.orbital.model;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "INVESTMENT")
 public class Investment {
@@ -26,10 +28,23 @@ public class Investment {
     private Payment payment;
 
     @Column(name = "INVEST_DT", nullable = false)
-    private int investDt;
+    private LocalDateTime investDt;
 
     @Column(name = "INVEST_ACTIVE", nullable = false)
-    private int investActive;
+    private boolean investActive;
+
+    public Investment() {
+    }
+
+    public Investment(User user, Share share, int shareAmount, Payment payment, LocalDateTime investDt, boolean investActive) {
+
+        this.user = user;
+        this.share = share;
+        this.shareAmount = shareAmount;
+        this.payment = payment;
+        this.investDt = investDt;
+        this.investActive = investActive;
+    }
 
     public int getInvestId() {
         return investId;
@@ -54,6 +69,9 @@ public class Investment {
     public void setShare(Share share) {
         this.share = share;
     }
+    public int getShareAmount() {
+        return shareAmount;
+    }
 
     public int getShareAmount() {
         return shareAmount;
@@ -71,19 +89,19 @@ public class Investment {
         this.payment = payment;
     }
 
-    public int getInvestDt() {
+    public LocalDateTime getInvestDt() {
         return investDt;
     }
 
-    public void setInvestDt(int investDt) {
+    public void setInvestDt(LocalDateTime investDt) {
         this.investDt = investDt;
     }
 
-    public int getInvestActive() {
+    public boolean getInvestActive() {
         return investActive;
     }
 
-    public void setInvestActive(int investActive) {
+    public void setInvestActive(boolean investActive) {
         this.investActive = investActive;
     }
 }

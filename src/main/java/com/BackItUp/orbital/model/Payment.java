@@ -13,7 +13,7 @@ public class Payment {
     private int paymentId;
 
     @Column(name = "PAYMENT_AMOUNT", nullable = false)
-    private int paymentAmount;
+    private double paymentAmount;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "WALLET_ID_FROM", nullable = false)
@@ -29,6 +29,22 @@ public class Payment {
     @Column(name = "DETAILS")
     private String details;
 
+    public Payment(){}
+
+    public Payment(double paymentAmount, Wallet walletFrom, Wallet walletTo, LocalDateTime paymentDt, String details) {
+        this.paymentAmount = paymentAmount;
+        this.walletFrom = walletFrom;
+        this.walletTo = walletTo;
+        this.paymentDt = paymentDt;
+        this.details = details;
+    }
+    public Payment(double paymentAmount, Wallet walletFrom, Wallet walletTo, LocalDateTime paymentDt) {
+        this.paymentAmount = paymentAmount;
+        this.walletFrom = walletFrom;
+        this.walletTo = walletTo;
+        this.paymentDt = paymentDt;
+    }
+
     public int getPaymentId() {
         return paymentId;
     }
@@ -37,11 +53,11 @@ public class Payment {
         this.paymentId = paymentId;
     }
 
-    public int getPaymentAmount() {
+    public double getPaymentAmount() {
         return paymentAmount;
     }
 
-    public void setPaymentAmount(int paymentAmount) {
+    public void setPaymentAmount(double paymentAmount) {
         this.paymentAmount = paymentAmount;
     }
 

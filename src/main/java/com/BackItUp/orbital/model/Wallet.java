@@ -11,15 +11,15 @@ public class Wallet {
     @Column(name = "WALLET_ID")
     private Integer walletId;
     @Column(name = "ACTIVE_BALANCE")
-    private Integer activeBalance;
+    private double activeBalance;
     @Column(name = "FROZEN_BALANCE")
-    private Integer frozenBalance;
+    private double frozenBalance;
 
 
     public Wallet() {
     }
 
-    public Wallet(Integer activeBalance, Integer frozenBalance) {
+    public Wallet(double activeBalance, double frozenBalance) {
         this.activeBalance = activeBalance;
         this.frozenBalance = frozenBalance;
     }
@@ -31,20 +31,35 @@ public class Wallet {
     public void setWallet_ID(Integer wallet_ID) {
         this.walletId = wallet_ID;
     }
+    public boolean sufficientBalance(double amount) {
+        return activeBalance > amount;
+    }
 
-    public Integer getActiveBalance() {
+    public double getActiveBalance() {
         return activeBalance;
     }
 
-    public void setActiveBalance(Integer activeBalance) {
+    public void setActiveBalance(double activeBalance) {
         this.activeBalance = activeBalance;
     }
+    public void reduceActiveBalance(double amount) {
+        this.activeBalance -= amount;
+    }
+    public void addActiveBalance(double amount) {
+        this.activeBalance += amount;
+    }
+    public void payActiveBalance(double amount,Wallet receiver) {
 
-    public Integer getFrozenBalance() {
+        addActiveBalance(amount);
+        receiver.reduceActiveBalance(amount);
+
+    }
+
+    public double getFrozenBalance() {
         return frozenBalance;
     }
 
-    public void setFrozenBalance(Integer frozenBalance) {
+    public void setFrozenBalance(double frozenBalance) {
         this.frozenBalance = frozenBalance;
     }
 

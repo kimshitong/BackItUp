@@ -149,6 +149,25 @@ public class Post {
         this.postApprovedDT = postApprovedDT;
     }
 
+    public boolean isPendingStatus() {
+        return postStatus == 0;
+    }
+
+
+    public boolean verify(LocalDateTime dt) {
+        setPostApprovedDT(dt);
+        setPostStatus(1);
+
+        return true;
+    }
+    public boolean unverify(LocalDateTime dt) {
+        setPostApprovedDT(dt);
+        setPostStatus(-1);
+
+        return true;
+    }
+
+
     public LocalDateTime getPostRaisedDT() {
         return postRaisedDT;
     }
