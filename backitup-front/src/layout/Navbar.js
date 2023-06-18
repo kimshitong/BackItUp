@@ -1,7 +1,17 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom"
 
 export default function Navbar({isAuth, setIsAuth, currUser}) {
+
+  console.log(isAuth.isLoggedIn, "status of log in");
+  
+  const isCompanyResponse = axios.get(`http://localhost:8080/api/verifyCompany/${currUser.userEmail}/${currUser.userPass}`)
+  const isCompany = isCompanyResponse.data
+  console.log(isCompany, "MY CURENT COMPANY");
+  const handleLogOut = () => {
+    setIsAuth({isLoggedIn: false, userID: undefined})
+  }
 
   return (
     <div>
@@ -23,20 +33,33 @@ export default function Navbar({isAuth, setIsAuth, currUser}) {
           </button>
 
           <div>
-              {!isAuth.isLoggedIn
-              ? <><Link className="btn btn-outline-light m-2" to="/login">
-                Log In
-                </Link> 
-                <Link className="btn btn-outline-light m-2" to="/adduser">
-                    Sign Up
-                </Link>
+              {isAuth.isLoggedIn
+              ? <>
+                  <p className="text-white">Hello {currUser.userName}</p>
+                  
+                  {
+                    isCompany
+                    ? <Link className="btn btn-outline-light m-2" to="/create">
+                      Create Post
+                      </Link>
+                    : <Link className="btn btn-outline-light m-2" to="/createcompany">
+                      Create Company
+                      </Link>
+          
+                  }
+                  <Link onClick={handleLogOut} className="btn btn-outline-light m-2" to="/">
+                  Log Out
+                  </Link>
                 </>
               : <>
-                Hello {currUser.userName}
-                <Link className="btn btn-outline-light m-2" to="/">
-                Log Out
-                </Link>
+                  <Link className="btn btn-outline-light m-2" to="/login">
+                    Log In
+                  </Link> 
+                  <Link className="btn btn-outline-light m-2" to="/adduser">
+                    Sign Up
+                  </Link>
                 </>
+               
               }
           </div>
 
