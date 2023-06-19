@@ -12,6 +12,10 @@ import { useState } from 'react';
 import LogIn from './pages/LogIn';
 import CreatePost from './pages/CreatePost';
 import CreateCompany from './pages/CreateCompany';
+import Wallet from './pages/Wallet';
+import Oops from './pages/Oops';
+import Topup from './pages/Topup';
+import Withdraw from './pages/Withdraw';
 
 
 function App() {
@@ -36,7 +40,12 @@ function App() {
           <Route exact path ="/thanks" element={<Thanks/>} />
           <Route exact path ="/login" element={<LogIn setCurrUser={setCurrUser} setIsAuth={setIsAuth} />} />
           <Route path ="/create" element={<CreatePost />} />
-          <Route path ="/createcompany" element={<CreateCompany />} />
+          <Route path ="/createcompany" element={<CreateCompany currUser={currUser} />} />
+          <Route path ="/wallet" element={<Wallet currUser={currUser} setCurrUser={setCurrUser}/>} />
+          <Route path ="/wallet/:id" element={<Wallet currUser={currUser} />} />
+          <Route path ="/topup" element={<Topup currUser={currUser} isAuth={isAuth} />} />
+          <Route path ="/oops" element={<Oops />} />
+          <Route path ="/withdraw" element={<Withdraw currUser={currUser} isAuth={isAuth} />} />
         </Routes>
 
       </Router>

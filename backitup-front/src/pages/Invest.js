@@ -16,7 +16,8 @@ export default function Invest() {
     // Post user investment info to database
     const onSubmit = async (event) => {
         event.preventDefault()
-        // await axios.post("http://localhost:8080/user", amt) // change link as necessary
+        const result = axios.get("http://localhost:8080//api/invest/{shareid}/{userid}/{share_amount}/{dt}") // change link as necessary
+        alert(result.data)
         navigate("/thanks")
     }
 

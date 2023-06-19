@@ -2,7 +2,7 @@ import axios from 'axios'
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-export default function CreateCompany() {
+export default function CreateCompany(currUser) {
 
     let navigate = useNavigate()
 
@@ -39,7 +39,7 @@ export default function CreateCompany() {
               console.log(data)
               
             // Create a user with the created wallet.java
-            const response = await axios.post(`http://localhost:8080/api/createCompany/${email}`, data, {
+            const response = await axios.post(`http://localhost:8080/api/createCompany/${currUser.userID}`, data, {
                 headers: {
                   'Content-Type': 'application/json'
                 }
