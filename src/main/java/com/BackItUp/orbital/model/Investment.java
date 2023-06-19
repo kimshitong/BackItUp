@@ -69,9 +69,6 @@ public class Investment {
     public void setShare(Share share) {
         this.share = share;
     }
-    public int getShareAmount() {
-        return shareAmount;
-    }
 
     public int getShareAmount() {
         return shareAmount;
@@ -97,7 +94,7 @@ public class Investment {
         this.investDt = investDt;
     }
 
-    public boolean getInvestActive() {
+    public boolean isInvestActive() {
         return investActive;
     }
 

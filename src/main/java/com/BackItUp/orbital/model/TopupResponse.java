@@ -9,13 +9,13 @@ public class TopupResponse {
     private double topupAmount;
     private Integer topupPaynow;
     private byte[] topupEvidence;
-    private boolean topupVerified;
+    private Integer topupVerified;
     private LocalDateTime topupDT;
 
     public TopupResponse() {
     }
 
-    public TopupResponse(Integer walletID, double topupAmount, Integer topupPaynow, LocalDateTime topupDT, boolean topupVerified) {
+    public TopupResponse(Integer walletID, double topupAmount, Integer topupPaynow, LocalDateTime topupDT, Integer topupVerified) {
         this.walletID = walletID;
         this.topupAmount = topupAmount;
         this.topupPaynow = topupPaynow;
@@ -36,11 +36,13 @@ public class TopupResponse {
     }
 
 
-    public boolean isTopupVerified() {
+    public Integer isTopupVerified() {
         return topupVerified;
     }
 
     public LocalDateTime getTopupDT() {
         return topupDT;
     }
+
+
 }

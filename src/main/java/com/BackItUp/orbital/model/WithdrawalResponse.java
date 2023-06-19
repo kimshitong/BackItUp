@@ -12,12 +12,12 @@ public class WithdrawalResponse {
     private Integer withdrawalPaynow;
     private LocalDateTime withdrawalDT;
 
-    private boolean withdrawalVerified;
+    private Integer withdrawalVerified;
 
     public WithdrawalResponse() {
     }
 
-    public WithdrawalResponse(Integer walletID , double withdrawalAmount, Integer withdrawalPaynow, LocalDateTime withdrawalDT, boolean withdrawalVerified) {
+    public WithdrawalResponse(Integer walletID , double withdrawalAmount, Integer withdrawalPaynow, LocalDateTime withdrawalDT, Integer withdrawalVerified) {
         this.walletID = walletID;
         this.withdrawalAmount = withdrawalAmount;
         this.withdrawalPaynow = withdrawalPaynow;
@@ -57,11 +57,11 @@ public class WithdrawalResponse {
         this.withdrawalDT = withdrawalDT;
     }
 
-    public boolean isWithdrawalVerified() {
+    public Integer isWithdrawalVerified() {
         return withdrawalVerified;
     }
 
-    public void setWithdrawalVerified(boolean withdrawalVerified) {
+    public void setWithdrawalVerified(Integer withdrawalVerified) {
         this.withdrawalVerified = withdrawalVerified;
     }
 }
