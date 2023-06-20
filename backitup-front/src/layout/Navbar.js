@@ -5,6 +5,7 @@ import { Link } from "react-router-dom"
 export default function Navbar({isAuth, setIsAuth, currUser}) {
 
   console.log(isAuth.isLoggedIn, "status of log in");
+  console.log(currUser.userID, "userID is current");
   
   const isCompanyResponse = axios.get(`http://localhost:8080/api/verifyCompany/${currUser.userEmail}/${currUser.userPass}`)
   const isCompany = isCompanyResponse.data
@@ -17,9 +18,9 @@ export default function Navbar({isAuth, setIsAuth, currUser}) {
     <div>
       <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
         <div className="container-fluid">
-          <a className="navbar-brand" to="/">
+          <Link className="navbar-brand" to="/">
             BackItUp {/* add functionality: clicking this will return to homepage */}
-          </a>
+          </Link>
           <button
             className="navbar-toggler"
             type="button"
@@ -35,8 +36,10 @@ export default function Navbar({isAuth, setIsAuth, currUser}) {
           <div>
               {isAuth.isLoggedIn
               ? <>
-                  <p className="text-white">Hello {currUser.userName}</p>
-                  
+                  {/* <p className="text-white">Hello {currUser.userName}</p> */}
+                  <Link className="btn btn-outline-light m-2" to={"/wallet/" + currUser.userID}>
+                    Hello {currUser.userName}
+                  </Link>
                   {
                     isCompany
                     ? <Link className="btn btn-outline-light m-2" to="/create">
