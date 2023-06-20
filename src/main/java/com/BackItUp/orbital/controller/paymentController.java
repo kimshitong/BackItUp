@@ -35,7 +35,7 @@ public class paymentController {
     List<Payment> check(@PathVariable("wallet_id") Integer walletID){
         Wallet wallet = WALLETRepository.findById(walletID).get();
 
-        return paymentRepository.findByWallet(wallet);
+        return paymentRepository.findByWalletToOrWalletFrom(wallet,wallet);
     }
 
 

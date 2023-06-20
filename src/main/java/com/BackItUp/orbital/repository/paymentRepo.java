@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface paymentRepo extends JpaRepository<Payment, Integer> {
-    List<Payment> findByWallet(Wallet wallet);
+    List<Payment> findByWalletToOrWalletFrom(Wallet walletTo, Wallet walletFrom);
 
 }
