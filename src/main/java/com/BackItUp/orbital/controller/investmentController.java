@@ -22,7 +22,7 @@ public class investmentController {
     private shareRepo shareRepository;
 
     @GetMapping("/api/invest/{shareid}/{userid}/{share_amount}/{dt}")
-    String invest(@PathVariable("shareid") Integer shareID, @PathVariable("share_amount") Integer shareAmount,
+    Integer invest(@PathVariable("shareid") Integer shareID, @PathVariable("share_amount") Integer shareAmount,
                      @PathVariable("userid") Integer userID, @PathVariable("dt")LocalDateTime investDT) {
 
         User payer = userRepository.findById(userID).get();
@@ -30,20 +30,25 @@ public class investmentController {
 
         // Invalid Share or User
         if(payer == null){
-            return "Invalid User";
+            return -1;
+//            return "Invalid User";
         }
+        //Invalid Share
         if(share == null){
-            return "Invalid Share";
+            return -2;
+//            return "Invalid Share";
         }
 
         //Verify Share Amount
         Integer minimumShare = share.getShareCountMin();
         if(!share.validSharePurchaseAmount(shareAmount)){
-            return "Insufficient Purchasing Minimum Share Amount : " + minimumShare.toString();
+            return -3;
+//            return "Insufficient Purchasing Minimum Share Amount : " + minimumShare.toString();
         }
 
         if(!share.sufficientShare(shareAmount)){
-            return "Insufficient Remaining Share : " + share.getRemainingShare().toString();
+            return -4;
+//            return "Insufficient Remaining Share : " + share.getRemainingShare().toString();
         }
 
         double totalAmount = share.SharePriceCalculator(shareAmount);
@@ -51,13 +56,14 @@ public class investmentController {
         Wallet payerWallet = payer.getWallet();
 
         if(payerWallet.sufficientBalance(totalAmount)){
-            return "Insufficient Active Balance";
+            return -5;
+//            return "Insufficient Active Balance";
         }
 
         //Do Payment
         Integer InvestID = invest(share,payer, investDT, shareAmount);
 
-        return "Successfully! InvestID: {" + InvestID +"}";
+        return InvestID;
     }
 
     private Integer invest(Share share,User payer, LocalDateTime investDT, Integer shareAmount){
