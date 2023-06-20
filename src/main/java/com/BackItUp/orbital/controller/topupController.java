@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @RestController
 @CrossOrigin("http://localhost:3000")
@@ -46,4 +47,12 @@ public class topupController {
         topupRepository.save(topup);
         return true;
     }
+
+    @GetMapping("/api/listTopUp/{wallet_id}")
+    List<Topup> check(@PathVariable("wallet_id") Integer walletID){
+        Wallet wallet = WALLETRepository.findById(walletID).get();
+
+        return topupRepository.findByWallet(wallet);
+    }
+
 }

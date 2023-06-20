@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -44,5 +45,12 @@ public class withdrawalController {
 
         withdrawalRepository.save(withdrawal);
         return true;
+    }
+
+    @GetMapping("/api/listWithdrawal/{wallet_id}")
+    List<Withdrawal> check(@PathVariable("wallet_id") Integer walletID){
+        Wallet wallet = WALLETRepository.findById(walletID).get();
+
+        return withdrawalRepository.findByWallet(wallet);
     }
 }
