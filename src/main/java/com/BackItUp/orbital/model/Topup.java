@@ -2,6 +2,7 @@ package com.BackItUp.orbital.model;
 
 import jakarta.persistence.*;
 
+import java.sql.Blob;
 import java.time.LocalDateTime;
 
 @Entity
@@ -11,9 +12,9 @@ public class Topup {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "TOPUP_ID")
-    private Integer withdrawalID;
+    private Integer topupID;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "WALLET_ID", nullable = false)
     private Wallet wallet;
 
@@ -23,7 +24,7 @@ public class Topup {
     private Integer topupPaynow;
 
     @Column(name = "TOPUP_EVIDENCE")
-    private byte[] topupEvidence;
+    private Blob topupEvidence;
 
     @Column(name = "TOPUP_VERIFIED")
     private Integer topupVerified;
@@ -44,12 +45,12 @@ public class Topup {
         this.topupDT = topupDT;
     }
 
-    public Integer getWithdrawalID() {
-        return withdrawalID;
+    public Integer getTopupID() {
+        return topupID;
     }
 
-    public void setWithdrawalID(Integer withdrawalID) {
-        this.withdrawalID = withdrawalID;
+    public void setTopupID(Integer topupID) {
+        this.topupID = topupID;
     }
 
     public Wallet getWallet() {
@@ -76,11 +77,11 @@ public class Topup {
         this.topupPaynow = topupPaynow;
     }
 
-    public byte[] getTopupEvidence() {
+    public Blob getTopupEvidence() {
         return topupEvidence;
     }
 
-    public void setTopupEvidence(byte[] topupEvidence) {
+    public void setTopupEvidence(Blob topupEvidence) {
         this.topupEvidence = topupEvidence;
     }
 
@@ -125,5 +126,13 @@ public class Topup {
 
     public void setTopupDoneDT(LocalDateTime topupDoneDT) {
         this.topupDoneDT = topupDoneDT;
+    }
+
+    public Integer getTopupVerified() {
+        return topupVerified;
+    }
+
+    public void setTopupVerified(Integer topupVerified) {
+        this.topupVerified = topupVerified;
     }
 }

@@ -55,6 +55,10 @@ public class Wallet {
 
     }
 
+    public Integer getWalletId() {
+        return walletId;
+    }
+
     public double getFrozenBalance() {
         return frozenBalance;
     }
