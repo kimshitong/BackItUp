@@ -55,13 +55,13 @@ public class PostController {
     boolean verifyPost(@PathVariable("id") Integer postId, @PathVariable("dt") LocalDateTime dt, @PathVariable("verification") String verification){
         Post post = postRepository.findById(postId).get();
 
-        if(post == null || !post.isPendingStatus()) {
+        if(post == null) {
             return false;
         }
 
-        if(verification == "verify"){
+        if(verification.equals("verify")){
             post.verify(dt);
-        }else if( verification == "unverify"){
+        }else if( verification.equals("unverify")){
             post.unverify(dt);
         }else{
             return false;

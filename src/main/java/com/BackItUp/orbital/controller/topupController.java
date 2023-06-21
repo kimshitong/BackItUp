@@ -32,14 +32,16 @@ public class topupController {
         Topup topup = topupRepository.findById(topID).get();
 
         if(topup == null){
+            System.out.println(topup.toString());
             return false;
         }
 
-        if(verification == "verify"){
+        if(verification.equals("verify")){
             topup.verify(dt);
-        }else if( verification == "unverify"){
+        }else if(verification.equals("unverify")){
             topup.unverify(dt);
         }else{
+
             return false;
         }
 

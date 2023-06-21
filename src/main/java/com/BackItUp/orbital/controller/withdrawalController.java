@@ -34,9 +34,9 @@ public class withdrawalController {
             return false;
         }
 
-        if(verification == "verify"){
+        if(verification.equals("verify")){
             withdrawal.verify(dt);
-        }else if( verification == "unverify"){
+        }else if(verification.equals("unverify")){
             withdrawal.unverify(dt);
         }else{
             return false;
