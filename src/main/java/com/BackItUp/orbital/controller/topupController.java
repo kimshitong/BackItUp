@@ -54,5 +54,9 @@ public class topupController {
 
         return topupRepository.findByWallet(wallet);
     }
+    @GetMapping("/api/listTopup")
+    List<Topup> getAllTopUp() {
+        return topupRepository.findAll();
+    }
 
 }

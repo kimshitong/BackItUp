@@ -53,4 +53,10 @@ public class withdrawalController {
 
         return withdrawalRepository.findByWallet(wallet);
     }
+    @GetMapping("/api/listWithdrawal")
+    List<Withdrawal> getAllWithdrawal() {
+        return withdrawalRepository.findAll();
+    }
+
+
 }

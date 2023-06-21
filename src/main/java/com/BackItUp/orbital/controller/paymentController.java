@@ -37,8 +37,10 @@ public class paymentController {
 
         return paymentRepository.findByWalletToOrWalletFrom(wallet,wallet);
     }
-
-
+    @GetMapping("/api/listPayment")
+    List<Payment> listAllPayment(){
+        return paymentRepository.findAll();
+    }
 
 
 
