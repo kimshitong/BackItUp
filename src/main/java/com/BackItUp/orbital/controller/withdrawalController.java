@@ -30,7 +30,7 @@ public class withdrawalController {
     boolean verifyWithdrawal(@PathVariable("id") Integer withID, @PathVariable("dt") LocalDateTime dt, @PathVariable("verification") String verification) {
         Withdrawal withdrawal = withdrawalRepository.findById(withID).get();
 
-        if(withdrawal == null || withdrawal.isPendingStatus()) {
+        if(withdrawal == null) {
             return false;
         }
 

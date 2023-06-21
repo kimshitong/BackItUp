@@ -31,7 +31,7 @@ public class topupController {
     boolean verifyWithdrawal(@PathVariable("id") Integer topID, @PathVariable("dt") LocalDateTime dt, @PathVariable("verification") String verification) {
         Topup topup = topupRepository.findById(topID).get();
 
-        if(topup == null || topup.isPendingStatus()){
+        if(topup == null){
             return false;
         }
 
@@ -54,6 +54,7 @@ public class topupController {
 
         return topupRepository.findByWallet(wallet);
     }
+
     @GetMapping("/api/listTopup")
     List<Topup> getAllTopUp() {
         return topupRepository.findAll();
