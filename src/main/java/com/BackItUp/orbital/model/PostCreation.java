@@ -17,13 +17,16 @@ public class PostCreation {
     private LocalDateTime postCreateDT;
     private LocalDateTime postExpiredDT;
 
+    private boolean postSustainable;
+
     // Constructors, getters, and setters
-    public PostCreation(String postTitle, String postDescription, String postContent, String postURL, int userID, int shareCountTotal, int shareCountMin, int shareCountCurrent, double shareCountPrice, int postStatus, LocalDateTime postCreateDT, LocalDateTime postExpiredDT) {
+    public PostCreation(String postTitle, String postDescription, String postContent, String postURL,boolean postSustainable, int userID, int shareCountTotal, int shareCountMin, int shareCountCurrent, double shareCountPrice, int postStatus, LocalDateTime postCreateDT, LocalDateTime postExpiredDT) {
         this.postTitle = postTitle;
         this.postDescription = postDescription;
         this.postContent = postContent;
         this.postURL = postURL;
         this.userID = userID;
+        this.postSustainable = postSustainable;
         this.shareCountTotal = shareCountTotal;
         this.shareCountMin = shareCountMin;
         this.shareCountCurrent = shareCountCurrent;
@@ -35,6 +38,15 @@ public class PostCreation {
 
     public LocalDateTime getPostExpiredDT() {
         return postExpiredDT;
+    }
+
+    public boolean isPostSustainable() {
+        return postSustainable;
+    }
+
+
+    public void setPostSustainable(boolean postSustainable) {
+        this.postSustainable = postSustainable;
     }
 
     public void setPostExpiredDT(LocalDateTime postExpiredDT) {

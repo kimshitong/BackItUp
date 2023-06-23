@@ -29,6 +29,9 @@ public class Post {
     @Column(name = "POST_URL")
     private String postURL;
 
+    @Column(name = "POST_SUSTAINABLE")
+    private boolean postSustainable;
+
     @OneToOne
     @JoinColumn(name = "SHARE_ID")
     private Share share;
@@ -57,12 +60,13 @@ public class Post {
     // Getters and setters
     public Post(){}
 
-    public Post(User user, String postTitle, String postDescription, String postContent, String postURL, Share share, Integer postStatus, LocalDateTime postCreateDT, LocalDateTime postExpireDT) {
+    public Post(User user, String postTitle, String postDescription, String postContent,boolean postSustainable, String postURL, Share share, Integer postStatus, LocalDateTime postCreateDT, LocalDateTime postExpireDT) {
         this.user = user;
         this.postTitle = postTitle;
         this.postDescription = postDescription;
         this.postContent = postContent;
         this.postURL = postURL;
+        this.postSustainable = postSustainable;
         this.share = share;
         this.postStatus = postStatus;
         this.postCreateDT = postCreateDT;
@@ -79,6 +83,14 @@ public class Post {
 
     public User getUser() {
         return user;
+    }
+
+    public boolean isPostSustainable() {
+        return postSustainable;
+    }
+
+    public void setPostSustainable(boolean postSustainable) {
+        this.postSustainable = postSustainable;
     }
 
     public void setUser(User user) {
