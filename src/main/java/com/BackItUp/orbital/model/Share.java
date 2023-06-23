@@ -107,9 +107,9 @@ public class Share {
     }
 
     public Boolean validSharePurchaseAmount(Integer shareAmount) {
-        return shareAmount < getShareCountMin();
+        return shareAmount >= getShareCountMin();
     }
     public Boolean sufficientShare(Integer shareAmount) {
-        return shareAmount > getRemainingShare();
+        return shareAmount <= getRemainingShare();
     }
 }

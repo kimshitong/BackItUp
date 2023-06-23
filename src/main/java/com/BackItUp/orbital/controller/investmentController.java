@@ -60,7 +60,7 @@ public class investmentController {
         //Retrieve Amount
         Wallet payerWallet = payer.getWallet();
 
-        if(payerWallet.sufficientBalance(totalAmount)){
+        if(!payerWallet.sufficientBalance(totalAmount)){
             return -5;
 //            return "Insufficient Active Balance";
         }
