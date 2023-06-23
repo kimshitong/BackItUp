@@ -13,7 +13,7 @@ public class Withdrawal {
     @Column(name = "WITHDRAWAL_ID")
     private Integer withdrawalID;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "WALLET_ID", nullable = false)
     private Wallet wallet;
 
@@ -110,5 +110,17 @@ public class Withdrawal {
 
     public void setWithdrawalDoneDT(LocalDateTime withdrawalDoneDT) {
         this.withdrawalDoneDT = withdrawalDoneDT;
+    }
+
+    public void setWithdrawalAmount(double withdrawalAmount) {
+        this.withdrawalAmount = withdrawalAmount;
+    }
+
+    public Integer getWithdrawalVerified() {
+        return withdrawalVerified;
+    }
+
+    public void setWithdrawalVerified(Integer withdrawalVerified) {
+        this.withdrawalVerified = withdrawalVerified;
     }
 }

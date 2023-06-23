@@ -104,7 +104,7 @@ public class userController {
         User user = optionalUser.get();
 
 
-        if(user.getUserType() == "Company" && user.getUserVerified()){
+        if(user.getUserType().equals("Company") && user.getUserVerified()){
             return user.getUserID();
         }else{
             return null;
@@ -122,7 +122,7 @@ public class userController {
         User user = optionalUser.get();
 
 
-        if(user.getUserType() == "Founder" && user.getUserVerified()){
+        if(user.getUserType().equals("Founder") && user.getUserVerified()){
             return user.getUserID();
         }else{
             return null;

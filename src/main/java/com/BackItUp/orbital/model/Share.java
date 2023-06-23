@@ -39,6 +39,10 @@ public class Share {
         this.shareCountPrice = shareCountPrice;
     }
 
+    public void setShareCountPrice(double shareCountPrice) {
+        this.shareCountPrice = shareCountPrice;
+    }
+
     public Integer getShareId() {
         return shareId;
     }

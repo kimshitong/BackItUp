@@ -1,5 +1,6 @@
 package com.BackItUp.orbital.controller;
 
+import com.BackItUp.orbital.model.Payment;
 import com.BackItUp.orbital.model.Wallet;
 import com.BackItUp.orbital.model.Withdrawal;
 import com.BackItUp.orbital.model.WithdrawalResponse;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @RestController
 @CrossOrigin("http://localhost:3000")
@@ -18,7 +20,7 @@ public class paymentController {
     private walletRepo WALLETRepository;
     @Autowired
     private paymentRepo paymentRepository;
-    @PostMapping("/api/checkPayment/{wallet_from}/{payment_amount}")
+    @GetMapping("/api/checkPayment/{wallet_from}/{payment_amount}")
     boolean check(@PathVariable("wallet_from") Integer walletID, @PathVariable("payment_amount") Integer paymentAmount){
         Wallet wallet = WALLETRepository.findById(walletID).get();
 
@@ -29,6 +31,16 @@ public class paymentController {
         }
     }
 
+    @GetMapping("/api/listPayment/{wallet_id}")
+    List<Payment> check(@PathVariable("wallet_id") Integer walletID){
+        Wallet wallet = WALLETRepository.findById(walletID).get();
+
+        return paymentRepository.findByWalletToOrWalletFrom(wallet,wallet);
+    }
+    @GetMapping("/api/listPayment")
+    List<Payment> listAllPayment(){
+        return paymentRepository.findAll();
+    }
 
 
 

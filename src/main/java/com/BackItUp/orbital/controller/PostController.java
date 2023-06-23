@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin("http://localhost:3000")
@@ -29,7 +30,7 @@ public class PostController {
 
         shareRepository.save(newShare);
 
-        Post newPost = new Post(Company, response.getPostTitle(), response.getPostDescription(), response.getPostContent(),response.getPostURL(),newShare,response.getPostStatus(),response.getPostCreateDT(),response.getPostExpiredDT());
+        Post newPost = new Post(Company, response.getPostTitle(), response.getPostDescription(), response.getPostContent(),response.isPostSustainable(),response.getPostURL(),newShare,response.getPostStatus(),response.getPostCreateDT(),response.getPostExpiredDT());
 
         return postRepository.save(newPost);
     }
@@ -38,12 +39,22 @@ public class PostController {
         return postRepository.findAll();
     }
 
-    @GetMapping("/api/listPosts/{status}")
+    @GetMapping("/api/listPosts/status/{status}")
     List<Post> listPostsByStatus(@PathVariable("status") Integer status){
         return postRepository.findByPostStatus(status);
     }
 
 
+        @GetMapping("/api/listPosts/comp/{compID}")
+    List<Post> listPostsByComp(@PathVariable("compID") Integer compID ){
+        Optional<User> optionalUser = userRepository.findById(compID);
+
+        if (optionalUser.isEmpty()) {
+            return null;
+        }
+
+        return postRepository.findByUser(optionalUser.get());
+    }
 
     @GetMapping("/api/post/{id}")
     Post findPost(@PathVariable("id") Integer postId){
@@ -55,13 +66,13 @@ public class PostController {
     boolean verifyPost(@PathVariable("id") Integer postId, @PathVariable("dt") LocalDateTime dt, @PathVariable("verification") String verification){
         Post post = postRepository.findById(postId).get();
 
-        if(post == null || !post.isPendingStatus()) {
+        if(post == null) {
             return false;
         }
 
-        if(verification == "verify"){
+        if(verification.equals("verify")){
             post.verify(dt);
-        }else if( verification == "unverify"){
+        }else if( verification.equals("unverify")){
             post.unverify(dt);
         }else{
             return false;

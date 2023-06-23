@@ -2,20 +2,20 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { Link } from "react-router-dom"
 
-export default function Admin() {
+export default function PaymentsList() {
 
     // Initialise homepage to be blank
-    const [users, setUsers] = useState([])
+    const [pmts, setPmts] = useState([])
 
     useEffect(() => {
-        loadUsers()
+        loadPmts()
     }, [] );
 
-    // Get list of users from database
-    const loadUsers = async () => {
-        const result = await axios.get("http://localhost:8080/users")
+    // Get list of pmts from database
+    const loadPmts = async () => {
+        const result = await axios.get("http://localhost:8080/api/listPayment")
         console.log(result);
-        setUsers(result.data)
+        setPmts(result.data)
         console.log(result.data);
     }
 
@@ -48,24 +48,19 @@ export default function Admin() {
                 </thead>
                 <tbody>
                     {
-                        users.map((user, index) => (
+                        pmts.map((pmt, index) => (
                             <tr>
                             <th scope="row" key="index">{index + 1}</th>
-                            <td>{user.userName}</td>
-                            <td>{user.userEmail}</td>
-                            <td>{user.userHP}</td> {/* placeholder, replace with short desc */}
-                            <td>{user.userPass}</td>
-                            <td>{user.userType}</td>
+                            
                             <td>
                                 {
-                                    user.userVerified ? 'Y' : 'N'
+                                    pmt.userVerified ? 'Y' : 'N'
                                 }
                             </td>
-                            <td>{user.userEvidence}</td>
                             <td>
-                                {!user.userVerified
-                                    ? <button className='btn btn-outline-primary max-2' onClick={() => clickVerify(user.userID)}>Verify</button>
-                                    : <button className='btn btn-outline-primary max-2' onClick={() => clickUnverify(user.userID)}>Unverify</button>
+                                {!pmt.userVerified
+                                    ? <button className='btn btn-outline-primary max-2' onClick={() => clickVerify(pmt.userID)}>Verify</button>
+                                    : <button className='btn btn-outline-primary max-2' onClick={() => clickUnverify(pmt.userID)}>Unverify</button>
                                 }
                             </td>
                         </tr>
