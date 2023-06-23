@@ -19,7 +19,7 @@ export default function Navbar({isAuth, setIsAuth, currUser}) {
       <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
         <div className="container-fluid">
           <Link className="navbar-brand" to="/">
-            BackItUp {/* add functionality: clicking this will return to homepage */}
+            BackItUp
           </Link>
           <button
             className="navbar-toggler"

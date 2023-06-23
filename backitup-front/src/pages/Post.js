@@ -40,7 +40,7 @@ export default function Post() {
                     Link to Pitch Deck
                 </a>
                 <br></br>
-                <Link className="btn btn-primary btn-outline-light m-2" to="/invest">
+                <Link className="btn btn-primary btn-outline-light m-2" to={`/invest/${id}`} >
                     Invest
                 </Link>
             </div>
