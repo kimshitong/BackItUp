@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin("http://localhost:3000")
@@ -38,12 +39,22 @@ public class PostController {
         return postRepository.findAll();
     }
 
-    @GetMapping("/api/listPosts/{status}")
+    @GetMapping("/api/listPosts/status/{status}")
     List<Post> listPostsByStatus(@PathVariable("status") Integer status){
         return postRepository.findByPostStatus(status);
     }
 
 
+        @GetMapping("/api/listPosts/comp/{compID}")
+    List<Post> listPostsByComp(@PathVariable("compID") Integer compID ){
+        Optional<User> optionalUser = userRepository.findById(compID);
+
+        if (optionalUser.isEmpty()) {
+            return null;
+        }
+
+        return postRepository.findByUser(optionalUser.get());
+    }
 
     @GetMapping("/api/post/{id}")
     Post findPost(@PathVariable("id") Integer postId){
