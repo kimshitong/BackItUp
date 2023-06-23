@@ -27,7 +27,7 @@ export default function Topup({currUser, isAuth}) {
         try {
             const data = {
                 walletID: currUser.wallet.wallet_ID,
-                topupAmount: amt,
+                topupAmount: Number(amt),
                 topupPaynow: currUser.userHP,
                 topupDT: false,
                 topupVerified: 0
@@ -47,10 +47,10 @@ export default function Topup({currUser, isAuth}) {
 
             // console.log(response.data); // The created user object returned from the backend
           } catch (error) {
-            console.error(error);
+            // console.error(error);
             console.log("diu")
           }
-  
+          console.log("yes u succeeded in topup. nice");
         navigate("/thanks")
     }
 

@@ -51,7 +51,7 @@ export default function Withdraw({currUser, isAuth}) {
             console.log("diu")
           }
   
-        navigate("/thanks")
+        navigate("/thanks") // update this
     }
 
   return (

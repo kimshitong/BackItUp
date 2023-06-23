@@ -1,12 +1,25 @@
 import axios from 'axios'
-import React, { useState } from 'react'
-import { useNavigate, Link } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { useParams, useNavigate, Link } from 'react-router-dom'
 
-export default function Invest() {
+export default function Invest(props) {
 
     let navigate = useNavigate()
 
     const [amt, setAmount] = useState("")
+    const [curr, setCurr] = useState("")
+    const {id} = useParams()
+
+    useEffect(() => {
+        loadUser()
+    }, [] )
+
+    const loadUser = async () => {
+        console.log(props.isAuth.userID);
+        const currUser = await axios.get(`http://localhost:8080/api/user/${props.isAuth.userID}`)
+        setCurr(currUser.data)
+        console.log("nice you hav eloaded curr user" + currUser.userID);
+    }
 
     const onInputChange = (event) => {
         const result = event.target.value.replace(/\D/g, '');
@@ -15,10 +28,18 @@ export default function Invest() {
 
     // Post user investment info to database
     const onSubmit = async (event) => {
+        // const { userID } = 999;
+        
+        // console.log(userID, "curr user is (investpg)");
+        const date = new Date();
+        const formattedDate = date.toISOString().substr(0, 19);
         event.preventDefault()
-        const result = axios.get("http://localhost:8080//api/invest/{shareid}/{userid}/{share_amount}/{dt}") // change link as necessary
-        alert(result.data)
-        navigate("/thanks")
+        const result = await axios.get(`http://localhost:8080/api/invest/${id}/${props.isAuth.userID}/${amt}/${formattedDate}`) // where does shareid come from
+        if (result.data > 0) {
+            navigate("/thanks")
+        } else {
+            alert("Please check that you have suffient balance.")
+        }
     }
 
   return (
