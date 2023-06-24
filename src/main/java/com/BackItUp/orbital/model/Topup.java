@@ -2,7 +2,6 @@ package com.BackItUp.orbital.model;
 
 import jakarta.persistence.*;
 
-import java.sql.Blob;
 import java.time.LocalDateTime;
 
 @Entity
@@ -24,7 +23,7 @@ public class Topup {
     private Integer topupPaynow;
 
     @Column(name = "TOPUP_EVIDENCE")
-    private Blob topupEvidence;
+    private byte[] topupEvidence;
 
     @Column(name = "TOPUP_VERIFIED")
     private Integer topupVerified;
@@ -77,11 +76,11 @@ public class Topup {
         this.topupPaynow = topupPaynow;
     }
 
-    public Blob getTopupEvidence() {
+    public byte[] getTopupEvidence() {
         return topupEvidence;
     }
 
-    public void setTopupEvidence(Blob topupEvidence) {
+    public void setTopupEvidence(byte[] topupEvidence) {
         this.topupEvidence = topupEvidence;
     }
 

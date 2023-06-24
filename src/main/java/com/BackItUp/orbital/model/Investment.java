@@ -12,18 +12,18 @@ public class Investment {
     @Column(name = "INVEST_ID")
     private int investId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "USER_ID", nullable = false)
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "SHARE_ID", nullable = false)
     private Share share;
 
     @Column(name = "SHARE_AMOUNT", nullable = false)
     private int shareAmount;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "PAYMENT_ID", nullable = false)
     private Payment payment;
 

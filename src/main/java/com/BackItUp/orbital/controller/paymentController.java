@@ -39,7 +39,9 @@ public class paymentController {
     }
     @GetMapping("/api/listPayment")
     List<Payment> listAllPayment(){
+
         return paymentRepository.findAll();
+
     }
 
 

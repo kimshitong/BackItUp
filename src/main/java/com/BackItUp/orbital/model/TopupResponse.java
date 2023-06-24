@@ -35,6 +35,13 @@ public class TopupResponse {
         return topupPaynow;
     }
 
+    public byte[] getTopupEvidence() {
+        return topupEvidence;
+    }
+
+    public Integer getTopupVerified() {
+        return topupVerified;
+    }
 
     public Integer isTopupVerified() {
         return topupVerified;
@@ -44,5 +51,27 @@ public class TopupResponse {
         return topupDT;
     }
 
+    public void setWalletID(Integer walletID) {
+        this.walletID = walletID;
+    }
 
+    public void setTopupAmount(double topupAmount) {
+        this.topupAmount = topupAmount;
+    }
+
+    public void setTopupPaynow(Integer topupPaynow) {
+        this.topupPaynow = topupPaynow;
+    }
+
+    public void setTopupEvidence(byte[] topupEvidence) {
+        this.topupEvidence = topupEvidence;
+    }
+
+    public void setTopupVerified(Integer topupVerified) {
+        this.topupVerified = topupVerified;
+    }
+
+    public void setTopupDT(LocalDateTime topupDT) {
+        this.topupDT = topupDT;
+    }
 }

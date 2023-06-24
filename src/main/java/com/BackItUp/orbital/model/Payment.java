@@ -15,11 +15,11 @@ public class Payment {
     @Column(name = "PAYMENT_AMOUNT", nullable = false)
     private double paymentAmount;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "WALLET_ID_FROM", nullable = false)
     private Wallet walletFrom;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "WALLET_ID_TO", nullable = false)
     private Wallet walletTo;
 
