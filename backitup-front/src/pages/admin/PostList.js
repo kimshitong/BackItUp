@@ -13,7 +13,7 @@ export default function PostList() {
 
     // Get list of users from database
     const loadPosts = async () => {
-        const result = await axios.get("https://orbital-1687676297440.azurewebsites.net//api/listPosts")
+        const result = await axios.get("https://orbital-1687703004396.azurewebsites.net//api/listPosts")
         console.log(result);
         setPosts(result.data)
         console.log(result.data);
@@ -22,14 +22,14 @@ export default function PostList() {
     const clickVerify = (postID) => {
         const date = new Date();
         const formattedDate = date.toISOString().substr(0, 19);
-        axios.get(`https://orbital-1687676297440.azurewebsites.net//api/post/verify/${postID}/${formattedDate}`)
+        axios.get(`https://orbital-1687703004396.azurewebsites.net//api/post/verify/${postID}/${formattedDate}`)
         alert("Successfully verified! Please refresh the page.")
     }
 
     const clickUnverify = (postID) => {
         const date = new Date();
         const formattedDate = date.toISOString().substr(0, 19);
-        axios.get(`https://orbital-1687676297440.azurewebsites.net//api/post/unverify/${postID}/${formattedDate}`)
+        axios.get(`https://orbital-1687703004396.azurewebsites.net//api/post/unverify/${postID}/${formattedDate}`)
         alert("Successfully unverified! Please refresh the page.")
     }
 

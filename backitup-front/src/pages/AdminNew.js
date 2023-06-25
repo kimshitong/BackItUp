@@ -35,7 +35,7 @@
 //     const loadUsers = async () => {
 //         // if users
 //         if (filter == "Users") {
-//             const result = await axios.get("https://orbital-1687676297440.azurewebsites.net/users")
+//             const result = await axios.get("https://orbital-1687703004396.azurewebsites.net/users")
 //             console.log(result);
 //             setUsers(result.data)
 //             console.log(result.data);
@@ -48,12 +48,12 @@
 //     }
 
 //     const clickVerify = (userID) => {
-//         axios.get(`https://orbital-1687676297440.azurewebsites.net/${userID}/verify`)
+//         axios.get(`https://orbital-1687703004396.azurewebsites.net/${userID}/verify`)
 //         alert("Successfully verified! Please refresh the page.")
 //     }
 
 //     const clickUnverify = (userID) => {
-//         axios.get(`https://orbital-1687676297440.azurewebsites.net/${userID}/unverify`)
+//         axios.get(`https://orbital-1687703004396.azurewebsites.net/${userID}/unverify`)
 //         alert("Successfully unverified! Please refresh the page.")
 //     }
 

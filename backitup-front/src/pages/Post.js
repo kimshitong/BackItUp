@@ -17,7 +17,7 @@ export default function Post({isAuth}) {
 
     // Get Post details from database
     const loadPost = async () => {
-        const result = await axios.get(`https://orbital-1687676297440.azurewebsites.net/api/post/${id}`) // change the link as necessary
+        const result = await axios.get(`https://orbital-1687703004396.azurewebsites.net/api/post/${id}`) // change the link as necessary
         // const shareResult = await axios.get("xxx") // update link
         setPost(result.data)
         // setShare(shareResult.data)

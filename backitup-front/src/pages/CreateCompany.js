@@ -39,7 +39,7 @@ export default function CreateCompany({currUser}) {
               console.log(data)
               
             // Create a user with the created wallet.java
-            const response = await axios.post(`https://orbital-1687676297440.azurewebsites.net/api/createCompany/${currUser.userID}`, data, {
+            const response = await axios.post(`https://orbital-1687703004396.azurewebsites.net/api/createCompany/${currUser.userID}`, data, {
                 headers: {
                   'Content-Type': 'application/json'
                 }

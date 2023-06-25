@@ -13,19 +13,19 @@ export default function PaymentsList() {
 
     // Get list of pmts from database
     const loadPmts = async () => {
-        const result = await axios.get("https://orbital-1687676297440.azurewebsites.net/api/listPayment")
+        const result = await axios.get("https://orbital-1687703004396.azurewebsites.net/api/listPayment")
         console.log(result);
         setPmts(result.data)
         console.log(result.data);
     }
 
     const clickVerify = (paymentId) => {
-        axios.get(`https://orbital-1687676297440.azurewebsites.net/${paymentId}/verify`)
+        axios.get(`https://orbital-1687703004396.azurewebsites.net/${paymentId}/verify`)
         alert("Successfully verified! Please refresh the page.")
     }
 
     const clickUnverify = (paymentId) => {
-        axios.get(`https://orbital-1687676297440.azurewebsites.net/${paymentId}/unverify`)
+        axios.get(`https://orbital-1687703004396.azurewebsites.net/${paymentId}/unverify`)
         alert("Successfully unverified! Please refresh the page.")
     }
 

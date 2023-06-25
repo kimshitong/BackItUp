@@ -16,7 +16,7 @@ export default function Invest(props) {
 
     const loadUser = async () => {
         console.log(props.isAuth.userID);
-        const currUser = await axios.get(`https://orbital-1687676297440.azurewebsites.net/api/user/${props.isAuth.userID}`)
+        const currUser = await axios.get(`https://orbital-1687703004396.azurewebsites.net/api/user/${props.isAuth.userID}`)
         setCurr(currUser.data)
         console.log("nice you hav eloaded curr user" + currUser.userID);
     }
@@ -34,7 +34,7 @@ export default function Invest(props) {
         const date = new Date();
         const formattedDate = date.toISOString().substr(0, 19);
         event.preventDefault()
-        const result = await axios.get(`https://orbital-1687676297440.azurewebsites.net/api/invest/${id}/${props.isAuth.userID}/${amt}/${formattedDate}`) // where does shareid come from
+        const result = await axios.get(`https://orbital-1687703004396.azurewebsites.net/api/invest/${id}/${props.isAuth.userID}/${amt}/${formattedDate}`) // where does shareid come from
         if (result.data > 0) {
             navigate("/thanks")
         } else {

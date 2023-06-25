@@ -24,14 +24,14 @@ export default function LogIn({setCurrUser, setIsAuth}) {
                 userPass: password
             }
 
-            const isVerified = await axios.get(`https://orbital-1687676297440.azurewebsites.net/api/verifyUser/${details.userEmail}/${details.userPass}`)
+            const isVerified = await axios.get(`https://orbital-1687703004396.azurewebsites.net/api/verifyUser/${details.userEmail}/${details.userPass}`)
             console.log(isVerified.data, "hhahahahahaa");
 
             if (isVerified == undefined) {
                 alert('You have input an incorrect email/password. Please refresh and resubmit the form.')
             } else {
                 setIsAuth({ isLoggedIn: true, userID: isVerified.data })
-                const currResponse = await axios.get(`https://orbital-1687676297440.azurewebsites.net/api/user/${isVerified.data}`).then()
+                const currResponse = await axios.get(`https://orbital-1687703004396.azurewebsites.net/api/user/${isVerified.data}`).then()
                 const curr = currResponse.data
                 setCurrUser(curr)
                 navigate("/")
