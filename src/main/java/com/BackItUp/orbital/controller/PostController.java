@@ -30,7 +30,7 @@ public class PostController {
 
         shareRepository.save(newShare);
 
-        Post newPost = new Post(Company, response.getPostTitle(), response.getPostDescription(), response.getPostContent(),response.isPostSustainable(),response.getPostURL(),newShare,response.getPostStatus(),response.getPostCreateDT(),response.getPostExpiredDT());
+        Post newPost = new Post(Company, response.getPostTitle(), response.getPostDescription(), response.getPostContent(),response.isPostSustainable(),response.getPostURL(),newShare,response.getPostStatus(),response.getPostCreateDT(),response.getPostExpireDT());
 
         return postRepository.save(newPost);
     }
