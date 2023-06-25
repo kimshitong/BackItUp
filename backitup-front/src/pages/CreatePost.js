@@ -72,7 +72,7 @@ export default function CreatePost({currUser}) {
             //     })
               
             // Create a user with the created wallet.java
-            const response = await axios.post(`http://orbital-1687676297440.azurewebsites.net/api/createPost`, pdata, {
+            const response = await axios.post(`https://orbital-1687676297440.azurewebsites.net/api/createPost`, pdata, {
                 headers: {
                   'Content-Type': 'application/json'
                 }
