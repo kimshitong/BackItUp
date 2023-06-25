@@ -29,7 +29,7 @@ export default function Topup({currUser, isAuth}) {
                 walletID: currUser.wallet.wallet_ID,
                 topupAmount: Number(amt),
                 topupPaynow: currUser.userHP,
-                topupDT: false,
+                topupDT: false, //Hello
                 topupVerified: 0
               };
 
@@ -40,8 +40,7 @@ export default function Topup({currUser, isAuth}) {
                 headers: {
                   'Content-Type': 'application/json'
                 }
-            }
-            
+            }        
             );
             console.log(response.data);
 
@@ -50,6 +49,11 @@ export default function Topup({currUser, isAuth}) {
             // console.error(error);
             console.log("diu")
           }
+
+
+
+
+
           console.log("yes u succeeded in topup. nice");
         navigate("/thanks")
     }
