@@ -5,6 +5,7 @@ import UsersList from './UsersList'
 import PaymentList from './PaymentList'
 import TopupList from './TopupList'
 import WithdrawalList from './WithdrawalList'
+import PostList from './PostList'
 
 export default function Admin() {
 
@@ -12,12 +13,14 @@ export default function Admin() {
     const [ displayB, setDisplayB ] = useState(false) // payments
     const [ displayC, setDisplayC ] = useState(false) // topup
     const [ displayD, setDisplayD ] = useState(false) // withdrawal
+    const [ displayE, setDisplayE ] = useState(false) // post
 
     const showA = () => {
         setDisplayA(true)
         setDisplayB(false)
         setDisplayC(false)
         setDisplayD(false)
+        setDisplayE(false)
     }
 
     const showB = () => {
@@ -25,6 +28,7 @@ export default function Admin() {
         setDisplayB(true)
         setDisplayC(false)
         setDisplayD(false)
+        setDisplayE(false)
     }
 
     const showC = () => {
@@ -32,6 +36,7 @@ export default function Admin() {
         setDisplayB(false)
         setDisplayC(true)
         setDisplayD(false)
+        setDisplayE(false)
     }
 
     const showD = () => {
@@ -39,7 +44,17 @@ export default function Admin() {
         setDisplayB(false)
         setDisplayC(false)
         setDisplayD(true)
+        setDisplayE(false)
     }
+
+    const showE = () => {
+        setDisplayA(false)
+        setDisplayB(false)
+        setDisplayC(false)
+        setDisplayD(false)
+        setDisplayE(true)
+    }
+
 
   return (
     <div className='container'>
@@ -48,6 +63,7 @@ export default function Admin() {
         <button className='btn btn-outline-primary max-2 m-2' onClick={() => showB()}>Investments</button>
         <button className='btn btn-outline-primary max-2 m-2' onClick={() => showC()}>Top-ups</button>
         <button className='btn btn-outline-primary max-2 m-2' onClick={() => showD()}>Withdrawals</button>
+        <button className='btn btn-outline-primary max-2 m-2' onClick={() => showE()}>Posts</button>
         {
             displayA
             ? <UsersList />
@@ -55,7 +71,9 @@ export default function Admin() {
             ? <PaymentList />
             : displayC
             ? <TopupList />
-            : <WithdrawalList />
+            : displayD
+            ? <WithdrawalList />
+            : <PostList />
               
         }
     </div>

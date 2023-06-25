@@ -17,7 +17,7 @@ export default function CreatePost({currUser}) {
         SHARE_COUNT_MIN: ""
     })
 
-    const {post_TITLE, post_CONTENT, post_SUSTAINABLE, postURL,
+    const {post_TITLE, post_CONTENT, post_DESCRIPTION, post_SUSTAINABLE, postURL,
         SHARE_COUNT_TOTAL, SHARE_COUNT_PRICE, SHARE_COUNT_MIN } = post;
 
     const [checked, setChecked] = useState(false)
@@ -35,26 +35,44 @@ export default function CreatePost({currUser}) {
     const onSubmit = async (event) => {
         event.preventDefault()
         try {
+            const apiUrl = '/api/createPost';
             const date = new Date();
+            const exp = new Date(date.getTime() + 7 * 24 * 60 * 60 * 1000)
+            const formattedExp = exp.toISOString().substr(0, 19)
             const formattedDate = date.toISOString().substr(0, 19);
-            const data = {
+            const pdata = {
                 postTitle: post_TITLE,
-                postDescription: "",
+                postDescription: post_DESCRIPTION,
                 postContent: post_CONTENT,
-                postSustainable: checked,
                 postURL: postURL,
-                shareCountTotal: SHARE_COUNT_TOTAL,
-                shareCountMin: SHARE_COUNT_MIN,
-                shareCountCurrent: "0",
-                shareCountPrice: SHARE_COUNT_PRICE,
-                postStatus: "0",
-                postCreateDT: formattedDate
+                postSustainable: checked,
+                shareCountTotal: parseInt(SHARE_COUNT_TOTAL),
+                shareCountMin: parseInt(SHARE_COUNT_MIN),
+                shareCountCurrent: 0,
+                shareCountPrice: parseFloat(SHARE_COUNT_PRICE),
+                postStatus: 0,
+                postCreateDT: formattedDate,
+                postExpireDT: formattedExp,
+                userID: currUser.userID
               };
 
-              console.log(data)
+              console.log(pdata)
+
+            //   fetch(apiUrl, {
+            //     method: 'POST',
+            //     headers: {
+            //       'Content-Type': 'application/json'
+            //     },
+            //     body: JSON.stringify(pdata)
+            //   })
+            //     .then(response => response.json())
+            //     .then(data => {
+            //       // Handle the response data
+            //       console.log(data);
+            //     })
               
             // Create a user with the created wallet.java
-            const response = await axios.post(`http://localhost:8080/api/createPost/`, data, {
+            const response = await axios.post(`http://localhost:8080/api/createPost`, pdata, {
                 headers: {
                   'Content-Type': 'application/json'
                 }
@@ -65,7 +83,7 @@ export default function CreatePost({currUser}) {
 
             // console.log(response.data); // The created user object returned from the backend
           } catch (error) {
-            // console.error(error);
+            console.error(error);
             console.log("post creation failure")
           }
   
@@ -110,6 +128,21 @@ export default function CreatePost({currUser}) {
                 </div>
                 <div className="mb-3">
                     <label
+                        htmlFor="Description"
+                        className="form-label">
+                        Description
+                    </label>
+                    <input
+                        type={"text"}
+                        className="form-control"
+                        placeholder="Your project in one line"
+                        name="post_DESCRIPTION"
+                        value={post_DESCRIPTION}
+                        onChange={(event) => handleChange(event)}
+                    />
+                </div>
+                <div className="mb-3">
+                    <label
                         htmlFor="ESG"
                         className="form-label">
                         Sustainable
@@ -117,13 +150,7 @@ export default function CreatePost({currUser}) {
                     <input
                         type="checkbox"
                         value={post_SUSTAINABLE}
-                        onChange={(event) => handleCheckChange(event)} />
-                    {/* <select name="type" id="selectList" onChange={(event) => handleChange(event)}>
-                        <option value="" selected disabled hidden>Choose one...</option>
-                        <option value={post_SUSTAINABLE}>True</option>
-                        <option value={post_SUSTAINABLE}>False</option>
-                    </select> */}
-                        
+                        onChange={(event) => handleCheckChange(event)} />                       
                 </div>
                 <div className="mb-3">
                     <label
@@ -159,7 +186,7 @@ export default function CreatePost({currUser}) {
                     <label
                         htmlFor="shareCountPrice"
                         className="form-label">
-                        Account Type
+                        Share Price
                     </label>
                     <input 
                         type={"text"} 
@@ -175,7 +202,7 @@ export default function CreatePost({currUser}) {
                     <label
                         htmlFor="shareCountMin"
                         className="form-label">
-                        Documents
+                        Minimum Purchase
                     </label>
                     <input
                         type={"text"}

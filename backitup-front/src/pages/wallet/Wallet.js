@@ -27,14 +27,14 @@ export default function Wallet({currUser, isAuth}) {
        console.log(result.data);
 
        console.log("my wallet", wallet);
-        // const result2 = await axios.get(`http://localhost:8080/api/listTopUp/${id}`)
-        // setTopups(result2.data)
+        const result2 = await axios.get(`http://localhost:8080/api/listTopUp/${id}`)
+        setTopups(result2.data)
 
         const result3 = await axios.get(`http://localhost:8080/api/listWithdrawal/${id}`)
         setWds(result3.data)
 
-        // const result4 = await axios.get(`http://localhost:8080/api/listinvest/user/${currUser.userID}`)
-        // setWds(result4.data)
+        const result4 = await axios.get(`http://localhost:8080/api/listinvest/user/${currUser.userID}`)
+        setWds(result4.data)
    }
 
    // const percent = share.SHARE_COUNT_CURRENT / share.SHARE_COUNT_TOTAL

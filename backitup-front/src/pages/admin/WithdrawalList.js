@@ -44,7 +44,7 @@ export default function WithdrawalList() {
                     <th scope="col">Wallet ID</th>
                     <th scope="col">Withdrawal ID</th>
                     <th scope="col">Amount</th>
-                    <th scope="col">Verified?</th>
+                    <th scope="col">Action</th>
                     <th scope="col">Verified On</th>
                     </tr>
                 </thead>
@@ -58,16 +58,12 @@ export default function WithdrawalList() {
                             <td>{wd.withdrawalID}</td>
                             <td>{wd.withdrawalAmount}</td>
                             <td>
-                                {wd.pendingStatus
-                                ? 'N'
-                                : 'Y'}
-                            </td>
-                            <td>
-                                {!wd.pendingStatus
+                                {wd.pendingStatus == true
                                     ? <button className='btn btn-outline-primary max-2' onClick={() => clickVerify(wd.withdrawalID)}>Verify</button>
                                     : <button className='btn btn-outline-primary max-2' onClick={() => clickUnverify(wd.withdrawalID)}>Unverify</button>
                                 }
                             </td>
+                            <td>{wd.withdrawalDoneDT}</td>
                         </tr>
                         ))
                     }

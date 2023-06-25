@@ -16,7 +16,7 @@ export default function Withdraw({currUser, isAuth}) {
         withdrawalVerified: "" 
       })
 
-      const {wallet_ID, amt, paynow, dt, verified} = topup;
+      const {wallet_ID, withdrawalAmount, withdrawalPaynow, dt, verified} = topup;
       const handleChange = (e) => {
         setTopup({...topup, [e.target.name]: e.target.value})
       }
@@ -25,12 +25,15 @@ export default function Withdraw({currUser, isAuth}) {
     const onSubmit = async (event) => {
         event.preventDefault()
         try {
+          const date = new Date();
+          const formattedDate = date.toISOString().substr(0, 19);
+        
             const data = {
                 walletID: currUser.wallet.wallet_ID,
-                withdrawalAmount: amt,
-                withdrawalPaynow: currUser.userHP,
-                withdrawalDT: false,
-                withdrawalVerified: false
+                withdrawalAmount: parseFloat(withdrawalAmount),
+                withdrawalPaynow: parseInt(withdrawalPaynow),
+                withdrawalDT: formattedDate,
+                withdrawalVerified: 0
               };
 
               console.log(data)
@@ -44,11 +47,12 @@ export default function Withdraw({currUser, isAuth}) {
             
             );
             console.log(response.data);
+            console.log("withdrawal success");
 
             // console.log(response.data); // The created user object returned from the backend
           } catch (error) {
-            console.error(error);
-            console.log("diu")
+            // console.error(error);
+            console.log("withdrawal failure")
           }
   
         navigate("/thanks") // update this
@@ -68,7 +72,11 @@ export default function Withdraw({currUser, isAuth}) {
                         <label htmlFor="Name" className="form-label">
                             Amount
                         </label>
-                        <input type={"text"} className="form-control" placeholder="Enter a number..." name="amt" value={amt} onChange={(event) => handleChange(event)}/>
+                        <input type={"text"} className="form-control" placeholder="Enter a number..." name="withdrawalAmount" value={withdrawalAmount} onChange={(event) => handleChange(event)}/>
+                        <label htmlFor="Paynow" className="form-label">
+                            PayNow
+                        </label>
+                        <input type={"text"} className="form-control" placeholder="Enter a number..." name="withdrawalPaynow" value={withdrawalPaynow} onChange={(event) => handleChange(event)}/>
                     </div>
                     <button type="submit" className="btn btn-outline-primary">Confirm</button>
                 </form>

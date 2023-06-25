@@ -33,7 +33,7 @@ export default function Topup({currUser, isAuth}) {
                 topupAmount: parseFloat(topupAmount),
                 topupPaynow: parseInt(topupPaynow, 10),
                 topupDT: formattedDate,
-                topupVerified: 1 // is this 0 or 1
+                topupVerified: 0 // is this 0 or 1
               };
 
             // const data = {

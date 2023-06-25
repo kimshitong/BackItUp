@@ -28,9 +28,10 @@ export default function Home() {
 
     // Get list of posts from database
     const loadPosts = async() => {
-        const result = await axios.get("http://localhost:8080/api/listPosts") // change the link
-        setPosts(result.data)
-        console.log(result.data);
+        const result1 = await axios.get("http://localhost:8080/api/listPosts/status/1") // change the link
+        const result2 = await axios.get("http://localhost:8080/api/listPosts/status/2")
+        setPosts([...result1.data, ...result2.data])
+        // console.log(result.data);
     }
 
     const handleSearchChange = (event) => {
