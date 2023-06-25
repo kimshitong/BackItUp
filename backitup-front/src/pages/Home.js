@@ -28,7 +28,7 @@ export default function Home() {
 
     // Get list of posts from database
     const loadPosts = async() => {
-        const result = await axios.get("http://localhost:8080/api/listPosts") // change the link
+        const result = await axios.get("http://orbital-1687676297440.azurewebsites.net/api/listPosts") // change the link
         setPosts(result.data)
         console.log(result.data);
     }
