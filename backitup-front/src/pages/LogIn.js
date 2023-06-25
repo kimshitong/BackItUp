@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React, { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
+import Navbar from '../layout/Navbar'
 
 export default function LogIn({setCurrUser, setIsAuth}) {
 

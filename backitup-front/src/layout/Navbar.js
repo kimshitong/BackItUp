@@ -56,7 +56,7 @@ export default function Navbar({isAuth, setIsAuth, currUser}) {
                     Hello {currUser.userName}
                   </Link>
                   {
-                    !isCompany
+                    currUser.userType !== "Company"
                     ? <Link className="btn btn-outline-light m-2" to="/createcompany">
                     Create Company
                     </Link>

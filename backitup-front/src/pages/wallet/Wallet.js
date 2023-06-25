@@ -27,14 +27,14 @@ export default function Wallet({currUser, isAuth}) {
        console.log(result.data);
 
        console.log("my wallet", wallet);
-        // const result2 = await axios.get(`http://orbital-1687676297440.azurewebsites.net/api/listTopUp/${id}`)
-        // setTopups(result2.data)
+        const result2 = await axios.get(`http://orbital-1687676297440.azurewebsites.net/api/listTopUp/${id}`)
+        setTopups(result2.data)
 
         const result3 = await axios.get(`http://orbital-1687676297440.azurewebsites.net/api/listWithdrawal/${id}`)
         setWds(result3.data)
 
-        // const result4 = await axios.get(`http://orbital-1687676297440.azurewebsites.net/api/listinvest/user/${currUser.userID}`)
-        // setWds(result4.data)
+        const result4 = await axios.get(`http://orbital-1687676297440.azurewebsites.net/api/listinvest/user/${currUser.userID}`)
+        setWds(result4.data)
    }
 
    // const percent = share.SHARE_COUNT_CURRENT / share.SHARE_COUNT_TOTAL

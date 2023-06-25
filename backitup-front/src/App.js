@@ -23,7 +23,7 @@ function App() {
   const [isAuth, setIsAuth] = useState({ isLoggedIn: false, userID: null })
   const [currUser, setCurrUser] = useState({})
 
-  const { isLoggedIn, userID } = isAuth
+  const { isLoggedIn, isCompany, userID } = isAuth
 
   return (
     <div className="App">
@@ -40,7 +40,7 @@ function App() {
           <Route exact path ="/admin" element={<Admin/>} />
           <Route exact path ="/thanks" element={<Thanks/>} />
           <Route exact path ="/login" element={<LogIn setCurrUser={setCurrUser} setIsAuth={setIsAuth} />} />
-          <Route path ="/create" element={<CreatePost />} />
+          <Route path ="/create" element={<CreatePost currUser={currUser} />} />
           <Route path ="/createcompany" element={<CreateCompany currUser={currUser} />} />
           <Route path ="/wallet" element={<Wallet currUser={currUser} setCurrUser={setCurrUser}/>} />
           <Route path ="/wallet/:id" element={<Wallet currUser={currUser} />} />
