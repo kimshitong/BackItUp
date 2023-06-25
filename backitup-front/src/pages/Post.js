@@ -2,7 +2,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 
-export default function Post() {
+export default function Post({isAuth}) {
 
     // Initialise Post page to be blank
     const [post, setPost] = useState([])
@@ -40,7 +40,7 @@ export default function Post() {
                     Link to Pitch Deck
                 </a>
                 <br></br>
-                <Link className="btn btn-primary btn-outline-light m-2" to={`/invest/${id}`} >
+                <Link className="btn btn-primary btn-outline-light m-2" to={isAuth.isLoggedIn ? `/invest/${id}` : `/oops`} >
                     Invest
                 </Link>
             </div>

@@ -19,13 +19,13 @@ export default function PaymentsList() {
         console.log(result.data);
     }
 
-    const clickVerify = (userID) => {
-        axios.get(`http://localhost:8080/${userID}/verify`)
+    const clickVerify = (paymentId) => {
+        axios.get(`http://localhost:8080/${paymentId}/verify`)
         alert("Successfully verified! Please refresh the page.")
     }
 
-    const clickUnverify = (userID) => {
-        axios.get(`http://localhost:8080/${userID}/unverify`)
+    const clickUnverify = (paymentId) => {
+        axios.get(`http://localhost:8080/${paymentId}/unverify`)
         alert("Successfully unverified! Please refresh the page.")
     }
 
@@ -35,14 +35,13 @@ export default function PaymentsList() {
             <table className="table border shadow">
                 <thead>
                     <tr>
+                    <th scope="col">#</th>
                     <th scope="col">ID</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Email</th>{/* change to 'Company'? */}
-                    <th scope="col">HP</th>{/* see google sheet for db architecture, cell e37 */}
-                    <th scope="col">Password</th>
-                    <th scope="col">Type</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Payer</th>{/* change to 'Company'? */}
+                    <th scope="col">Payee</th>{/* see google sheet for db architecture, cell e37 */}
                     <th scope="col">Verified</th>
-                    <th scope="col">Documents</th>
                     <th scope="col">Action</th>
                     </tr>
                 </thead>
@@ -51,7 +50,11 @@ export default function PaymentsList() {
                         pmts.map((pmt, index) => (
                             <tr>
                             <th scope="row" key="index">{index + 1}</th>
-                            
+                            <td>{pmt.paymentId}</td>
+                            <td>{pmt.paymentDt}</td>
+                            <td>{pmt.paymentAmount}</td>
+                            <td>{pmt.walletFrom.walletId}</td>
+                            <td>{pmt.walletTo.walletId}</td>
                             <td>
                                 {
                                     pmt.userVerified ? 'Y' : 'N'
@@ -59,8 +62,8 @@ export default function PaymentsList() {
                             </td>
                             <td>
                                 {!pmt.userVerified
-                                    ? <button className='btn btn-outline-primary max-2' onClick={() => clickVerify(pmt.userID)}>Verify</button>
-                                    : <button className='btn btn-outline-primary max-2' onClick={() => clickUnverify(pmt.userID)}>Unverify</button>
+                                    ? <button className='btn btn-outline-primary max-2' onClick={() => clickVerify(pmt.paymentId)}>Verify</button>
+                                    : <button className='btn btn-outline-primary max-2' onClick={() => clickUnverify(pmt.paymentId)}>Unverify</button>
                                 }
                             </td>
                         </tr>

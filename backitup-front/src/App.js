@@ -34,8 +34,8 @@ function App() {
           {/* Public routes */}
           <Route exact path ="/" element={<Home />} />
           <Route exact path ="/adduser" element={<AddUser/>} />
-          <Route path ="/post" element={<Post/>} /> {/* find a way to make this a unique link for each project */}
-          <Route path ="/post/:id" element={<Post/>} /> {/* find a way to make this a unique link for each project */}
+          <Route path ="/post" element={<Post isAuth={isAuth} />} /> {/* find a way to make this a unique link for each project */}
+          <Route path ="/post/:id" element={<Post isAuth={isAuth} />} /> {/* find a way to make this a unique link for each project */}
           <Route path ="/invest/:id" element={<Invest isAuth={isAuth} />} />
           <Route exact path ="/admin" element={<Admin/>} />
           <Route exact path ="/thanks" element={<Thanks/>} />

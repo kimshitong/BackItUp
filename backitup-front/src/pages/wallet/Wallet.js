@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
 import TopupList from "./TopupList"
 
-export default function Wallet(currUser, isAuth) {
+export default function Wallet({currUser, isAuth}) {
 
    // Initialise Wa;;et page to be blank
    const [wallet, setWallet] = useState([]) 
@@ -20,21 +20,21 @@ export default function Wallet(currUser, isAuth) {
 
    // Get Post details from database
    const loadWallet = async () => {
-       const result = await axios.get(`http://localhost:8080/api/user/${id}/wallet`) // change the link as necessary
+       const result = await axios.get(`http://localhost:8080/api/user/${currUser.userID}/wallet`) // change the link as necessary
        console.log(result.data, "my wallet");
        setWallet(result.data)
        // setShare(shareResult.data)
        console.log(result.data);
 
        console.log("my wallet", wallet);
-        const result2 = await axios.get(`http://localhost:8080/api/listTopUp/${id}`)
-        setTopups(result2.data)
+        // const result2 = await axios.get(`http://localhost:8080/api/listTopUp/${id}`)
+        // setTopups(result2.data)
 
         const result3 = await axios.get(`http://localhost:8080/api/listWithdrawal/${id}`)
         setWds(result3.data)
 
-        const result4 = await axios.get(`http://localhost:8080/api/listinvest/user/${id}`)
-        setWds(result4.data)
+        // const result4 = await axios.get(`http://localhost:8080/api/listinvest/user/${currUser.userID}`)
+        // setWds(result4.data)
    }
 
    // const percent = share.SHARE_COUNT_CURRENT / share.SHARE_COUNT_TOTAL
@@ -44,7 +44,7 @@ export default function Wallet(currUser, isAuth) {
        <div className="row">
            <div className="col-md-6 offset-md-3 border rounded p-4 mt-2 shadow">
                
-                <h1>Hello {currUser.userName}</h1>
+                <h1>{currUser.userName}'s Wallet</h1>
                 <h3>Active Balance: {wallet.activeBalance}</h3>
                 <Link className="btn btn-dark m-2" to="/topup">
                       Top-up
