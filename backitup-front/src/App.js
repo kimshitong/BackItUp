@@ -25,12 +25,16 @@ function App() {
 
   const { isLoggedIn, isCompany, userID } = isAuth
 
+
+
+
   return (
     <div className="App">
       <Router>
         <Navbar isAuth={isAuth} setIsAuth={setIsAuth} currUser={currUser} setCurrUser={setCurrUser}/>
 
         <Routes>
+
           {/* Public routes */}
           <Route exact path ="/" element={<Home />} />
           <Route exact path ="/adduser" element={<AddUser/>} />
