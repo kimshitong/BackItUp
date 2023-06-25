@@ -17,7 +17,7 @@ public class topupController {
     private walletRepo WALLETRepository;
     @Autowired
     private topupRepo topupRepository;
-    @PostMapping("/api/registerTopup")
+    @PostMapping("/api/topup")
     Topup newTopup(@RequestBody TopupResponse response) {
 
         Wallet wallet = WALLETRepository.findById(response.getWalletID()).get();
