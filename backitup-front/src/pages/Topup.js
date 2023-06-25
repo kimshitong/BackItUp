@@ -16,22 +16,33 @@ export default function Topup({currUser, isAuth}) {
         topupVerified: "" 
       })
 
-      const {wallet_ID, amt, paynow, dt, verified} = topup;
+      const {walletID, topupAmount, topupPaynow, topupDT, topupVerified} = topup;
       const handleChange = (e) => {
         setTopup({...topup, [e.target.name]: e.target.value})
       }
 
-    // Post user investment info to database
+    // Post user topup info to database
     const onSubmit = async (event) => {
         event.preventDefault()
         try {
+          
+            const date = new Date();
+            const formattedDate = date.toISOString().substr(0, 19);
             const data = {
                 walletID: currUser.wallet.wallet_ID,
-                topupAmount: Number(amt),
-                topupPaynow: currUser.userHP,
-                topupDT: false, //Hello
-                topupVerified: 0
+                topupAmount: parseFloat(topupAmount),
+                topupPaynow: parseInt(topupPaynow, 10),
+                topupDT: formattedDate,
+                topupVerified: 1 // is this 0 or 1
               };
+
+            // const data = {
+            //   walletID: 1,
+            //   topupAmount: 50.0,
+            //   topupPaynow: 456,
+            //   topupDT: '2023-06-25T15:30:00',
+            //   topupVerified: 1 // is this 0 or 1
+            // };
 
               console.log(data)
               
@@ -40,22 +51,18 @@ export default function Topup({currUser, isAuth}) {
                 headers: {
                   'Content-Type': 'application/json'
                 }
-            }        
-            );
-            console.log(response.data);
+            });
 
+            console.log(response.data);
+              console.log("congrats topup success");
+              
+            navigate("/thanks")
             // console.log(response.data); // The created user object returned from the backend
           } catch (error) {
             // console.error(error);
-            console.log("diu")
+            console.log("topup error")
           }
-
-
-
-
-
-          console.log("yes u succeeded in topup. nice");
-        navigate("/thanks")
+          
     }
 
   return (
@@ -72,7 +79,12 @@ export default function Topup({currUser, isAuth}) {
                         <label htmlFor="Name" className="form-label">
                             Amount
                         </label>
-                        <input type={"text"} className="form-control" placeholder="Enter a number..." name="amt" value={amt} onChange={(event) => handleChange(event)}/>
+                        <input type={"text"} className="form-control" placeholder="Enter a number..." name="topupAmount" value={topupAmount} onChange={(event) => handleChange(event)}/>
+                        <br></br>
+                        <label htmlFor="Paynow" className="form-label">
+                            Paynow Number
+                        </label>
+                        <input type={"text"} className="form-control" placeholder="Enter a number..." name="topupPaynow" value={topupPaynow} onChange={(event) => handleChange(event)}/>
                         <br></br>
                         <label>
                             Please scan the QR code to top-up your wallet.

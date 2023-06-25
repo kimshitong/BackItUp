@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 
 export default function LogIn({setCurrUser, setIsAuth}) {
 
@@ -83,6 +83,9 @@ export default function LogIn({setCurrUser, setIsAuth}) {
                 </div>
                 <button type="submit" className="btn btn-outline-primary">Submit</button>
                 </form>
+                <Link to={"/admin"} >
+                    Admin Panel
+                </Link>
             </div>
             
         </div>

@@ -10,14 +10,22 @@ export default function CreatePost({currUser}) {
         post_TITLE: "",
         post_DESCRIPTION: "",
         post_CONTENT: "",
+        post_SUSTAINABLE: "",
         postURL: "",
         SHARE_COUNT_TOTAL: "",
         SHARE_COUNT_PRICE: "",
         SHARE_COUNT_MIN: ""
     })
 
-    const {post_TITLE, post_CONTENT, postURL,
+    const {post_TITLE, post_CONTENT, post_SUSTAINABLE, postURL,
         SHARE_COUNT_TOTAL, SHARE_COUNT_PRICE, SHARE_COUNT_MIN } = post;
+
+    const [checked, setChecked] = useState(false)
+
+    const handleCheckChange = (event) => {
+        setChecked(!checked);
+        console.log(checked);
+    }
 
     const handleChange = (event) => {
         setPost({...post, [event.target.name]: event.target.value});
@@ -27,17 +35,20 @@ export default function CreatePost({currUser}) {
     const onSubmit = async (event) => {
         event.preventDefault()
         try {
+            const date = new Date();
+            const formattedDate = date.toISOString().substr(0, 19);
             const data = {
                 postTitle: post_TITLE,
                 postDescription: "",
                 postContent: post_CONTENT,
+                postSustainable: checked,
                 postURL: postURL,
                 shareCountTotal: SHARE_COUNT_TOTAL,
                 shareCountMin: SHARE_COUNT_MIN,
                 shareCountCurrent: "0",
                 shareCountPrice: SHARE_COUNT_PRICE,
                 postStatus: "0",
-                postCreateDT: new Date().toLocaleString()
+                postCreateDT: formattedDate
               };
 
               console.log(data)
@@ -50,12 +61,12 @@ export default function CreatePost({currUser}) {
             }
             
             );
-            console.log(response.data);
+            console.log("post creation success");
 
             // console.log(response.data); // The created user object returned from the backend
           } catch (error) {
-            console.error(error);
-            console.log("diu")
+            // console.error(error);
+            console.log("post creation failure")
           }
   
         navigate("/")
@@ -96,6 +107,23 @@ export default function CreatePost({currUser}) {
                         value={post_CONTENT}
                         onChange={(event) => handleChange(event)}
                     />
+                </div>
+                <div className="mb-3">
+                    <label
+                        htmlFor="ESG"
+                        className="form-label">
+                        Sustainable
+                    </label>
+                    <input
+                        type="checkbox"
+                        value={post_SUSTAINABLE}
+                        onChange={(event) => handleCheckChange(event)} />
+                    {/* <select name="type" id="selectList" onChange={(event) => handleChange(event)}>
+                        <option value="" selected disabled hidden>Choose one...</option>
+                        <option value={post_SUSTAINABLE}>True</option>
+                        <option value={post_SUSTAINABLE}>False</option>
+                    </select> */}
+                        
                 </div>
                 <div className="mb-3">
                     <label
