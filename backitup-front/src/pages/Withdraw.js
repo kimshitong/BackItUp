@@ -39,7 +39,7 @@ export default function Withdraw({currUser, isAuth}) {
               console.log(data)
               
             // Create a user with the created wallet.java
-            const response = await axios.post('https://orbital-1687703004396.azurewebsites.net/api/withdrawal', data, {
+            const response = await axios.post('http://localhost:8080/api/withdrawal', data, {
                 headers: {
                   'Content-Type': 'application/json'
                 }

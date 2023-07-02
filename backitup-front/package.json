@@ -44,6 +44,6 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "https://orbital-1687703004396.azurewebsites.net"
+  "proxy": "http://localhost:8080"
 
 }

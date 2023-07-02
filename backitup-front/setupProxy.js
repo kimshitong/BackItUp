@@ -4,7 +4,7 @@ module.exports = function(app) {
   app.use(
     '/api',
     createProxyMiddleware({
-      target: 'https://orbital-1687703004396.azurewebsites.net/',
+      target: 'http://localhost:8080/',
       changeOrigin: true,
     })
   );

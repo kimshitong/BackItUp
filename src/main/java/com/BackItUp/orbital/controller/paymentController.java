@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
-@CrossOrigin("https://backitup-orb.azurewebsites.net/")
+@CrossOrigin("http://localhost:3000/")
 public class paymentController {
     @Autowired
     private walletRepo WALLETRepository;

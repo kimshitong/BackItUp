@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin("https://backitup-orb.azurewebsites.net/")
+@CrossOrigin("http://localhost:3000/")
 public class userController {
     @Autowired
     private userRepo userRepository;

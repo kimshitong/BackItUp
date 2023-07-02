@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin("https://backitup-orb.azurewebsites.net/")
+@CrossOrigin("http://localhost:3000/")
 public class walletController {
     @Autowired
     private walletRepo WALLETRepository;
