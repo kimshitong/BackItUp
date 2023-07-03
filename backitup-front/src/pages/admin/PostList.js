@@ -13,7 +13,7 @@ export default function PostList() {
 
     // Get list of users from database
     const loadPosts = async () => {
-        const result = await axios.get("http://localhost:8080/api/listPosts")
+        const result = await axios.get("http://localhost:8080//api/listPosts")
         console.log(result);
         setPosts(result.data)
         console.log(result.data);
@@ -22,14 +22,14 @@ export default function PostList() {
     const clickVerify = (postID) => {
         const date = new Date();
         const formattedDate = date.toISOString().substr(0, 19);
-        axios.get(`http://localhost:8080/api/post/verify/${postID}/${formattedDate}`)
+        axios.get(`http://localhost:8080//api/post/verify/${postID}/${formattedDate}`)
         alert("Successfully verified! Please refresh the page.")
     }
 
     const clickUnverify = (postID) => {
         const date = new Date();
         const formattedDate = date.toISOString().substr(0, 19);
-        axios.get(`http://localhost:8080/api/post/unverify/${postID}/${formattedDate}`)
+        axios.get(`http://localhost:8080//api/post/unverify/${postID}/${formattedDate}`)
         alert("Successfully unverified! Please refresh the page.")
     }
 
