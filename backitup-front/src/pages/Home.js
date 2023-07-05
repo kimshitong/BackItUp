@@ -1,21 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { Link } from "react-router-dom"
+import "../styles/styles.css"
+import Search from "../components/Search"
 
-const Search = (props) => {
-    return (
-      <form>
-          <div>
-            Search by title
-            <input className="m-2" value={props.filterBy} onChange={props.changeBy}/>
-            ESG only
-            <input className="m-2" type="checkbox" onChange={props.filterHandler} />
-        </div>
-      </form>
-    )
-  }
-
-export default function Home() {
+export default function Home({setPageTitle}) {
 
     // Initialise homepage to be blank
     const [posts, setPosts] = useState([])
@@ -31,6 +20,7 @@ export default function Home() {
         const result1 = await axios.get("http://localhost:8080/api/listPosts/status/1") // change the link
         const result2 = await axios.get("http://localhost:8080/api/listPosts/status/2")
         setPosts([...result1.data, ...result2.data])
+        setPageTitle("BackItUp • Equity crowd-funding made easy")
         // console.log(result.data);
     }
 
@@ -56,16 +46,41 @@ export default function Home() {
     : posts.filter(post => post.postTitle.toLowerCase().includes(showAll))
     
   return (
-    <div className='container'>
+    <div className='container-fluid'>
         <div className='py-4'>
-            <Search filterBy={showAll} changeBy={handleSearchChange} filterHandler={filterHandler}/>
-            <table className="table border shadow">
+            <h1 style={{ textAlign: "left" }}>Latest Posts</h1>
+            <div>
+                <Search filterBy={showAll} changeBy={handleSearchChange} filterHandler={filterHandler} setEsg={setEsg} />
+            </div>
+            <div className="grid-container">
+              {postsToShow.map((post, index) => (
+                <Link key={index} className="card text-right" to={'/post/' + post.postID}>
+                    {/* <img class="card-img-top" src="..." alt="Card image cap"></img> */}
+                    <div class="card-body" style={{ textAlign: "left" }}>
+                        <p class="card-text" className="text-left">{post.postTitle}</p>
+                        <p class="card-text">{post.user.userName}</p>
+                        <p class="card-text">{post.postDescription}</p>
+                        <p class="card-text">{post.postSustainable ? 'Y' : 'N'}</p>
+                    </div>
+                  
+                </Link>
+                ))}
+            </div>
+            <div class="card bg-dark text-black mt-5">
+                {/* <img class="card-img" src="..." alt="Card image" /> */}
+                <div class="card">
+                    <h5 class="card-title m-3">Can't find what you're looking for?</h5>
+                    <p class="card-text">Be the change that you want to see in the world. Create your own post to make your dreams a reality.</p>
+                    <Link class="btn card-text mb-3" to="/adduser">Start Now.</Link>
+                </div>
+            </div>
+            {/* <table className="table border shadow">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">Title</th>
-                        <th scope="col">Founder</th> {/* change to 'Company'? */}
-                        <th scope="col">Description</th> {/* see google sheet for db architecture, cell e37 */}
+                        <th scope="col">Company</th>
+                        <th scope="col">Description</th>
                         <th scope="col">ESG</th>
                         <th scope="col">Action</th>
                     </tr>
@@ -88,7 +103,7 @@ export default function Home() {
                         ))
                     }
                 </tbody>
-            </table>
+            </table> */}
         </div>
     </div>
   )

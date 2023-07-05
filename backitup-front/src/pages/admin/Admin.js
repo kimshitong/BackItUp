@@ -58,12 +58,16 @@ export default function Admin() {
 
   return (
     <div className='container'>
+        
         <br></br>
-        <button className='btn btn-outline-primary max-2 m-2' onClick={() => showA()}>Users</button>
-        <button className='btn btn-outline-primary max-2 m-2' onClick={() => showB()}>Investments</button>
-        <button className='btn btn-outline-primary max-2 m-2' onClick={() => showC()}>Top-ups</button>
-        <button className='btn btn-outline-primary max-2 m-2' onClick={() => showD()}>Withdrawals</button>
-        <button className='btn btn-outline-primary max-2 m-2' onClick={() => showE()}>Posts</button>
+        <div class="nav nav-pills nav-fill bg-light rounded">
+            <button className={ displayA ? 'btn btn-admin-dark flex-fill my-2 mx-1 shadow-sm' : 'btn btn-admin-inactive flex-fill my-2 mx-1'} onClick={() => showA()}>Users</button>
+            <button className={ displayB ? 'btn btn-admin-dark flex-fill my-2 mx-1 shadow-sm' : 'btn btn-admin-inactive flex-fill my-2 mx-1'} onClick={() => showB()}>Investments</button>
+            <button className={ displayC ? 'btn btn-admin-dark flex-fill my-2 mx-1 shadow-sm' : 'btn btn-admin-inactive flex-fill my-2 mx-1'} onClick={() => showC()}>Top-ups</button>
+            <button className={ displayD ? 'btn btn-admin-dark flex-fill my-2 mx-1 shadow-sm' : 'btn btn-admin-inactive flex-fill my-2 mx-1'} onClick={() => showD()}>Withdrawals</button>
+            <button className={ displayE ? 'btn btn-admin-dark flex-fill my-2 mx-1 shadow-sm' : 'btn btn-admin-inactive flex-fill my-2 mx-1'} onClick={() => showE()}>Posts</button>
+        </div>
+        
         {
             displayA
             ? <UsersList />
