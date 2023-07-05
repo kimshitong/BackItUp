@@ -13,6 +13,7 @@ public class PostCreation {
     private int shareCountMin;
     private int shareCountCurrent;
     private double shareCountPrice;
+
     private int postStatus;
     private LocalDateTime postCreateDT;
     private LocalDateTime postExpireDT;
@@ -43,6 +44,7 @@ public class PostCreation {
     public boolean isPostSustainable() {
         return postSustainable;
     }
+
 
 
     public void setPostSustainable(boolean postSustainable) {

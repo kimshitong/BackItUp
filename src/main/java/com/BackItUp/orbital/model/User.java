@@ -59,6 +59,14 @@ public class User {
         this.userEvidence = "Company Account";
     }
 
+    public void editUser(UserEdit resp){
+        this.userName = resp.getUserName();
+        this.userEmail = resp.getUserEmail();
+        this.userHP = resp.getUserHP();
+        this.userPass = resp.getUserPass();
+        this.userType = resp.getUserType();
+        this.userEvidence = resp.getUserEvidence();
+    }
 
     public Integer getUserID() {
         return userID;
