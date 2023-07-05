@@ -1,6 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom"
+import "../styles/styles.css"
+import logo from "../images/logo-words.png"
 
 export default function Navbar({isAuth, setIsAuth, currUser}) {
 
@@ -31,12 +33,23 @@ export default function Navbar({isAuth, setIsAuth, currUser}) {
 
   return (
     <div>
-      <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
-        <div className="container-fluid">
-          <Link className="navbar-brand" to="/">
-            BackItUp
-          </Link>
-          <button
+      <nav className="navbar navbar-expand-lg">
+        <div className="container d-flex justify-content-between align-items-center">
+          <div className="d-flex">
+            <Link className="navbar-brand" to="/">
+              <img src={logo} alt="Back It Up" />
+            </Link>
+            <div className="d-flex align-items-center">
+              <Link className="btn btn-outline-dark m-2" to={"/getstarted/invest"}>
+                Invest
+              </Link>
+              <Link className="btn btn-outline-dark m-2" to={"/getstarted/raise"}>
+                Raise
+              </Link>
+            </div>
+          </div>
+          
+          {/* <button
             className="navbar-toggler"
             type="button"
             data-bs-toggle="collapse"
@@ -46,34 +59,34 @@ export default function Navbar({isAuth, setIsAuth, currUser}) {
             aria-label="Toggle navigation"
           >
             <span className="navbar-toggler-icon"></span>
-          </button>
+          </button> */}
 
           <div>
               {isAuth.isLoggedIn
               ? <>
                   {/* <p className="text-white">Hello {currUser.userName}</p> */}
-                  <Link className="btn btn-outline-light m-2" to={"/wallet/" + currUser.userID}>
+                  <Link className="btn btn-outline-dark m-2" to={"/wallet/" + currUser.userID}>
                     Hello {currUser.userName}
                   </Link>
                   {
                     currUser.userType !== "Company"
-                    ? <Link className="btn btn-outline-light m-2" to="/createcompany">
+                    ? <Link className="btn btn-outline-dark m-2" to="/createcompany">
                     Create Company
                     </Link>
-                    : <Link className="btn btn-outline-light m-2" to="/create">
+                    : <Link className="btn btn-outline-dark m-2" to="/create">
                       Create Post
                       </Link>
           
                   }
-                  <Link onClick={handleLogOut} className="btn btn-outline-light m-2" to="/">
+                  <Link onClick={handleLogOut} className="btn btn-outline-dark m-2" to="/">
                   Log Out
                   </Link>
                 </>
               : <>
-                  <Link className="btn btn-outline-light m-2" to="/login">
+                  <Link className="btn btn-outline-dark m-2" to="/login">
                     Log In
                   </Link> 
-                  <Link className="btn btn-outline-light m-2" to="/adduser">
+                  <Link className="btn btn-outline-dark m-2" to="/adduser">
                     Sign Up
                   </Link>
                 </>

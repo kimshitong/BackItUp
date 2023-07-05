@@ -21,14 +21,21 @@ export default function CreatePost({currUser}) {
         SHARE_COUNT_TOTAL, SHARE_COUNT_PRICE, SHARE_COUNT_MIN } = post;
 
     const [checked, setChecked] = useState(false)
+    const [value, setValue] = useState("0")
 
     const handleCheckChange = (event) => {
         setChecked(!checked);
-        console.log(checked);
     }
 
     const handleChange = (event) => {
+        
+        console.log(parseInt(SHARE_COUNT_TOTAL), "total is");
+        
+        console.log(parseFloat(SHARE_COUNT_PRICE), "price is");
+        // console.log(value, "value is");
+        setValue(parseInt(SHARE_COUNT_TOTAL) * parseFloat(SHARE_COUNT_PRICE))
         setPost({...post, [event.target.name]: event.target.value});
+        // console.log(SHARE_COUNT_TOTAL);
     }
 
     // Post user registration info to database
@@ -91,66 +98,76 @@ export default function CreatePost({currUser}) {
     };
 
   return (
-    <div className="container">
-        <div className="row">
-            <div className="col-md-6 offset-md-3 border rounded p-4 mt-2 shadow">
-                <h2 className="text-center m-4">Start your journey today.</h2>
-                <form onSubmit={(event) => onSubmit(event)}>
-                <div className="mb-3">
-                    <label
-                        htmlFor="Title"
-                        className="form-label">
-                        Title
-                    </label>
-                    <input
-                        type={"text"}
-                        className="form-control"
-                        placeholder="Tinder for Pets"
-                        name="post_TITLE"
-                        value={post_TITLE}
-                        onChange={(event) => handleChange(event)}
-                    />
+    <div className="container my-5">
+        <div className="col-md-8 offset-md-2 border rounded p-4 mt-2 shadow">
+            <h2 className="text-center m-4">Start your journey today.</h2>
+            <form onSubmit={(event) => onSubmit(event)}>
+            <div className="row g-3" style={{ textAlign: "left" }}>
+                <h4>General Information</h4>
+                <div className="col-md-6">
+                    <div>
+                        <label
+                            htmlFor="Title"
+                            className="form-label">
+                            Title
+                        </label>
+                        <input
+                            type={"text"}
+                            className="form-control"
+                            placeholder="My Title"
+                            name="post_TITLE"
+                            value={post_TITLE}
+                            onChange={(event) => handleChange(event)}
+                        />
+                    </div>
                 </div>
-                <div className="mb-3">
+                
+                <div className="col-md-6">
+                    <label
+                        htmlFor="Company"
+                        className="form-label">
+                        Company
+                    </label>
+                    <input class="form-control" type="text" placeholder={`${currUser.userName}`} aria-label="Disabled input example" disabled></input>
+                </div>
+                <div className="row">
+                    <div className="col-md-11">
+                        <label
+                            htmlFor="Description"
+                            className="form-label">
+                            Description
+                        </label>
+                        <input
+                            type={"text"}
+                            className="form-control"
+                            placeholder="A one-line summary of your project"
+                            name="post_DESCRIPTION"
+                            value={post_DESCRIPTION}
+                            onChange={(event) => handleChange(event)}
+                        />
+                    </div>
+                      
+                    <div class="col-md-1 align-self-end">
+                        <input type="checkbox" class="btn-check" id="btn-check" value={post_SUSTAINABLE}
+                            onChange={(event) => handleCheckChange(event)} autocomplete="off" />
+                        <label class={ checked ? "btn btn-success" : "btn btn-outline-dark" } for="btn-check">ESG</label>
+                    </div>
+                </div>
+                <div className="">
                     <label
                         htmlFor="Content"
                         className="form-label">
-                        Content
+                        Pitch
                     </label>
-                    <input
+                    <textarea
                         type={"text"}
-                        className="form-control"
-                        placeholder="A summary of why your idea will change the world..."
+                        class="form-control"
+                        placeholder="A summary of why your idea will change the world. Possible things to include: goals, user flows, and innovations."
                         name="post_CONTENT"
                         value={post_CONTENT}
                         onChange={(event) => handleChange(event)}
-                    />
-                </div>
-                <div className="mb-3">
-                    <label
-                        htmlFor="Description"
-                        className="form-label">
-                        Description
-                    </label>
-                    <input
-                        type={"text"}
-                        className="form-control"
-                        placeholder="Your project in one line"
-                        name="post_DESCRIPTION"
-                        value={post_DESCRIPTION}
-                        onChange={(event) => handleChange(event)}
-                    />
-                </div>
-                <div className="mb-3">
-                    <label
-                        htmlFor="ESG"
-                        className="form-label">
-                        Sustainable
-                    </label>
-                    <input
-                        type="checkbox"
-                        value={post_SUSTAINABLE}
-                        onChange={(event) => handleCheckChange(event)} />                       
+                        id="exampleFormControlTextarea1"
+                        rows="3"></textarea>
                 </div>
                 <div className="mb-3">
                     <label
@@ -161,17 +178,20 @@ export default function CreatePost({currUser}) {
                     <input
                         type={"text"}
                         className="form-control"
-                        placeholder="Ensure it is publicly visible!"
+                        placeholder="Google Drive, Dropbox, etc"
                         name="postURL"
                         value={postURL}
                         onChange={(event) => handleChange(event)}
                     />
+                    <small id="urlHelp" className="form-text text-muted">Please ensure that the link is visible to the public.</small>
                 </div>
-                <div className="mb-3">
+                <hr />
+                <h4>Fundraising Information</h4>
+                <div className="col-md-4">
                     <label
                         htmlFor="shareCountTotal"
                         className="form-label">
-                        Total Number of Shares
+                        Total Shares
                     </label>
                     <input 
                         type={"text"} 
@@ -182,12 +202,16 @@ export default function CreatePost({currUser}) {
                         onChange={(event) => handleChange(event)}
                     />
                 </div>
-                <div className="mb-3">
+                
+                <div className="col-md-4">
+                    
                     <label
                         htmlFor="shareCountPrice"
                         className="form-label">
                         Share Price
                     </label>
+                    <div class="input-group">
+                    <span class="input-group-text">$</span>
                     <input 
                         type={"text"} 
                         className="form-control"
@@ -196,13 +220,13 @@ export default function CreatePost({currUser}) {
                         value={SHARE_COUNT_PRICE}
                         onChange={(event) => handleChange(event)}
                     />
+                    </div>
                 </div>
-               
-                <div className="mb-3">
+                <div className="col-md-4">
                     <label
                         htmlFor="shareCountMin"
                         className="form-label">
-                        Minimum Purchase
+                        Minimum Share Purchase
                     </label>
                     <input
                         type={"text"}
@@ -213,10 +237,15 @@ export default function CreatePost({currUser}) {
                         onChange={(event) => handleChange(event)}
                     />
                 </div>
-                <button type="submit" className="btn btn-outline-primary">Submit</button>
-                </form>
+                <div>
+                    <h5>Your current company valuation: ${value}</h5>
+                </div>
+               
+                
+                <button type="submit" className="btn btn-solid-dark">Submit</button>
+                
             </div>
-            
+            </form>
         </div>
     </div>
 
