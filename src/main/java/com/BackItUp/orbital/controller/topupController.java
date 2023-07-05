@@ -22,7 +22,7 @@ public class topupController {
 
         Wallet wallet = WALLETRepository.findById(response.getWalletID()).get();
 
-        Topup topup = new Topup(wallet, response.getTopupAmount(), response.getTopupPaynow() ,response.isTopupVerified(),response.getTopupDT());
+        Topup topup = new Topup(wallet, response.getTopupAmount(), response.getTopupPaynow() ,response.isTopupVerified(),response.getTopupDT(),response.getTopupEvidence());
 
         return topupRepository.save(topup);
     }

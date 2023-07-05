@@ -8,19 +8,20 @@ public class TopupResponse {
     private Integer walletID;
     private double topupAmount;
     private Integer topupPaynow;
-    private byte[] topupEvidence;
+    private String topupEvidence;
     private Integer topupVerified;
     private LocalDateTime topupDT;
 
     public TopupResponse() {
     }
 
-    public TopupResponse(Integer walletID, double topupAmount, Integer topupPaynow, LocalDateTime topupDT, Integer topupVerified) {
+    public TopupResponse(Integer walletID, double topupAmount, Integer topupPaynow, LocalDateTime topupDT, Integer topupVerified, String topupEvidence) {
         this.walletID = walletID;
         this.topupAmount = topupAmount;
         this.topupPaynow = topupPaynow;
         this.topupVerified = topupVerified;
         this.topupDT = topupDT;
+        this.topupEvidence = topupEvidence;
     }
 
     public Integer getWalletID() {
@@ -35,7 +36,7 @@ public class TopupResponse {
         return topupPaynow;
     }
 
-    public byte[] getTopupEvidence() {
+    public String getTopupEvidence() {
         return topupEvidence;
     }
 
@@ -63,7 +64,7 @@ public class TopupResponse {
         this.topupPaynow = topupPaynow;
     }
 
-    public void setTopupEvidence(byte[] topupEvidence) {
+    public void setTopupEvidence(String topupEvidence) {
         this.topupEvidence = topupEvidence;
     }
 
