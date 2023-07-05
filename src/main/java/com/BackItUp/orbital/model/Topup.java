@@ -23,7 +23,7 @@ public class Topup {
     private Integer topupPaynow;
 
     @Column(name = "TOPUP_EVIDENCE")
-    private byte[] topupEvidence;
+    private String topupEvidence;
 
     @Column(name = "TOPUP_VERIFIED")
     private Integer topupVerified;
@@ -35,13 +35,14 @@ public class Topup {
     public Topup() {
     }
 
-    public Topup(Wallet wallet, double topupAmount, Integer topupPaynow, Integer topupVerified, LocalDateTime topupDT) {
+    public Topup(Wallet wallet, double topupAmount, Integer topupPaynow, Integer topupVerified, LocalDateTime topupDT, String topupEvidence) {
         this.wallet = wallet;
         this.topupAmount = topupAmount;
         this.topupPaynow = topupPaynow;
         this.topupEvidence = topupEvidence;
         this.topupVerified = topupVerified;
         this.topupDT = topupDT;
+        this.topupEvidence = topupEvidence;
     }
 
     public Integer getTopupID() {
@@ -76,11 +77,11 @@ public class Topup {
         this.topupPaynow = topupPaynow;
     }
 
-    public byte[] getTopupEvidence() {
+    public String getTopupEvidence() {
         return topupEvidence;
     }
 
-    public void setTopupEvidence(byte[] topupEvidence) {
+    public void setTopupEvidence(String topupEvidence) {
         this.topupEvidence = topupEvidence;
     }
 
