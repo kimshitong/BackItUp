@@ -30,7 +30,7 @@ public class PostController {
 
         shareRepository.save(newShare);
 
-        Post newPost = new Post(Company, response.getPostTitle(), response.getPostDescription(), response.getPostContent(),response.isPostSustainable(),response.getPostURL(),newShare,response.getPostStatus(),response.getPostCreateDT(),response.getPostExpireDT());
+        Post newPost = new Post(Company, newShare,response);
 
         return postRepository.save(newPost);
     }
@@ -45,7 +45,7 @@ public class PostController {
     }
 
 
-        @GetMapping("/api/listPosts/comp/{compID}")
+    @GetMapping("/api/listPosts/comp/{compID}")
     List<Post> listPostsByComp(@PathVariable("compID") Integer compID ){
         Optional<User> optionalUser = userRepository.findById(compID);
 
@@ -79,6 +79,20 @@ public class PostController {
         }
 
         postRepository.save(post);
+        return true;
+    }
+
+    @PostMapping("/api/editPost/{postid}")
+    boolean editPost(@PathVariable("postid") Integer postId, @RequestBody PostEdit response) {
+        
+        Post post = postRepository.findById(postId).get();
+        
+        if(post == null) {
+            return false;
+        }
+
+        post.editPost(response);
+
         return true;
     }
 

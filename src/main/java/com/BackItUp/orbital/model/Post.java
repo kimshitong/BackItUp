@@ -60,17 +60,29 @@ public class Post {
     // Getters and setters
     public Post(){}
 
-    public Post(User user, String postTitle, String postDescription, String postContent,boolean postSustainable, String postURL, Share share, Integer postStatus, LocalDateTime postCreateDT, LocalDateTime postExpireDT) {
+    public Post(User user, Share share, PostCreation postCreationJSON) {
         this.user = user;
-        this.postTitle = postTitle;
-        this.postDescription = postDescription;
-        this.postContent = postContent;
-        this.postURL = postURL;
-        this.postSustainable = postSustainable;
         this.share = share;
-        this.postStatus = postStatus;
-        this.postCreateDT = postCreateDT;
-        this.postExpireDT = postExpireDT;
+
+        this.postTitle = postCreationJSON.getPostTitle();
+        this.postDescription = postCreationJSON.getPostDescription();
+        this.postContent = postCreationJSON.getPostContent();
+        this.postURL = postCreationJSON.getPostURL();
+        this.postSustainable = postCreationJSON.isPostSustainable();
+        this.postExpireDT = postCreationJSON.getPostExpireDT();
+
+        this.postStatus = 0;
+        this.postCreateDT = postCreationJSON.getPostCreateDT();
+    }
+
+    public void editPost(PostEdit response){
+
+        this.postTitle = response.getPostTitle();
+        this.postDescription = response.getPostDescription();
+        this.postContent = response.getPostContent();
+        this.postURL = response.getPostURL();
+        this.postSustainable = response.isPostSustainable();
+        this.postExpireDT = response.getPostExpireDT();
     }
 
     public Integer getPostID() {
@@ -211,6 +223,7 @@ public class Post {
     public void setPostCompletedDT(LocalDateTime postCompletedDT) {
         this.postCompletedDT = postCompletedDT;
     }
+
 }
 
 

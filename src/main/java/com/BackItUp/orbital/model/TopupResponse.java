@@ -24,6 +24,8 @@ public class TopupResponse {
         this.topupEvidence = topupEvidence;
     }
 
+    
+
     public Integer getWalletID() {
         return walletID;
     }

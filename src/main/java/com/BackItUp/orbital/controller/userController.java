@@ -1,6 +1,7 @@
 package com.BackItUp.orbital.controller;
 
 import com.BackItUp.orbital.model.User;
+import com.BackItUp.orbital.model.UserEdit;
 import com.BackItUp.orbital.repository.userRepo;
 
 import com.BackItUp.orbital.model.Wallet;
@@ -46,6 +47,16 @@ public class userController {
         user.setWallet(newWallet);
 
         System.out.println(user);
+
+        return userRepository.save(user);
+    }
+
+    @PostMapping("/api/editUser/{id}")
+    User newCompany(@RequestBody UserEdit resp, @PathVariable("id") Integer creatorId) {
+
+        User user = userRepository.findById(creatorId).get();
+
+        user.editUser(resp);
 
         return userRepository.save(user);
     }
