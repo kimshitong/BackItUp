@@ -1,0 +1,180 @@
+import axios from 'axios'
+import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+
+import pwShow from '../images/pw-show.png'
+import pwHide from '../images/pw-hide.png'
+import logoWords from "../images/logo-words.png"
+
+import "../styles/styles.css"
+
+export default function ViewUser({currUser}) {
+
+    let navigate = useNavigate()
+    
+    const [user, setUser] = useState({
+        userName: currUser.userName,
+        userEmail: currUser.userEmail,
+        userHP: currUser.userHP,
+        userPass: currUser.userPass,
+        userType: currUser.userType,
+        userVerified: currUser.userVerified,
+        userEvidence: currUser.userEvidence
+    })
+
+    const {name, email, hp, password, type, verified, evidence } = user;
+
+    const [isEdit, setIsEdit] = useState(false)
+
+    
+    const [showPassword, setShowPassword] = useState(false);
+
+    const handleChange = (event) => {
+        setUser({...user, [event.target.name]: event.target.value});
+    }
+
+    const handleTogglePassword = (e) => {
+        e.preventDefault()
+        setShowPassword(!showPassword);
+    };
+
+    const handleEditToggle = (e) => {
+        e.preventDefault()
+        setIsEdit(!isEdit);
+    };
+    
+    // Post user registration info to database
+    const onSubmit = async (event) => {
+        event.preventDefault()
+        try {
+            const data = {
+                userName: name,
+                userEmail: email,
+                userHP: hp,
+                userPass: password,
+                userType: currUser.userType,
+                userVerified: currUser.userVerified,
+                userEvidence: currUser.userEvidence
+              };
+
+              console.log(data)
+              
+            // Create a user with the created wallet.java
+            const response = await axios.post(`http://localhost:8080/api/editUser/${currUser.userID}`, data, {
+                headers: {
+                  'Content-Type': 'application/json'
+                }
+            }
+            
+            );
+            console.log(response.data);
+
+            // console.log(response.data); // The created user object returned from the backend
+          } catch (error) {
+            console.error(error);
+            console.log("Edit User failed")
+          }
+
+    };
+
+  return (
+    
+         <div className="container">
+             
+                 <div className="border rounded p-4 mt-2 shadow">
+                    
+                <h2 className="mb-4" style={{ textAlign: "left" }}>Personal Details</h2>
+               
+                  <form>  
+                  <div className="row g-3">
+                 <div className="col-md-6 mb-3" style={{ textAlign: "left" }}>
+                    <label
+                        htmlFor="Name"
+                        className="form-label">
+                        Name
+                    </label>
+                    <input
+                        type={"text"}
+                        className="form-control"
+                        placeholder={`${user.userName}`}
+                        name="name"
+                        value={user.userName}
+                        onChange={(event) => handleChange(event)}
+                        
+                        disabled={!isEdit}
+                        
+                    />
+                </div>
+                <div className="col-md-6 mb-3" style={{ textAlign: "left" }}>
+                    <label
+                        htmlFor="HP"
+                        className="form-label">
+                        HP Number
+                    </label>
+                    <input
+                        type={"text"}
+                        className="form-control"
+                        placeholder={`${user.userHP}`}
+                        name="hp"
+                        value={user.userHP}
+                        onChange={(event) => handleChange(event)}
+                        
+                        disabled={!isEdit}
+                    />
+                </div>
+                    <div className="col-md-6 mb-3" style={{ textAlign: "left" }} >
+                        <label
+                            htmlFor="Email"
+                            className="form-label">
+                            Email
+                        </label>
+                        <input
+                            type={"text"}
+                            className="form-control"
+                            placeholder={`${user.userEmail}`}
+                            name="email"
+                            value={user.userEmail}
+                            onChange={(event) => handleChange(event)}
+                            
+                            disabled={!isEdit} />
+                            
+                        
+                        
+                    </div>
+                    
+                    <div className="col-md-6 mb-3" style={{ textAlign: "left" }} >
+                        
+                        <label
+                            htmlFor="Password"
+                            className="form-label">
+                            Password
+                        </label>
+                        <div className='password-input-wrapper' style={{ display: 'flex', alignItems: 'center' }}>
+                        <input
+                            type={showPassword ? 'text' : 'password'} 
+                            className={showPassword ? "form-control" : "form-control password-input"}
+                            placeholder={`${user.userPass}`}
+                            name="password"
+                            value={user.userPass}
+                            onChange={(event) => handleChange(event)}
+                            disabled={!isEdit}
+                        />
+                        <button className="btn password-toggle align-end" onClick={e => handleTogglePassword(e)}>
+                            <img src={showPassword ? pwHide : pwShow} style={{height: 30}}/>
+                        </button>
+                        </div>
+                    </div>
+                    {
+                        isEdit
+                        ? <button type="submit" className="btn btn-solid-dark mb-3">Save Changes</button>
+                        : <button className="btn btn-outline-dark mb-3" onClick={(e) => handleEditToggle(e)}>Edit Details</button>
+                    }
+                    </div>
+                    </form>
+                </div>
+                
+            
+        </div>
+
+  )
+}

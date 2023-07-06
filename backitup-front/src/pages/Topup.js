@@ -1,22 +1,27 @@
 import axios from 'axios'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import Oops from './Oops.js'
 import qr from '../paynow.jpg'
 
-export default function Topup({currUser, isAuth}) {
+export default function Topup({currUser, isAuth, setPageTitle }) {
 
     let navigate = useNavigate()
+
+    useEffect(() => {
+      setPageTitle("Top-up • BackItUp") 
+    }, [] )
 
     const [topup, setTopup] = useState({
         walletID: "",
         topupAmount: "",
         topupPaynow: "",
         topupDT: "",
-        topupVerified: "" 
+        topupVerified: "", 
+        topupEvidence: ""
       })
 
-      const {walletID, topupAmount, topupPaynow, topupDT, topupVerified} = topup;
+      const {walletID, topupAmount, topupPaynow, topupDT, topupVerified, topupEvidence} = topup;
       const handleChange = (e) => {
         setTopup({...topup, [e.target.name]: e.target.value})
       }
@@ -33,7 +38,8 @@ export default function Topup({currUser, isAuth}) {
                 topupAmount: parseFloat(topupAmount),
                 topupPaynow: parseInt(topupPaynow, 10),
                 topupDT: formattedDate,
-                topupVerified: 0 // is this 0 or 1
+                topupVerified: 0, // is this 0 or 1
+                topupEvidence: topupEvidence
               };
 
             // const data = {
@@ -56,7 +62,7 @@ export default function Topup({currUser, isAuth}) {
             console.log(response.data);
               console.log("congrats topup success");
               
-            navigate("/thanks")
+            navigate("/topup/thanks")
             // console.log(response.data); // The created user object returned from the backend
           } catch (error) {
             // console.error(error);
@@ -70,32 +76,48 @@ export default function Topup({currUser, isAuth}) {
     {
         !isAuth.isLoggedIn
         ?   <Oops />
-        : <div className="container">
-        <div className="row">
-            <div className="col-md-6 offset-md-3 border rounded p-4 mt-2 shadow">
-                <h2 className="text-center m-4">Top-up now!</h2>
-                <form onSubmit={(event) => onSubmit(event)}>
-                    <div className="mb-3">
-                        <label htmlFor="Name" className="form-label">
-                            Amount
-                        </label>
-                        <input type={"text"} className="form-control" placeholder="Enter a number..." name="topupAmount" value={topupAmount} onChange={(event) => handleChange(event)}/>
-                        <br></br>
-                        <label htmlFor="Paynow" className="form-label">
-                            Paynow Number
-                        </label>
-                        <input type={"text"} className="form-control" placeholder="Enter a number..." name="topupPaynow" value={topupPaynow} onChange={(event) => handleChange(event)}/>
-                        <br></br>
-                        <label>
-                            Please scan the QR code to top-up your wallet.
-                        </label>
-                        <br></br>
-                        <img src={qr} alt="Paynow QR code" height="200"/>
-                    </div>
-                    <button type="submit" className="btn btn-outline-primary">Confirm!</button>
-                </form>
+        : <div className="container-center-signup">
+        
+            <div className="col-md-6 border rounded p-4 mt-2 shadow">
+                <h2 className="text-center m-4">We won't steal your money, we promise.</h2>
+                  <form onSubmit={(event) => onSubmit(event)}>
+                      <div className='row g-3 m-3' style={{ textAlign: "left" }}>
+                        <div className='col-md-6'>
+                          <label htmlFor="Name" className="form-label">
+                              Amount
+                          </label>
+                          <div class="input-group">
+                            <span class="input-group-text">$</span>
+                            <input type={"text"} className="form-control" placeholder="Enter a number..." name="topupAmount" value={topupAmount} onChange={(event) => handleChange(event)}/>
+                          </div>
+                        </div>
+                          <div className='col-md-6'>
+
+                          
+                          <label htmlFor="Paynow" className="form-label">
+                              Paynow Number
+                          </label>
+                          <input type={"text"} className="form-control" placeholder="Enter a number..." name="topupPaynow" value={topupPaynow} onChange={(event) => handleChange(event)}/>
+                          </div>
+                          <div className='col-md-12'>
+                          <label htmlFor="Evidence" className="form-label">
+                              Reference Number
+                          </label>
+                          <input type={"text"} className="form-control" placeholder="Enter your name and date on your PayNow app" name="topupEvidence" value={topupEvidence} onChange={(event) => handleChange(event)}/>
+                          
+                          </div>
+                          </div>
+                          <label>
+                              Please scan the QR code to top-up your wallet.
+                          </label>
+                          <br></br>
+                          <img src={qr} alt="Paynow QR code" height="200"/>
+                      
+                          <br></br>
+                      <button type="submit" className="btn btn-solid-dark m-3">Confirm!</button>
+                  </form>
             </div>
-        </div>
+        
     </div>
         
     }

@@ -207,7 +207,7 @@ export default function AddUser({setPageTitle}) {
             console.log("diu")
           }
   
-        navigate("/")
+        navigate("/adduser/thanks")
     };
 
   return (

@@ -60,8 +60,8 @@ export default function UsersList() {
                             <td>{user.topupAmount}</td> {/* placeholder, replace with short desc */}
                             <td>
                                 {user.pendingStatus
-                                    ? <button className='btn btn-outline-primary max-2' onClick={() => clickVerify(user)}>Verify</button>
-                                    : <button className='btn btn-outline-primary max-2' onClick={() => clickUnverify(user)}>Unverify</button>
+                                    ? <button className='btn btn-outline-success max-2' onClick={() => clickVerify(user)}>Verify</button>
+                                    : <button className='btn btn-outline-danger max-2' onClick={() => clickUnverify(user)}>Unverify</button>
                                 }
                             </td>
                             <td>{user.topupDoneDT}</td>

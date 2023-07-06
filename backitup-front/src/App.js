@@ -18,6 +18,11 @@ import Topup from './pages/Topup';
 import Withdraw from './pages/Withdraw';
 import Footer from './layout/Footer'
 import { Helmet } from 'react-helmet';
+import Profile from './pages/Profile';
+import EditUser from './users/EditUser';
+import ThanksTopup from './pages/thanks/ThanksTopup'
+import ThanksAddUser from './pages/thanks/ThanksAddUser'
+import ThanksWithdraw from './pages/thanks/ThanksWithdraw';
 
 function App() {
 
@@ -45,18 +50,26 @@ function App() {
           <Route path ="/post" element={<Post isAuth={isAuth} setPageTitle={setPageTitle} />} /> {/* find a way to make this a unique link for each project */}
           <Route path ="/post/:id" element={<Post isAuth={isAuth} setPageTitle={setPageTitle} />} /> {/* find a way to make this a unique link for each project */}
           <Route exact path ="/admin" element={<Admin/>} />
-          <Route exact path ="/thanks" element={<Thanks/>} />
+          <Route exact path ="/thanks" element={<Thanks setPageTitle={setPageTitle}/>} />
           <Route exact path ="/login" element={<LogIn setCurrUser={setCurrUser} setIsAuth={setIsAuth} setPageTitle={setPageTitle} />} />
           <Route path ="/create" element={<CreatePost currUser={currUser} />} />
           <Route path ="/createcompany" element={<CreateCompany currUser={currUser} />} />
           <Route path ="/wallet" element={<Wallet currUser={currUser} setCurrUser={setCurrUser}/>} />
           <Route path ="/wallet/:id" element={<Wallet currUser={currUser} />} />
           <Route path ="/oops" element={<Oops setPageTitle={setPageTitle} />} />
-        
+          <Route path ="/profile" element={<Profile currUser={currUser} setPageTitle={setPageTitle} />} />
+          <Route path ="/profile/:id" element={<Profile currUser={currUser} setPageTitle={setPageTitle} />} />
+          {/* <Route path ="/profile" element={<Profile currUser={currUser} setPageTitle={setPageTitle} />} /> */}
+          <Route path ="/profile/:id/edit" element={<EditUser currUser={currUser} />} />
+          
+          <Route path ="/topup/thanks" element={<ThanksTopup setPageTitle={setPageTitle} />} />
+          <Route path ="/adduser/thanks" element={<ThanksAddUser setPageTitle={setPageTitle} />} />
+          <Route path ="/withdraw/thanks" element={<ThanksWithdraw setPageTitle={setPageTitle} />} />
+
           {/* Private routes */}
           <Route path ="/invest/:id" element={<Invest isAuth={isAuth} />} />
-          <Route path ="/topup" element={<Topup currUser={currUser} isAuth={isAuth} />} />
-          <Route path ="/withdraw" element={<Withdraw currUser={currUser} isAuth={isAuth} />} />
+          <Route path ="/topup" element={<Topup currUser={currUser} isAuth={isAuth} setPageTitle={setPageTitle} />} />
+          <Route path ="/withdraw" element={<Withdraw currUser={currUser} isAuth={isAuth} setPageTitle={setPageTitle} />} />
 
         </Routes>
 
