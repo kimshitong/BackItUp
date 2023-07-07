@@ -48,7 +48,13 @@ public class PostCreation {
         return postSustainable;
     }
 
+    public LocalDateTime getPostRaiseDT() {
+        return postRaiseDT;
+    }
 
+    public void setPostRaiseDT(LocalDateTime postRaiseDT) {
+        this.postRaiseDT = postRaiseDT;
+    }
 
     public void setPostSustainable(boolean postSustainable) {
         this.postSustainable = postSustainable;
@@ -145,5 +151,9 @@ public class PostCreation {
     public void setPostCreateDT(LocalDateTime postCreateDT) {
         this.postCreateDT = postCreateDT;
     }
+
+    
 }
+
+
 
