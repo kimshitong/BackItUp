@@ -86,7 +86,7 @@ export default function Withdraw({currUser, isAuth, setPageTitle}) {
                             PayNow Number
                           </label>
                         <input type={"text"} className="form-control" placeholder="Enter a number..." name="withdrawalPaynow" value={withdrawalPaynow} onChange={(event) => handleChange(event)}/>
-                        <small>Our team will credit this PayNow account.</small>
+                        <small className="form-text text-muted">Our team will credit this PayNow account.</small>
                         </div>
                     </div>
                     <button type="submit" className="btn btn-solid-dark mt-3">Confirm</button>

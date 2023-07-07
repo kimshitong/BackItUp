@@ -23,11 +23,13 @@ import EditUser from './users/EditUser';
 import ThanksTopup from './pages/thanks/ThanksTopup'
 import ThanksAddUser from './pages/thanks/ThanksAddUser'
 import ThanksWithdraw from './pages/thanks/ThanksWithdraw';
+import ThanksCreateCompany from './pages/thanks/ThanksCreateCompany';
 
 function App() {
 
   const [isAuth, setIsAuth] = useState({ isLoggedIn: false, userID: null })
   const [currUser, setCurrUser] = useState({})
+  const [userType, setUserType] = useState("public")
 
   const [pageTitle, setPageTitle] = useState("BackItUp • Equity crowd-funding made easy")
 
@@ -40,19 +42,19 @@ function App() {
       </Helmet>
 
       <Router>
-        <Navbar isAuth={isAuth} setIsAuth={setIsAuth} currUser={currUser} setCurrUser={setCurrUser}/>
+        <Navbar isAuth={isAuth} setIsAuth={setIsAuth} currUser={currUser} setCurrUser={setCurrUser} userType={userType} />
 
         <Routes>
 
           {/* Public routes */}
-          <Route exact path ="/" element={<Home setPageTitle={setPageTitle} />} />
+          <Route exact path ="/" element={<Home setPageTitle={setPageTitle} setUserType={setUserType} />} />
           <Route exact path ="/adduser" element={<AddUser setPageTitle={setPageTitle} />} />
           <Route path ="/post" element={<Post isAuth={isAuth} setPageTitle={setPageTitle} />} /> {/* find a way to make this a unique link for each project */}
           <Route path ="/post/:id" element={<Post isAuth={isAuth} setPageTitle={setPageTitle} />} /> {/* find a way to make this a unique link for each project */}
-          <Route exact path ="/admin" element={<Admin/>} />
+          <Route exact path ="/admin" element={<Admin setUserType={setUserType}/>} />
           <Route exact path ="/thanks" element={<Thanks setPageTitle={setPageTitle}/>} />
-          <Route exact path ="/login" element={<LogIn setCurrUser={setCurrUser} setIsAuth={setIsAuth} setPageTitle={setPageTitle} />} />
-          <Route path ="/create" element={<CreatePost currUser={currUser} />} />
+          <Route exact path ="/login" element={<LogIn setCurrUser={setCurrUser} setIsAuth={setIsAuth} setPageTitle={setPageTitle} setUserType={setUserType}/>} />
+          <Route path ="/create" element={<CreatePost currUser={currUser} setPageTitle={setPageTitle} />} />
           <Route path ="/createcompany" element={<CreateCompany currUser={currUser} />} />
           <Route path ="/wallet" element={<Wallet currUser={currUser} setCurrUser={setCurrUser}/>} />
           <Route path ="/wallet/:id" element={<Wallet currUser={currUser} />} />
@@ -65,6 +67,7 @@ function App() {
           <Route path ="/topup/thanks" element={<ThanksTopup setPageTitle={setPageTitle} />} />
           <Route path ="/adduser/thanks" element={<ThanksAddUser setPageTitle={setPageTitle} />} />
           <Route path ="/withdraw/thanks" element={<ThanksWithdraw setPageTitle={setPageTitle} />} />
+          <Route path ="/createcompany/thanks" element={<ThanksCreateCompany setPageTitle={setPageTitle} />} />
 
           {/* Private routes */}
           <Route path ="/invest/:id" element={<Invest isAuth={isAuth} />} />

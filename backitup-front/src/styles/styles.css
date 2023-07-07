@@ -13,6 +13,19 @@
     color: #000;
 }
 
+.navbar-Admin {
+    /* margin-right: auto;
+    margin-left: auto; */
+    /* padding-right: 2vw;
+    padding-left: 2vw; */
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start;
+    background-color: lightslategray; /* Replace #007bff with the desired primary color */
+    color: #000;
+}
+
 .navbar-brand img {
     max-height: 50px;
     margin-left: 10px; /* Default margin value for screens larger than 768px */
@@ -134,4 +147,19 @@
     justify-content: center;
     align-items: center;
     height: 90vh;
+}
+
+/* Create Post Datepicker */
+#custom .react-datepicker__day--selected,
+#custom .react-datepicker__month-text--selected,
+#custom .react-datepicker__quarter-text--selected,
+#custom .react-datepicker__year-text--selected {
+  background-color: #CCED00;
+  color: #fff;
+}
+
+/* Change color of clear button */
+#custom .react-datepicker__close-icon::after {
+  background-color: grey;
+  color: #fff;
 }

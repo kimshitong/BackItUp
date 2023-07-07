@@ -4,7 +4,7 @@ import { Link } from "react-router-dom"
 import "../styles/styles.css"
 import Search from "../components/Search"
 
-export default function Home({setPageTitle}) {
+export default function Home({setPageTitle, setUserType}) {
 
     // Initialise homepage to be blank
     const [posts, setPosts] = useState([])
@@ -13,6 +13,7 @@ export default function Home({setPageTitle}) {
 
     useEffect(() => {
         loadPosts();
+        setUserType("")
     }, [] );
 
     // Get list of posts from database

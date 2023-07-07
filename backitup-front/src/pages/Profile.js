@@ -12,9 +12,11 @@ export default function Profile({currUser, setPageTitle }) {
     const [ displayC, setDisplayC ] = useState(false) // investments
 
     const showA = () => {
-        setDisplayA(true)
-        setDisplayB(false)
-        setDisplayC(false)
+        setTimeout(() => {
+            setDisplayA(true)
+            setDisplayB(false)
+            setDisplayC(false)
+        }, 50)
     }
 
     const showB = () => {
@@ -52,8 +54,8 @@ export default function Profile({currUser, setPageTitle }) {
             </div>
         </div>
         <div className="row">
-            <div className="col-md-2" style={{ height: '100vh' }}>
-                <div class="nav nav-pills bg-light rounded flex-column">
+            <div className="col-md-2" style={{ height: '70vh' }}>
+                <div class="nav nav-pills bg-light rounded flex-column mt-2">
                     <button className={ displayA ? 'btn btn-admin-dark flex-fill my-2 mx-1 shadow-sm' : 'btn btn-admin-inactive flex-fill my-2 mx-1'} onClick={() => showA()}>My Info</button>
                     <button className={ displayB ? 'btn btn-admin-dark flex-fill my-2 mx-1 shadow-sm' : 'btn btn-admin-inactive flex-fill my-2 mx-1'} onClick={() => showB()}>My Wallet</button>
                     <button className={ displayC ? 'btn btn-admin-dark flex-fill my-2 mx-1 shadow-sm' : 'btn btn-admin-inactive flex-fill my-2 mx-1'} onClick={() => showC()}>My Portfolio</button>
