@@ -1,8 +1,13 @@
 import axios from 'axios'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import moment from 'moment'
 
-export default function CreatePost({currUser}) {
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import '../styles/styles.css'
+
+export default function CreatePost({currUser, setPageTitle}) {
 
     let navigate = useNavigate()
 
@@ -14,28 +19,35 @@ export default function CreatePost({currUser}) {
         postURL: "",
         SHARE_COUNT_TOTAL: "",
         SHARE_COUNT_PRICE: "",
-        SHARE_COUNT_MIN: ""
+        SHARE_COUNT_MIN: "",
+        post_RAISED_DT: ""
     })
 
+    const [postRaiseDate, setPostRaiseDate] = useState(new Date());
+    const [postEndDate, setPostEndDate] = useState(new Date());
+
     const {post_TITLE, post_CONTENT, post_DESCRIPTION, post_SUSTAINABLE, postURL,
-        SHARE_COUNT_TOTAL, SHARE_COUNT_PRICE, SHARE_COUNT_MIN } = post;
+        SHARE_COUNT_TOTAL, SHARE_COUNT_PRICE, SHARE_COUNT_MIN , post_RAISED_DT } = post;
 
     const [checked, setChecked] = useState(false)
     const [value, setValue] = useState("0")
+
+    useEffect(() => {
+        setPageTitle("Create Post • BackItUp") 
+    }, [] )
 
     const handleCheckChange = (event) => {
         setChecked(!checked);
     }
 
     const handleChange = (event) => {
-        
-        console.log(parseInt(SHARE_COUNT_TOTAL), "total is");
-        
-        console.log(parseFloat(SHARE_COUNT_PRICE), "price is");
-        // console.log(value, "value is");
-        setValue(parseInt(SHARE_COUNT_TOTAL) * parseFloat(SHARE_COUNT_PRICE))
+        // testing valuation
+        // console.log(parseInt(SHARE_COUNT_TOTAL), "total is");
+        // console.log(parseFloat(SHARE_COUNT_PRICE), "price is");
+        // setValue(parseInt(SHARE_COUNT_TOTAL) * parseFloat(SHARE_COUNT_PRICE))
         setPost({...post, [event.target.name]: event.target.value});
         // console.log(SHARE_COUNT_TOTAL);
+        console.log(post);
     }
 
     // Post user registration info to database
@@ -44,8 +56,8 @@ export default function CreatePost({currUser}) {
         try {
             const apiUrl = '/api/createPost';
             const date = new Date();
-            const exp = new Date(date.getTime() + 7 * 24 * 60 * 60 * 1000)
-            const formattedExp = exp.toISOString().substr(0, 19)
+            // const exp = new Date(date.getTime() + 7 * 24 * 60 * 60 * 1000)
+            // const formattedExp = exp.toISOString().substr(0, 19)
             const formattedDate = date.toISOString().substr(0, 19);
             const pdata = {
                 postTitle: post_TITLE,
@@ -59,7 +71,8 @@ export default function CreatePost({currUser}) {
                 shareCountPrice: parseFloat(SHARE_COUNT_PRICE),
                 postStatus: 0,
                 postCreateDT: formattedDate,
-                postExpireDT: formattedExp,
+                postRaisedDT: postRaiseDate.toISOString().substr(0, 19),
+                postExpireDT: postEndDate.toISOString().substr(0, 19),
                 userID: currUser.userID
               };
 
@@ -240,7 +253,56 @@ export default function CreatePost({currUser}) {
                 <div>
                     <h5>Your current company valuation: ${value}</h5>
                 </div>
-               
+                
+                <hr />
+                <h4>Post Information</h4>
+                <div className="col-md-4">
+                    <label className="form-label">Start Date</label>
+                    {/* <DatePicker
+                        type={"text"}
+                        value={post_RAISED_DT}
+                        name="post_RAISED_DT"
+                        onChange={handleChange}
+                        minDate={moment()}
+                        
+                        className="form-control"
+                        disabledKeyboardNavigation
+                    /> */}
+                    <DatePicker
+                        id="custom"
+                        isClearable
+                        className='form-control'
+                        filterDate={d => {
+                            return new Date() < d;
+                        }}
+                        showTimeSelect
+                        dateFormat="MMMM d, yyyy h:mmaa"
+                        selected={postRaiseDate}
+                        onChange={date => setPostRaiseDate(date)}
+                        selectsStart
+                        startDate={postRaiseDate}
+                        endDate={postEndDate}
+                    />
+                </div>
+                <div className='col-md-4 custom-datepicker'>
+                    <label className='form-label'>End Date</label>
+                    <DatePicker
+                        id="custom"
+                        isClearable
+                        className='form-control'
+                        filterDate={d => {
+                            return new Date() < d;
+                        }}
+                        showTimeSelect
+                        dateFormat="MMMM d, yyyy h:mmaa"    
+                        selected={postEndDate}
+                        selectsEnd
+                        startDate={postRaiseDate}
+                        endDate={postEndDate}
+                        minDate={postRaiseDate}
+                        onChange={date => setPostEndDate(date)}
+                    />
+                </div>
                 
                 <button type="submit" className="btn btn-solid-dark">Submit</button>
                 

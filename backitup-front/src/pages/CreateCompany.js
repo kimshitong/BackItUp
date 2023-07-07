@@ -2,6 +2,10 @@ import axios from 'axios'
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
+
+import pwShow from '../images/pw-show.png'
+import pwHide from '../images/pw-hide.png'
+
 export default function CreateCompany({currUser}) {
 
     let navigate = useNavigate()
@@ -17,10 +21,16 @@ export default function CreateCompany({currUser}) {
     })
 
     const {name, email, hp, password, evidence} = company;
+    
+    const [showPassword, setShowPassword] = useState(false);
 
     const handleChange = (event) => {
         setCompany({...company, [event.target.name]: event.target.value});
     }
+
+    const handleTogglePassword = () => {
+        setShowPassword(!showPassword);
+    };
 
     // Post user registration info to database
     const onSubmit = async (event) => {
@@ -54,16 +64,16 @@ export default function CreateCompany({currUser}) {
             console.log("diu")
           }
   
-        navigate("/")
+        navigate("/createcompany/thanks")
     };
 
   return (
-    <div className="container">
-        <div className="row">
-            <div className="col-md-6 offset-md-3 border rounded p-4 mt-2 shadow">
-                <h2 className="text-center m-4">Start your journey today.</h2>
+    <div className="container-center-signup">
+            <div className="col-md-6 border rounded p-4 mt-2 shadow">
+                <h2 className="text-center m-4">Make your dreams come true.</h2>
                 <form onSubmit={(event) => onSubmit(event)}>
-                <div className="mb-3">
+                    <div className='row g-3' style={{ textAlign: "left" }}>
+                <div className="col-md-6 mb-3">
                     <label
                         htmlFor="Name"
                         className="form-label">
@@ -72,32 +82,47 @@ export default function CreateCompany({currUser}) {
                     <input
                         type={"text"}
                         className="form-control"
-                        placeholder="Kim"
+                        placeholder=""
                         name="name"
                         value={name}
                         onChange={(event) => handleChange(event)}
                     />
                 </div>
-                <div className="mb-3">
+                <div className="col-md-6 mb-3">
                     <label
-                        htmlFor="Email"
+                        htmlFor="Founder"
                         className="form-label">
-                        Email
+                        Founder
                     </label>
                     <input
                         type={"text"}
                         className="form-control"
-                        placeholder="kim@backitup.com"
+                        placeholder={currUser.userName}
+                        value={currUser.userName}
+                        name="founder"
+                        disabled
+                    />
+                </div>
+                <div className="col-md-6 mb-3">
+                    <label
+                        htmlFor="Email"
+                        className="form-label">
+                        Company Email
+                    </label>
+                    <input
+                        type={"text"}
+                        className="form-control"
+                        placeholder=""
                         name="email"
                         value={email}
                         onChange={(event) => handleChange(event)}
                     />
                 </div>
-                <div className="mb-3">
+                <div className=" col-md-6 mb-3">
                     <label
                         htmlFor="HP"
                         className="form-label">
-                        HP Number
+                        Company HP Number
                     </label>
                     <input
                         type={"text"}
@@ -108,20 +133,21 @@ export default function CreateCompany({currUser}) {
                         onChange={(event) => handleChange(event)}
                     />
                 </div>
-                <div className="mb-3">
-                    <label
-                        htmlFor="Password"
-                        className="form-label">
-                        Password
-                    </label>
-                    <input 
-                        type={"text"} 
-                        className="form-control"
-                        placeholder="Please choose a strong password e.g. 0Rb1tA1!"
-                        name="password"
-                        value={password}
-                        onChange={(event) => handleChange(event)}
-                    />
+                <div className="col-md-6 mb-3">
+                <div className="password-input-wrapper">
+                        <input 
+                            type={showPassword ? 'text' : 'password'} 
+                            className={showPassword ? "form-control" : "form-control password-input"}
+                            placeholder="Password"
+                            name="password"
+                            value={password}
+                            onChange={(event) => handleChange(event)}
+                        />
+                        <button className="btn password-toggle" onClick={handleTogglePassword}>
+                            <img src={showPassword ? pwHide : pwShow} style={{height: 30}}/>
+                        </button>
+                        
+                        </div>
                 </div>
                
                 <div className="mb-3">
@@ -138,12 +164,13 @@ export default function CreateCompany({currUser}) {
                         value={evidence}
                         onChange={(event) => handleChange(event)}
                     />
+                    <small className="form-text text-muted">Our admin team will review your company before verifying your account.</small>
                 </div>
-                <button type="submit" className="btn btn-outline-primary">Submit</button>
+                <button type="submit" className="btn btn-solid-dark">Submit</button>
+                </div>
                 </form>
             </div>
             
-        </div>
     </div>
 
   )

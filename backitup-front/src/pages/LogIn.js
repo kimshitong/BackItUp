@@ -8,7 +8,7 @@ import logoWords from "../images/logo-words.png"
 
 import "../styles/styles.css"
 
-export default function LogIn({setCurrUser, setIsAuth, setPageTitle}) {
+export default function LogIn({setCurrUser, setIsAuth, setPageTitle, setUserType}) {
 
     let navigate = useNavigate()
 
@@ -50,6 +50,7 @@ export default function LogIn({setCurrUser, setIsAuth, setPageTitle}) {
                 const currResponse = await axios.get(`http://localhost:8080/api/user/${isVerified.data}`).then()
                 const curr = currResponse.data
                 setCurrUser(curr)
+                setUserType(`${curr.userType}`)
                 navigate("/")
                 console.log("login SUCCESS");
             }

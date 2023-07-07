@@ -4,7 +4,7 @@ import { Link } from "react-router-dom"
 import "../styles/styles.css"
 import logo from "../images/logo-words.png"
 
-export default function Navbar({isAuth, setIsAuth, currUser}) {
+export default function Navbar({isAuth, setIsAuth, currUser, userType}) {
 
   const [isCompany, setIsCompany] = useState(false)
 
@@ -33,7 +33,7 @@ export default function Navbar({isAuth, setIsAuth, currUser}) {
 
   return (
     <div>
-      <nav className="navbar navbar-expand-lg">
+      <nav className={`navbar navbar-${userType} navbar-expand-lg`}>
         <div className="container d-flex justify-content-between align-items-center">
           <div className="d-flex">
             <Link className="navbar-brand" to="/">

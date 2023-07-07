@@ -6,6 +6,7 @@ export default function TopupList({wallet}) {
 
     // Initialise homepage to be blank
     const [topups, setTopups] = useState([])
+    const [loading, setLoading] = useState([])
 
     useEffect(() => {
         loadTopups()
@@ -16,6 +17,9 @@ export default function TopupList({wallet}) {
         console.log("my wallet", wallet);
         const result = await axios.get(`http://localhost:8080/api/listTopUp/${wallet.wallet_ID}`)
         setTopups(result.data)
+        setTimeout(() => {
+            setLoading(false);
+        }, 1000)
     }
 
     // const clickVerify = (userID) => {
@@ -26,6 +30,7 @@ export default function TopupList({wallet}) {
   return (
     <div className='container'>
         <div className='py-4'>
+            {loading ? "Loading..." :
             <table className="table border shadow-sm">
                 <thead>
                     <tr>
@@ -52,6 +57,7 @@ export default function TopupList({wallet}) {
                     }
                 </tbody>
             </table>
+}
         </div>
     </div>
   )

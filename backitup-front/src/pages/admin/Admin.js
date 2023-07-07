@@ -7,13 +7,17 @@ import TopupList from './TopupList'
 import WithdrawalList from './WithdrawalList'
 import PostList from './PostList'
 
-export default function Admin() {
+export default function Admin({setUserType}) {
 
     const [ displayA, setDisplayA ] = useState(true) // users
     const [ displayB, setDisplayB ] = useState(false) // payments
     const [ displayC, setDisplayC ] = useState(false) // topup
     const [ displayD, setDisplayD ] = useState(false) // withdrawal
     const [ displayE, setDisplayE ] = useState(false) // post
+
+    useEffect(() => {
+        setUserType("Admin")
+      }, [] )
 
     const showA = () => {
         setDisplayA(true)

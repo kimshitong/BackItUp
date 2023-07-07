@@ -6,6 +6,7 @@ export default function WithdrawalListUser({wallet}) {
 
     // Initialise homepage to be blank
     const [wds, setWds] = useState([])
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         loadTopups()
@@ -13,9 +14,13 @@ export default function WithdrawalListUser({wallet}) {
 
     // Get list of users from database
     const loadTopups = async () => {
+        
         console.log("my wallet", wallet);
         const result = await axios.get(`http://localhost:8080/api/listWithdrawal/${wallet.wallet_ID}`)
         setWds(result.data)
+        setTimeout(() => {
+            setLoading(false);
+        }, 1000)
     }
 
     // const clickVerify = (userID) => {
@@ -26,6 +31,7 @@ export default function WithdrawalListUser({wallet}) {
   return (
     <div className='container'>
         <div className='py-4'>
+            {loading ? "Loading..." :
             <table className="table border shadow-sm">
                 <thead>
                     <tr>
@@ -52,6 +58,7 @@ export default function WithdrawalListUser({wallet}) {
                     }
                 </tbody>
             </table>
+}
         </div>
     </div>
   )
