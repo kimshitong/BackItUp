@@ -26,7 +26,7 @@ public class Payment {
     @Column(name = "PAYMENT_DT", nullable = false)
     private LocalDateTime paymentDt;
 
-    @Column(name = "DETAILS")
+    @Column(name = "DETAILS", columnDefinition = "TEXT")
     private String details;
 
     public Payment(){}

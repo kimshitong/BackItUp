@@ -17,16 +17,16 @@ public class Post {
     @JoinColumn(name = "USER_ID")
     private User user;
 
-    @Column(name = "POST_TITLE")
+    @Column(name = "POST_TITLE", columnDefinition = "TEXT")
     private String postTitle;
 
-    @Column(name = "POST_DESCRIPTION")
+    @Column(name = "POST_DESCRIPTION", columnDefinition = "TEXT")
     private String postDescription;
 
-    @Column(name = "POST_CONTENT")
+    @Column(name = "POST_CONTENT", columnDefinition = "TEXT")
     private String postContent;
 
-    @Column(name = "POST_URL")
+    @Column(name = "POST_URL", columnDefinition = "TEXT")
     private String postURL;
 
     @Column(name = "POST_SUSTAINABLE")
@@ -46,9 +46,9 @@ public class Post {
     private LocalDateTime postApprovedDT;
 
     @Column(name = "POST_RAISE_DT")
-    private LocalDateTime postRaisedDT;
+    private LocalDateTime postRaiseDT;
 
-    @Column(name = "POST_EXPIRE_DT")
+ @Column(name = "POST_EXPIRE_DT")
     private LocalDateTime postExpireDT;
 
     @Column(name = "POST_FINALISING_DT")
@@ -192,12 +192,12 @@ public class Post {
     }
 
 
-    public LocalDateTime getPostRaisedDT() {
-        return postRaisedDT;
+    public LocalDateTime getPostRaiseDT() {
+        return postRaiseDT;
     }
 
-    public void setPostRaisedDT(LocalDateTime postRaisedDT) {
-        this.postRaisedDT = postRaisedDT;
+    public void setPostRaiseDT(LocalDateTime postRaiseDT) {
+        this.postRaiseDT = postRaiseDT;
     }
 
     public LocalDateTime getPostExpireDT() {

@@ -14,7 +14,7 @@ public class User {
 
     @Column(name = "USER_NAME")
     private String userName;
-    @Column(name = "USER_EMAIL", unique = true)
+    @Column(name = "USER_EMAIL")
     private String userEmail;
     @Column(name = "USER_HP")
     private String userHP;
@@ -24,9 +24,13 @@ public class User {
     private String userType;
     @Column(name = "USER_VERIFIED")
     private Boolean userVerified;
-    @Column(name = "USER_EVIDENCE")
+    @Column(name = "USER_ACCOUNT")
+    private String userAccount;
+    @Column(name = "USER_AUTHURL", columnDefinition = "TEXT")
+    private String userAuthURL;
+    @Column(name = "USER_EVIDENCE", columnDefinition = "TEXT")
     private String userEvidence;
-    @Column(name = "USER_DESCRIPTION")
+    @Column(name = "USER_DESCRIPTION", columnDefinition = "TEXT")
     private String userDescription;
     @OneToOne
     @JoinColumn(name = "WALLET_ID")
@@ -47,6 +51,7 @@ public class User {
         this.userType = userType;
         this.userVerified = userVerified;
         this.userEvidence = userEvidence;
+        this.userAccount = "USER";
     }
 
     public User(String userName, String userEmail, String userHP, String userPass) {
@@ -55,9 +60,22 @@ public class User {
         this.userHP = userHP;
         this.userPass = userPass;
         this.userType = "Company";
+        this.userAccount = "USER";
         this.userVerified = true;
         this.userEvidence = "Company Account";
-    }
+    }   
+
+    public User(String userName, String userEmail, String userAuthURL, String userHP, String userPass) {
+        this.userName = userName;
+        this.userEmail = userEmail;
+        this.userHP = userHP;
+        this.userPass = userPass;
+        this.userType = "Company";
+        this.userAccount = "USER";
+        this.userAuthURL = userAuthURL;
+        this.userVerified = true;
+        this.userEvidence = "Company Account";
+    }   
 
     public void editUser(UserEdit resp){
         this.userName = resp.getUserName();
@@ -155,4 +173,6 @@ public class User {
     public void setWallet(Wallet wallet) {
         this.wallet = wallet;
     }
+
+
 }
