@@ -2,8 +2,8 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import Navbar from '../layout/Navbar'
-import pwShow from '../images/pw-show.jpg'
-import pwHide from '../images/pw-hide.jpg'
+import pwShow from '../images/pw-show.png'
+import pwHide from '../images/pw-hide.png'
 import logoWords from "../images/logo-words.png"
 
 import "../styles/styles.css"

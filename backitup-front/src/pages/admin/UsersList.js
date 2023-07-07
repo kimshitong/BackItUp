@@ -64,8 +64,8 @@ export default function UsersList() {
                             <td>{user.userEvidence}</td>
                             <td>
                                 {!user.userVerified
-                                    ? <button className='btn btn-outline-primary max-2' onClick={() => clickVerify(user.userID)}>Verify</button>
-                                    : <button className='btn btn-outline-primary max-2' onClick={() => clickUnverify(user.userID)}>Unverify</button>
+                                    ? <button className='btn btn-outline-success max-2' onClick={() => clickVerify(user.userID)}>Verify</button>
+                                    : <button className='btn btn-outline-danger max-2' onClick={() => clickUnverify(user.userID)}>Unverify</button>
                                 }
                             </td>
                         </tr>

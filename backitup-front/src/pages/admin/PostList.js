@@ -13,7 +13,7 @@ export default function PostList() {
 
     // Get list of users from database
     const loadPosts = async () => {
-        const result = await axios.get("http://localhost:8080//api/listPosts")
+        const result = await axios.get("http://localhost:8080/api/listPosts")
         console.log(result);
         setPosts(result.data)
         console.log(result.data);
@@ -59,8 +59,8 @@ export default function PostList() {
                             <td>{post.postURL}</td>
                             <td>
                                 {post.pendingStatus
-                                    ? <button className='btn btn-outline-primary max-2' onClick={() => clickVerify(post.postID)}>Verify</button>
-                                    : <button className='btn btn-outline-primary max-2' onClick={() => clickUnverify(post.postID)}>Unverify</button>
+                                    ? <button className='btn btn-outline-success max-2' onClick={() => clickVerify(post.postID)}>Verify</button>
+                                    : <button className='btn btn-outline-danger max-2' onClick={() => clickUnverify(post.postID)}>Unverify</button>
                                 }
                             </td>
                             <td>{post.postApprovedDT}</td>

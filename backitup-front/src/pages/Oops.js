@@ -6,7 +6,7 @@ export default function Oops({setPageTitle}) {
 
   useEffect(() => {
     setPageTitle("Oops • BackItUp") 
-}, [] )
+  }, [] )
 
   return (
     <div className='container-center-login'>

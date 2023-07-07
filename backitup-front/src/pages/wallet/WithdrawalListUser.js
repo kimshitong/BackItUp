@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { Link } from "react-router-dom"
 
-export default function TopupList({wallet}) {
+export default function WithdrawalListUser({wallet}) {
 
     // Initialise homepage to be blank
-    const [topups, setTopups] = useState([])
+    const [wds, setWds] = useState([])
 
     useEffect(() => {
         loadTopups()
@@ -14,8 +14,8 @@ export default function TopupList({wallet}) {
     // Get list of users from database
     const loadTopups = async () => {
         console.log("my wallet", wallet);
-        const result = await axios.get(`http://localhost:8080/api/listTopUp/${wallet.wallet_ID}`)
-        setTopups(result.data)
+        const result = await axios.get(`http://localhost:8080/api/listWithdrawal/${wallet.wallet_ID}`)
+        setWds(result.data)
     }
 
     // const clickVerify = (userID) => {
@@ -36,14 +36,14 @@ export default function TopupList({wallet}) {
                     </tr>
                 </thead>
                 <tbody>
-                    {
-                        topups.map((topup, index) => (
+                {
+                        wds.map((wd, index) => (
                             <tr>
                             <th scope="row" key="index">{index + 1}</th>
-                            <td>{topup.topupDT}</td>
-                            <td>{topup.topupAmount}</td>
+                            <td>{wd.withdrawalDT}</td>
+                            <td>{wd.withdrawalAmount}</td>
                             <td>
-                                {topup.pendingStatus
+                                {wd.pendingStatus
                                 ? 'N'
                                 : 'Y'}
                             </td>

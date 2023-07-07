@@ -62,8 +62,8 @@ export default function PaymentsList() {
                             </td>
                             <td>
                                 {!pmt.userVerified
-                                    ? <button className='btn btn-outline-primary max-2' onClick={() => clickVerify(pmt.paymentId)}>Verify</button>
-                                    : <button className='btn btn-outline-primary max-2' onClick={() => clickUnverify(pmt.paymentId)}>Unverify</button>
+                                    ? <button className='btn btn-outline-success max-2' onClick={() => clickVerify(pmt.paymentId)}>Verify</button>
+                                    : <button className='btn btn-outline-danger max-2' onClick={() => clickUnverify(pmt.paymentId)}>Unverify</button>
                                 }
                             </td>
                         </tr>

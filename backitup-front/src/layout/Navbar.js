@@ -65,7 +65,7 @@ export default function Navbar({isAuth, setIsAuth, currUser}) {
               {isAuth.isLoggedIn
               ? <>
                   {/* <p className="text-white">Hello {currUser.userName}</p> */}
-                  <Link className="btn btn-outline-dark m-2" to={"/wallet/" + currUser.userID}>
+                  <Link className="btn btn-outline-dark m-2" to={"/profile/" + currUser.userID}>
                     Hello {currUser.userName}
                   </Link>
                   {

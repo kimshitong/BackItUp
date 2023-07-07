@@ -59,8 +59,8 @@ export default function WithdrawalList() {
                             <td>{wd.withdrawalAmount}</td>
                             <td>
                                 {wd.pendingStatus == true
-                                    ? <button className='btn btn-outline-primary max-2' onClick={() => clickVerify(wd.withdrawalID)}>Verify</button>
-                                    : <button className='btn btn-outline-primary max-2' onClick={() => clickUnverify(wd.withdrawalID)}>Unverify</button>
+                                    ? <button className='btn btn-outline-success max-2' onClick={() => clickVerify(wd.withdrawalID)}>Verify</button>
+                                    : <button className='btn btn-outline-danger max-2' onClick={() => clickUnverify(wd.withdrawalID)}>Unverify</button>
                                 }
                             </td>
                             <td>{wd.withdrawalDoneDT}</td>
