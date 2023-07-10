@@ -51,6 +51,7 @@ export default function LogIn({setCurrUser, setIsAuth, setPageTitle, setUserType
                 const curr = currResponse.data
                 setCurrUser(curr)
                 setUserType(`${curr.userType}`)
+                console.log(curr.userType, "set user type to");
                 navigate("/")
                 console.log("login SUCCESS");
             }

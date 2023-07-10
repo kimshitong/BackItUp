@@ -68,7 +68,7 @@ export default function Post({isAuth, setPageTitle}) {
                     
                 </div>
                 <div className="col-md-3 offset-md-1">
-                    <div style={{ textAlign: "left" }}>
+                    {/* <div style={{ textAlign: "left" }}>
                         <p><strong>A PROUD PROJECT BY</strong></p>
                         <h3>{post.user.userName}</h3>
                         <p><strong>SHARE PRICE</strong></p>
@@ -76,7 +76,7 @@ export default function Post({isAuth, setPageTitle}) {
                         
                         <p><strong>REMAINING SHARES</strong></p>
                         <h3>{post.share.remainingShare}</h3>
-                    </div>
+                    </div> */}
                     
                     <Link className="btn btn-solid-dark btn-lg px-4 me-md-2 fw-bold mt-5 d-flex justify-content-center" to={isAuth.isLoggedIn ? `/invest/${id}` : `/oops`} >
                         Invest

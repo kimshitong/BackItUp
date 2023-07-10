@@ -40,11 +40,33 @@ export default function Navbar({isAuth, setIsAuth, currUser, userType}) {
               <img src={logo} alt="Back It Up" />
             </Link>
             <div className="d-flex align-items-center">
-              <Link className="btn btn-outline-dark m-2" to={"/getstarted/invest"}>
-                Invest
+              <Link className="fw-bold m-2" to={"/getstarted/invest"} 
+                style={{
+                  textDecoration: "none",
+                  color: "black",
+                  transition: "color 0.3s ease-in-out",
+                }}
+                onMouseEnter={(e) => {
+                  e.target.style.color = "grey"; // Change the color on hover
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.color = "black"; // Revert back to the original color
+                }}>
+                INVEST
               </Link>
-              <Link className="btn btn-outline-dark m-2" to={"/getstarted/raise"}>
-                Raise
+              <Link className="fw-bold m-2" to={"/getstarted/raise"}
+                style={{
+                  textDecoration: "none",
+                  color: "black",
+                  transition: "color 0.3s ease-in-out",
+                }}
+                onMouseEnter={(e) => {
+                  e.target.style.color = "grey"; // Change the color on hover
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.color = "black"; // Revert back to the original color
+                }}>
+                RAISE
               </Link>
             </div>
           </div>

@@ -1,40 +1,56 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams, Link } from 'react-router-dom'
 import moment from 'moment'
 
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import '../styles/styles.css'
 
-export default function CreatePost({currUser, setPageTitle}) {
+export default function EditPost({currUser, isAuth, setPageTitle}) {
 
     let navigate = useNavigate()
 
-    const [post, setPost] = useState({
-        post_TITLE: "",
-        post_DESCRIPTION: "",
-        post_CONTENT: "",
-        post_SUSTAINABLE: "",
-        postURL: "",
-        SHARE_COUNT_TOTAL: "",
-        SHARE_COUNT_PRICE: "",
-        SHARE_COUNT_MIN: "",
-        post_RAISED_DT: ""
-    })
+    // const [post, setPost] = useState({
+    //     post_TITLE: "",
+    //     post_DESCRIPTION: "",
+    //     post_CONTENT: "",
+    //     post_SUSTAINABLE: "",
+    //     postURL: "",
+    //     SHARE_COUNT_TOTAL: "",
+    //     SHARE_COUNT_PRICE: "",
+    //     SHARE_COUNT_MIN: "",
+    //     post_RAISED_DT: ""
+    // })
+    const [post, setPost] = useState("")
+    const {id} = useParams()
 
-    const [postRaiseDate, setPostRaiseDate] = useState(new Date());
-    const [postEndDate, setPostEndDate] = useState(new Date());
+    const [postRaiseDate, setPostRaiseDate] = useState(post.postRaiseDT);
+    const [postEndDate, setPostEndDate] = useState(post.postExpireDT);
 
-    const {post_TITLE, post_CONTENT, post_DESCRIPTION, post_SUSTAINABLE, postURL,
-        SHARE_COUNT_TOTAL, SHARE_COUNT_PRICE, SHARE_COUNT_MIN , post_RAISED_DT } = post;
+    const {postTitle, postContent, postDescription, postSustainable, postURL,
+        share } = post;
+
+    const { shareCountTotal, shareCountMin, shareCountCurrent, shareCountPrice } = share
 
     const [checked, setChecked] = useState(false)
     const [value, setValue] = useState("0")
 
     useEffect(() => {
-        setPageTitle("Create Post • BackItUp") 
+        setPageTitle("Edit Post • BackItUp") 
+        setTimeout(() => {
+
+            loadPost()
+        }, 1000)
     }, [] )
+
+    const loadPost = async () => {
+        const result = await axios.get(`http://localhost:8080/api/post/${id}`) // change the link as necessary
+        setPost(result.data)
+        // setShare((post.share.shareCountCurrent) * 100 / post.share.shareCountTotal);
+        console.log(result.data);
+        // console.log(share);
+    }
 
     const handleCheckChange = (event) => {
         setChecked(!checked);
@@ -44,7 +60,7 @@ export default function CreatePost({currUser, setPageTitle}) {
         // testing valuation
         // console.log(parseInt(SHARE_COUNT_TOTAL), "total is");
         // console.log(parseFloat(SHARE_COUNT_PRICE), "price is");
-        setValue(parseInt(SHARE_COUNT_TOTAL) * parseFloat(SHARE_COUNT_PRICE))
+        setValue(parseInt(shareCountTotal) * parseFloat(shareCountPrice))
         setPost({...post, [event.target.name]: event.target.value});
         // console.log(SHARE_COUNT_TOTAL);
         console.log(post);
@@ -60,15 +76,15 @@ export default function CreatePost({currUser, setPageTitle}) {
             // const formattedExp = exp.toISOString().substr(0, 19)
             const formattedDate = date.toISOString().substr(0, 19);
             const pdata = {
-                postTitle: post_TITLE,
-                postDescription: post_DESCRIPTION,
-                postContent: post_CONTENT,
+                postTitle: postTitle,
+                postDescription: postDescription,
+                postContent: postContent,
                 postURL: postURL,
                 postSustainable: checked,
-                shareCountTotal: parseInt(SHARE_COUNT_TOTAL),
-                shareCountMin: parseInt(SHARE_COUNT_MIN),
-                shareCountCurrent: 0,
-                shareCountPrice: parseFloat(SHARE_COUNT_PRICE),
+                shareCountTotal: parseInt(shareCountTotal),
+                shareCountMin: parseInt(shareCountMin),
+                shareCountCurrent: shareCountCurrent,
+                shareCountPrice: parseFloat(shareCountPrice),
                 postStatus: 0,
                 postCreateDT: formattedDate,
                 postRaisedDT: postRaiseDate.toISOString().substr(0, 19),
@@ -92,7 +108,7 @@ export default function CreatePost({currUser, setPageTitle}) {
             //     })
               
             // Create a user with the created wallet.java
-            const response = await axios.post(`http://localhost:8080/api/createPost`, pdata, {
+            const response = await axios.post(`http://localhost:8080/api/editPost/${post.postID}`, pdata, {
                 headers: {
                   'Content-Type': 'application/json'
                 }
@@ -104,7 +120,7 @@ export default function CreatePost({currUser, setPageTitle}) {
             // console.log(response.data); // The created user object returned from the backend
           } catch (error) {
             console.error(error);
-            console.log("post creation failure")
+            console.log("post edit failure")
           }
   
         navigate("/")
@@ -113,7 +129,7 @@ export default function CreatePost({currUser, setPageTitle}) {
   return (
     <div className="container my-5">
         <div className="col-md-8 offset-md-2 border rounded p-4 mt-2 shadow">
-            <h2 className="text-center m-4">Start your journey today.</h2>
+            <h2 className="text-center m-4">Edit Details</h2>
             <form onSubmit={(event) => onSubmit(event)}>
             <div className="row g-3" style={{ textAlign: "left" }}>
                 <h4>General Information</h4>
@@ -128,8 +144,8 @@ export default function CreatePost({currUser, setPageTitle}) {
                             type={"text"}
                             className="form-control"
                             placeholder="My Title"
-                            name="post_TITLE"
-                            value={post_TITLE}
+                            name="postTitle"
+                            value={postTitle}
                             onChange={(event) => handleChange(event)}
                         />
                     </div>
@@ -141,7 +157,7 @@ export default function CreatePost({currUser, setPageTitle}) {
                         className="form-label">
                         Company
                     </label>
-                    <input class="form-control" type="text" placeholder={`${currUser.userName}`} aria-label="Disabled input example" disabled></input>
+                    <input class="form-control" type="text" placeholder={`${post.user.userName}`} aria-label="Disabled input example" disabled></input>
                 </div>
                 <div className="row">
                     <div className="col-md-11">
@@ -154,14 +170,14 @@ export default function CreatePost({currUser, setPageTitle}) {
                             type={"text"}
                             className="form-control"
                             placeholder="A one-line summary of your project"
-                            name="post_DESCRIPTION"
-                            value={post_DESCRIPTION}
+                            name="postDescription"
+                            value={postDescription}
                             onChange={(event) => handleChange(event)}
                         />
                     </div>
                       
                     <div class="col-md-1 align-self-end">
-                        <input type="checkbox" class="btn-check" id="btn-check" value={post_SUSTAINABLE}
+                        <input type="checkbox" class="btn-check" id="btn-check" value={postSustainable}
                             onChange={(event) => handleCheckChange(event)} autocomplete="off" />
                         <label class={ checked ? "btn btn-success" : "btn btn-outline-dark" } for="btn-check">ESG</label>
                     </div>
@@ -176,8 +192,8 @@ export default function CreatePost({currUser, setPageTitle}) {
                         type={"text"}
                         class="form-control"
                         placeholder="A summary of why your idea will change the world. Possible things to include: goals, user flows, and innovations."
-                        name="post_CONTENT"
-                        value={post_CONTENT}
+                        name="postContent"
+                        value={postContent}
                         onChange={(event) => handleChange(event)}
                         id="exampleFormControlTextarea1"
                         rows="3"></textarea>
@@ -210,8 +226,8 @@ export default function CreatePost({currUser, setPageTitle}) {
                         type={"text"} 
                         className="form-control"
                         placeholder="999"
-                        name="SHARE_COUNT_TOTAL"
-                        value={SHARE_COUNT_TOTAL}
+                        name="shareCountTotal"
+                        value={shareCountTotal}
                         onChange={(event) => handleChange(event)}
                     />
                 </div>
@@ -229,8 +245,8 @@ export default function CreatePost({currUser, setPageTitle}) {
                         type={"text"} 
                         className="form-control"
                         placeholder="Round off to the nearest 0.01"
-                        name="SHARE_COUNT_PRICE"
-                        value={SHARE_COUNT_PRICE}
+                        name="shareCountPrice"
+                        value={shareCountPrice}
                         onChange={(event) => handleChange(event)}
                     />
                     </div>
@@ -245,8 +261,8 @@ export default function CreatePost({currUser, setPageTitle}) {
                         type={"text"}
                         className="form-control"
                         placeholder="1"
-                        name="SHARE_COUNT_MIN"
-                        value={SHARE_COUNT_MIN}
+                        name="shareCountMin"
+                        value={shareCountMin}
                         onChange={(event) => handleChange(event)}
                     />
                 </div>
@@ -304,7 +320,7 @@ export default function CreatePost({currUser, setPageTitle}) {
                     />
                 </div>
                 
-                <button type="submit" className="btn btn-solid-dark">Submit</button>
+                <button type="submit" className="btn btn-solid-dark">Save Changes</button>
                 
             </div>
             </form>

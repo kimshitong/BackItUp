@@ -13,7 +13,7 @@ export default function Home({setPageTitle, setUserType}) {
 
     useEffect(() => {
         loadPosts();
-        setUserType("")
+        // setUserType("")
     }, [] );
 
     // Get list of posts from database

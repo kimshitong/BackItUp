@@ -4,12 +4,13 @@ import { Link } from "react-router-dom"
 import Wallet from './wallet/Wallet'
 import InvestmentUser from "./wallet/InvestmentUser"
 import ViewUser from "../users/ViewUser"
+import PostUser from './wallet/PostUser'
 
-export default function Profile({currUser, setPageTitle }) {
+export default function Profile({currUser, setPageTitle, userType }) {
 
     const [ displayA, setDisplayA ] = useState(true) // profile
     const [ displayB, setDisplayB ] = useState(false) // wallet
-    const [ displayC, setDisplayC ] = useState(false) // investments
+    const [ displayC, setDisplayC ] = useState(false) // investments OR posts
 
     const showA = () => {
         setTimeout(() => {
@@ -33,6 +34,7 @@ export default function Profile({currUser, setPageTitle }) {
 
     useEffect(() => {
         setPageTitle(`${currUser.userName}'s Profile • BackItUp`)
+        console.log("curr user type", userType);
     }, [] );
 
   return (
@@ -58,15 +60,19 @@ export default function Profile({currUser, setPageTitle }) {
                 <div class="nav nav-pills bg-light rounded flex-column mt-2">
                     <button className={ displayA ? 'btn btn-admin-dark flex-fill my-2 mx-1 shadow-sm' : 'btn btn-admin-inactive flex-fill my-2 mx-1'} onClick={() => showA()}>My Info</button>
                     <button className={ displayB ? 'btn btn-admin-dark flex-fill my-2 mx-1 shadow-sm' : 'btn btn-admin-inactive flex-fill my-2 mx-1'} onClick={() => showB()}>My Wallet</button>
-                    <button className={ displayC ? 'btn btn-admin-dark flex-fill my-2 mx-1 shadow-sm' : 'btn btn-admin-inactive flex-fill my-2 mx-1'} onClick={() => showC()}>My Portfolio</button>
+                    <button className={ displayC ? 'btn btn-admin-dark flex-fill my-2 mx-1 shadow-sm' : 'btn btn-admin-inactive flex-fill my-2 mx-1'} onClick={() => showC()}>{ userType == "Company" ? "My Posts" : "My Portfolio" }</button>
                 </div>
             </div>
             <div className="col-md-10">
-                { displayA
+                { 
+                displayA
                 ? <ViewUser currUser={currUser} />
                 : displayB
                 ? <Wallet currUser={currUser} />
-                : <InvestmentUser currUser={currUser} /> }
+                : userType === 'Company'
+                ? <PostUser currUser={currUser} />
+                : <InvestmentUser currUser={currUser} />
+                }
             </div>
         </div>
        
