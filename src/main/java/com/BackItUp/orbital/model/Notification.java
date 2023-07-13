@@ -3,6 +3,8 @@ package com.BackItUp.orbital.model;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "NOTIFICATION")
@@ -38,9 +40,52 @@ public class Notification {
         this.notificationDateTime = notificationDateTime;
     }
 
+    public Notification(User user, String notificationType,String notificationMessage) {
+        this.user = user;
+        this.notificationType = notificationType;
+        this.notificationMessage = notificationMessage;
+        this.notificationRead = false;
+        this.notificationDateTime = LocalDateTime.now();
+    }
+
+
+    public static Notification sendVerifiedNotification(User user){
+        return new Notification(user,"USER","Congrats! Your account has been verified.");
+    }
+
     public static Notification sendNotification(User user, String notificationType,String notificationMessage,LocalDateTime notificationDateTime){
         return new Notification(user,notificationType,notificationMessage,notificationDateTime);
     }
+
+
+    public static Notification sendPostSuccessNotification(User user, Post post){
+        return new Notification(user,"POST","Your post " + post.getPostTitle() +" has been approved.");
+    }
+
+    public static Notification sendWithdrawalSuccessNotification(User user, Withdrawal withdraw ){
+        return new Notification(user,"WITHDRAWAL","You have successfully withdrawn " + withdraw.getWithdrawalAmount() + " !");
+    }
+
+    public static Notification sendTopupSuccessNotification(User user, Topup topup ){
+        return new Notification(user,"TOPUP","You have successfully topped up " + topup.getTopupAmount() +" !");
+    }
+
+    public static List<Notification> sendInvestSuccessNotification(Investment investment){
+        User company = investment.getShare().getUser();
+        User investor = investment.getUser();
+        double amount = investment.getPayment().getPaymentAmount();
+
+        List<Notification> notificationList = new ArrayList<>();
+        notificationList.add( new Notification(investor,"INVESTMENT","You have successfully invested $" + amount +" in "+company.getUserName()+" !"));
+        notificationList.add( new Notification(company,"INVESTMENT","You have received investment from "+investor.getUserName()+"at value of $" +amount + " !"));
+
+        return notificationList;
+    }
+    public Notification readNotification() {
+        this.notificationRead = true;
+        return this;
+    }
+
 
     public Integer getNotificationID() {
         return notificationID;
@@ -57,6 +102,8 @@ public class Notification {
     public void setUser(User user) {
         this.user = user;
     }
+
+
 
     public String getNotificationType() {
         return notificationType;
@@ -80,9 +127,6 @@ public class Notification {
 
     public void setNotificationRead(Boolean notificationRead) {
         this.notificationRead = notificationRead;
-    }
-    public void readNotification() {
-        this.notificationRead = true;
     }
 
     public LocalDateTime getNotificationDateTime() {

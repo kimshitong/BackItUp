@@ -1,6 +1,7 @@
 package com.BackItUp.orbital.controller;
 
 import com.BackItUp.orbital.model.*;
+import com.BackItUp.orbital.repository.notificationRepo;
 import com.BackItUp.orbital.repository.postRepo;
 import com.BackItUp.orbital.repository.shareRepo;
 import com.BackItUp.orbital.repository.userRepo;
@@ -18,6 +19,8 @@ public class PostController {
     private userRepo userRepository;
     @Autowired
     private shareRepo shareRepository;
+    @Autowired
+    private notificationRepo notificationRepository;
     @Autowired
     private postRepo postRepository;
 
@@ -72,13 +75,15 @@ public class PostController {
 
         if(verification.equals("verify")){
             post.verify(dt);
+            postRepository.save(post);
+            notificationRepository.save(Notification.sendPostSuccessNotification(post.getUser(),post));
         }else if( verification.equals("unverify")){
             post.unverify(dt);
+            postRepository.save(post);
+
         }else{
             return false;
         }
-
-        postRepository.save(post);
         return true;
     }
 

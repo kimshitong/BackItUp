@@ -1,7 +1,9 @@
 package com.BackItUp.orbital.controller;
 
+import com.BackItUp.orbital.model.Notification;
 import com.BackItUp.orbital.model.User;
 import com.BackItUp.orbital.model.UserEdit;
+import com.BackItUp.orbital.repository.notificationRepo;
 import com.BackItUp.orbital.repository.userRepo;
 
 import com.BackItUp.orbital.model.Wallet;
@@ -23,10 +25,25 @@ public class userController {
     private userRepo userRepository;
     @Autowired
     private walletRepo WALLETRepository;
+    @Autowired
+    private notificationRepo NOTIFICATIONRepository;
 
     //Creating User
     @PostMapping("/api/createUser")
     User newUser(@RequestBody User user) {
+
+        Wallet newWallet = new Wallet(0,0);
+        WALLETRepository.save(newWallet);
+
+        user.setWallet(newWallet);
+
+        System.out.println(user);
+
+        return userRepository.save(user);
+    }
+
+    @PostMapping("/api/createUserbyAuth")
+    User createUserbyAuth(@RequestBody User user) {
 
         Wallet newWallet = new Wallet(0,0);
         WALLETRepository.save(newWallet);
@@ -66,7 +83,7 @@ public class userController {
     //Get Lists of Unverified Founders
     @GetMapping("/api/unverifiedFounder")
     List<User> getUnverifiedFounders() {
-        return userRepository.findByUserTypeAndUserVerified("Founder", Boolean.TRUE);
+        return userRepository.findByUserTypeAndUserVerified("Founder", 0);
     }
 
 
@@ -96,7 +113,7 @@ public class userController {
         User user = optionalUser.get();
 
 
-        if(user.getUserType().equals("Company") && user.getUserVerified()){
+        if(user.getUserType().equals("Company") && user.getUserVerified() == 1){
             return user.getUserID();
         }else{
             return null;
@@ -115,12 +132,27 @@ public class userController {
         User user = optionalUser.get();
 
 
-        if(user.getUserType().equals("Founder") && user.getUserVerified()){
+        if(user.getUserType().equals("Founder") && user.getUserVerified() == 1){
             return user.getUserID();
         }else{
             return null;
         }
     }
+
+    @GetMapping("/api/verifyUserbyAuth/{userOauthIdentifier}/{type}")
+    public Integer verifyUserbyAuth(@PathVariable("type") String type,@PathVariable("userOauthIdentifier") String userOauthIdentifier) {
+        // Retrieve the user record from the database
+        Optional<User> optionalUser = userRepository.findByUserOauthIdentifierAndUserOauthType(userOauthIdentifier,type);
+        //Type is basically FACEBOOK/GOOGLE/GITHUB
+
+        if (optionalUser.isEmpty()) {
+            return null;
+        }
+        User user = optionalUser.get();
+
+        return user.getUserID();
+    }
+
 
     // Retrieve the user record from the database
     @GetMapping("/api/user/{userID}")
@@ -150,13 +182,13 @@ public class userController {
         User user = optionalUser.get();
 
         // Update the user_verified field
-        user.setUserVerified(true);
+        user.setUserVerified(1);
 
         // Save the updated user record
         userRepository.save(user);
 
-        Notification noti = Notification.sendNotification(user,"USER","You have been Verfied", LocalDateTime.now())
-        notificationRepo.save(noti);
+        Notification noti = Notification.sendVerifiedNotification(user);
+        NOTIFICATIONRepository.save(noti);
         
         return true;
     }
@@ -175,7 +207,7 @@ public class userController {
         User user = optionalUser.get();
 
         // Update the user_verified field
-        user.setUserVerified(false);
+        user.setUserVerified(0);
 
         // Save the updated user record
         userRepository.save(user);

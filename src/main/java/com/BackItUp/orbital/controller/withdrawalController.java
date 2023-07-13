@@ -1,6 +1,8 @@
 package com.BackItUp.orbital.controller;
 
 import com.BackItUp.orbital.model.*;
+import com.BackItUp.orbital.repository.notificationRepo;
+import com.BackItUp.orbital.repository.userRepo;
 import com.BackItUp.orbital.repository.withdrawalRepo;
 import com.BackItUp.orbital.repository.walletRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,10 @@ public class withdrawalController {
     private walletRepo WALLETRepository;
     @Autowired
     private withdrawalRepo withdrawalRepository;
+    @Autowired
+    private userRepo userRepository;
+    @Autowired
+    private notificationRepo notificationRepository;
     @PostMapping("/api/withdrawal")
     Withdrawal newWithdrawal(@RequestBody WithdrawalResponse response) {
 
@@ -36,6 +42,9 @@ public class withdrawalController {
 
         if(verification.equals("verify")){
             withdrawal.verify(dt);
+            User user = userRepository.findByWallet(withdrawal.getWallet());
+            notificationRepository.save(Notification.sendWithdrawalSuccessNotification(user,withdrawal));
+
         }else if(verification.equals("unverify")){
             withdrawal.unverify(dt);
         }else{

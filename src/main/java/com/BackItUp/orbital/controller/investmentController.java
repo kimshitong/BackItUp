@@ -25,6 +25,8 @@ public class investmentController {
     private userRepo userRepository;
     @Autowired
     private shareRepo shareRepository;
+    @Autowired
+    private notificationRepo notificationRepository;
 
     @GetMapping("/api/invest/{shareid}/{userid}/{share_amount}/{dt}")
     Integer invest(@PathVariable("shareid") Integer shareID, @PathVariable("share_amount") Integer shareAmount,
@@ -66,30 +68,34 @@ public class investmentController {
         }
 
         //Do Payment
-        Integer InvestID = invest(share,payer, investDT, shareAmount);
+        Investment investment = invest(share,payer, investDT, shareAmount);
 
-        return InvestID;
+        notificationRepository.saveAll(Notification.sendInvestSuccessNotification(investment));
+
+        return investment.getInvestId();
     }
 
-    private Integer invest(Share share,User payer, LocalDateTime investDT, Integer shareAmount){
+    private Investment invest(Share share,User investor, LocalDateTime investDT, Integer shareAmount){
+        User company = share.getUser();
+
         //Retrieve Company Wallet
-        Wallet payerWallet = payer.getWallet();
-        Wallet companyWallet = share.getUser().getWallet();
+        Wallet investorWallet = investor.getWallet();
+        Wallet companyWallet = company.getWallet();
 
         double totalAmount = share.SharePriceCalculator(shareAmount);
 
         //Make Payment
-        payerWallet.payActiveBalance(totalAmount,companyWallet);
-        Payment payment = new Payment(totalAmount,payerWallet,companyWallet,investDT);
+        investorWallet.payActiveBalance(totalAmount,companyWallet);
+        Payment payment = new Payment(totalAmount,investorWallet,companyWallet,investDT);
         //Register Investment
-        Investment investment = new Investment(payer,share,shareAmount,payment,investDT,true);
+        Investment investment = new Investment(investor,share,shareAmount,payment,investDT,true);
 
         //Register In Database
         WALLETRepository.save(companyWallet);
-        WALLETRepository.save(payerWallet);
+        WALLETRepository.save(investorWallet);
         paymentRepository.save(payment);
         investmentRepository.save(investment);
-        return investment.getInvestId();
+        return investment;
     }
 
     @GetMapping("/api/listinvest/user/{userid}")

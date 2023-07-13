@@ -22,12 +22,12 @@ public class User {
     private String userPass;
     @Column(name = "USER_TYPE")
     private String userType;
-    @Column(name = "USER_VERIFIED")
-    private Boolean userVerified;
-    @Column(name = "USER_ACCOUNT")
-    private String userAccount;
-    @Column(name = "USER_AUTHURL", columnDefinition = "TEXT")
-    private String userAuthURL;
+    @Column(name = "USER_VERIFIED", columnDefinition = "DEFAULT 0")
+    private Integer userVerified;
+    @Column(name = "USER_OAUTHTYPE")
+    private String userOauthType;
+    @Column(name = "USER_OAUTHIDENTIFIER", columnDefinition = "TEXT")
+    private String userOauthIdentifier;
     @Column(name = "USER_EVIDENCE", columnDefinition = "TEXT")
     private String userEvidence;
     @Column(name = "USER_DESCRIPTION", columnDefinition = "TEXT")
@@ -49,9 +49,9 @@ public class User {
         this.userHP = userHP;
         this.userPass = userPass;
         this.userType = userType;
-        this.userVerified = false;
+        this.userVerified = 0;
         this.userEvidence = userEvidence;
-        this.userAccount = "USER";
+        this.userOauthType = "USER";
     }
 
     public User(String userName, String userEmail, String userHP, String userPass) {
@@ -60,21 +60,22 @@ public class User {
         this.userHP = userHP;
         this.userPass = userPass;
         this.userType = "Company";
-        this.userAccount = "USER";
-        this.userVerified = true;
+        this.userVerified = 1;
         this.userEvidence = "Company Account";
+        this.userOauthType = "USER";
     }   
 
-    public User(String userName, String userEmail, String userHP, String userPass, String userType,  String userAccount, String userAuthURL, String userEvidence) {
+    public User(String userName, String userEmail, String userHP, String userPass, String userType,  String userOauthType, String userOauthIdentifier, String userEvidence) {
         this.userName = userName;
         this.userEmail = userEmail;
         this.userHP = userHP;
         this.userPass = userPass;
         this.userType = userType;
-        this.userAccount = userAccount
-        this.userAuthURL = userAuthURL;
-        this.userVerified = false;
-        this.userEvidence = "User Account by Auth";
+        this.userOauthType = userOauthType; // could be GITHUB/FB/GOOGLE
+        this.userOauthIdentifier = userOauthIdentifier;
+        this.userEvidence = userEvidence;
+        this.userVerified = 0;
+        this.userDescription = "User Account by Auth:" +userType;
     }   
 
     public void editUser(UserEdit resp){
@@ -142,20 +143,20 @@ public class User {
         this.userPass = userPass;
     }
 
-    public String getUserAccount() {
-        return userAccount;
+    public String getUserOauthType() {
+        return userOauthType;
     }
 
-    public void setUserAccount(String userAccount) {
-        this.userAccount = userAccount;
+    public void setUserOauthType(String userOauthType) {
+        this.userOauthType = userOauthType;
     }
 
-    public String getUserAuthURL() {
-        return userAuthURL;
+    public String getUserOauthIdentifier() {
+        return userOauthIdentifier;
     }
 
-    public void setUserAuthURL(String userAuthURL) {
-        this.userAuthURL = userAuthURL;
+    public void setUserOauthIdentifier(String userOauthIdentifier) {
+        this.userOauthIdentifier = userOauthIdentifier;
     }
 
     public String getUserType() {
@@ -166,11 +167,11 @@ public class User {
         this.userType = userType;
     }
 
-    public Boolean getUserVerified() {
+    public Integer getUserVerified() {
         return userVerified;
     }
 
-    public void setUserVerified(Boolean userVerified) {
+    public void setUserVerified(Integer userVerified) {
         this.userVerified = userVerified;
     }
 
@@ -189,6 +190,8 @@ public class User {
     public void setWallet(Wallet wallet) {
         this.wallet = wallet;
     }
+
+
 
 
 }

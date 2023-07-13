@@ -1,9 +1,7 @@
 package com.BackItUp.orbital.controller;
 
 import com.BackItUp.orbital.model.*;
-import com.BackItUp.orbital.repository.topupRepo;
-import com.BackItUp.orbital.repository.walletRepo;
-import com.BackItUp.orbital.repository.withdrawalRepo;
+import com.BackItUp.orbital.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,6 +15,10 @@ public class topupController {
     private walletRepo WALLETRepository;
     @Autowired
     private topupRepo topupRepository;
+    @Autowired
+    private userRepo userRepository;
+    @Autowired
+    private notificationRepo notificationRepository;
     @PostMapping("/api/topup")
     Topup newTopup(@RequestBody TopupResponse response) {
 
@@ -38,6 +40,9 @@ public class topupController {
 
         if(verification.equals("verify")){
             topup.verify(dt);
+            User user = userRepository.findByWallet(topup.getWallet());
+            notificationRepository.save(Notification.sendTopupSuccessNotification(user,topup));
+
         }else if(verification.equals("unverify")){
             topup.unverify(dt);
         }else{

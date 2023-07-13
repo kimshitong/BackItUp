@@ -12,37 +12,43 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin("http://localhost:3000/")
-public class withdrawalController {
+public class notificationController {
+
     @Autowired
     private userRepo userRepository;
     @Autowired
-    private withdrawalRepo notificationRepo;
+    private notificationRepo notificationRepository;
 
     @GetMapping("/api/listNotification/read/{user_id}")
-    List<Notification> check(@PathVariable("user_id") Integer user_id){
+    List<Notification> listReadNotification(@PathVariable("user_id") Integer user_id){
         User user = userRepository.findById(user_id).get();
         
 
-        return notificationRepo.findByUserAndNotificationRead(user,true);
+        return notificationRepository.findByUserAndNotificationRead(user,true);
     }
     @GetMapping("/api/listNotification/unread/{user_id}")
-    List<Notification> check(@PathVariable("user_id") Integer user_id){
+    List<Notification> listUnreadNotification(@PathVariable("user_id") Integer user_id){
         User user = userRepository.findById(user_id).get();
 
-        List<Notification> notiList= notificationRepo.findByUserandNotificationRead(user,false);
+        List<Notification> notiList= notificationRepository.findByUserAndNotificationRead(user,false);
 
-        for(int i = 0; i < notiList.length(); i++){
-            notificationRepo.save(notiList[i].readNotification);
+        for(int i = 0; i < notiList.size(); i++){
+            notificationRepository.save(notiList.get(i).readNotification());
         }
 
         return notiList;
     }
     
     @GetMapping("/api/listNotification/all/{user_id}")
-    List<Notification> check(@PathVariable("user_id") Integer user_id){
+    List<Notification> listAllNotification(@PathVariable("user_id") Integer user_id){
         User user = userRepository.findById(user_id).get();
 
-        return notificationRepo.findByUser(user);
+        List<Notification> notiList =  notificationRepository.findByUser(user);
+        for(int i = 0; i < notiList.size(); i++){
+            notificationRepository.save(notiList.get(i).readNotification());
+        }
+        return notiList;
+
     }
 
 }
