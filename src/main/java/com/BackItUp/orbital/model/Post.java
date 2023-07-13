@@ -71,7 +71,7 @@ public class Post {
         this.postSustainable = postCreationJSON.isPostSustainable();
         this.postExpireDT = postCreationJSON.getPostExpireDT();
 
-        this.postStatus = 0;
+        this.postStatus = postCreationJSON.getPostStatus(); // should be 0 initially.
         this.postCreateDT = postCreationJSON.getPostCreateDT();
     }
 

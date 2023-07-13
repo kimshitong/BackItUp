@@ -43,13 +43,13 @@ public class User {
     public User() {
     }
 
-    public User(String userName, String userEmail, String userHP, String userPass, String userType, Boolean userVerified, String userEvidence) {
+    public User(String userName, String userEmail, String userHP, String userPass, String userType, String userEvidence) {
         this.userName = userName;
         this.userEmail = userEmail;
         this.userHP = userHP;
         this.userPass = userPass;
         this.userType = userType;
-        this.userVerified = userVerified;
+        this.userVerified = false;
         this.userEvidence = userEvidence;
         this.userAccount = "USER";
     }
@@ -65,16 +65,16 @@ public class User {
         this.userEvidence = "Company Account";
     }   
 
-    public User(String userName, String userEmail, String userAuthURL, String userHP, String userPass) {
+    public User(String userName, String userEmail, String userHP, String userPass, String userType,  String userAccount, String userAuthURL, String userEvidence) {
         this.userName = userName;
         this.userEmail = userEmail;
         this.userHP = userHP;
         this.userPass = userPass;
-        this.userType = "Company";
-        this.userAccount = "USER";
+        this.userType = userType;
+        this.userAccount = userAccount
         this.userAuthURL = userAuthURL;
-        this.userVerified = true;
-        this.userEvidence = "Company Account";
+        this.userVerified = false;
+        this.userEvidence = "User Account by Auth";
     }   
 
     public void editUser(UserEdit resp){
@@ -140,6 +140,22 @@ public class User {
 
     public void setUserPass(String userPass) {
         this.userPass = userPass;
+    }
+
+    public String getUserAccount() {
+        return userAccount;
+    }
+
+    public void setUserAccount(String userAccount) {
+        this.userAccount = userAccount;
+    }
+
+    public String getUserAuthURL() {
+        return userAuthURL;
+    }
+
+    public void setUserAuthURL(String userAuthURL) {
+        this.userAuthURL = userAuthURL;
     }
 
     public String getUserType() {

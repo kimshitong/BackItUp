@@ -24,6 +24,7 @@ public class userController {
     @Autowired
     private walletRepo WALLETRepository;
 
+    //Creating User
     @PostMapping("/api/createUser")
     User newUser(@RequestBody User user) {
 
@@ -51,6 +52,7 @@ public class userController {
         return userRepository.save(user);
     }
 
+    //Editing User
     @PostMapping("/api/editUser/{id}")
     User newCompany(@RequestBody UserEdit resp, @PathVariable("id") Integer creatorId) {
 
@@ -61,35 +63,14 @@ public class userController {
         return userRepository.save(user);
     }
 
-
+    //Get Lists of Unverified Founders
     @GetMapping("/api/unverifiedFounder")
     List<User> getUnverifiedFounders() {
         return userRepository.findByUserTypeAndUserVerified("Founder", Boolean.TRUE);
     }
 
-    @GetMapping("/{id}/verify")
-    public Boolean verifyUser(@PathVariable("id") Integer userId) {
-        // Retrieve the user record from the database
-        Optional<User> optionalUser = userRepository.findById(userId);
 
-
-        if (optionalUser.isEmpty()) {
-            return false;
-        }
-
-        User user = optionalUser.get();
-
-        // Update the user_verified field
-        user.setUserVerified(true);
-
-        // Save the updated user record
-        userRepository.save(user);
-
-        return true;
-    }
-
-
-
+    //Log-in Purpose
     @GetMapping("/api/verifyUser/{email}/{password}")
     public Integer verifyUser(@PathVariable("email") String userEmail,@PathVariable("password") String userPass) {
         // Retrieve the user record from the database
@@ -100,9 +81,9 @@ public class userController {
             return null;
         }
         User user = optionalUser.get();
-        System.out.println("user received" + user.getUserID().toString());
         return user.getUserID();
     }
+    //Log-in Purpose
     @GetMapping("/api/verifyCompany/{email}/{password}")
     public Integer verifyCompany(@PathVariable("email") String userEmail,@PathVariable("password") String userPass) {
         // Retrieve the user record from the database
@@ -121,6 +102,7 @@ public class userController {
             return null;
         }
     }
+    //Log-in Purpose
     @GetMapping("/api/verifyFounder/{email}/{password}")
     public Integer verifyFounder(@PathVariable("email") String userEmail,@PathVariable("password") String userPass) {
         // Retrieve the user record from the database
@@ -140,9 +122,9 @@ public class userController {
         }
     }
 
+    // Retrieve the user record from the database
     @GetMapping("/api/user/{userID}")
     public User getUser(@PathVariable("userID") Integer userID) {
-        // Retrieve the user record from the database
         Optional<User> optionalUser = userRepository.findById(userID);
 
 
@@ -154,6 +136,32 @@ public class userController {
         return user;
     }
 
+    //Verify User
+    @GetMapping("/{id}/verify")
+    public Boolean verifyUser(@PathVariable("id") Integer userId) {
+        // Retrieve the user record from the database
+        Optional<User> optionalUser = userRepository.findById(userId);
+
+
+        if (optionalUser.isEmpty()) {
+            return false;
+        }
+
+        User user = optionalUser.get();
+
+        // Update the user_verified field
+        user.setUserVerified(true);
+
+        // Save the updated user record
+        userRepository.save(user);
+
+        Notification noti = Notification.sendNotification(user,"USER","You have been Verfied", LocalDateTime.now())
+        notificationRepo.save(noti);
+        
+        return true;
+    }
+    
+    //Unverify User
     @GetMapping("/{id}/unverify")
     public Boolean unverifyUser(@PathVariable("id") Integer userId) {
         // Retrieve the user record from the database
