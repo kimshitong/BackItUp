@@ -22,6 +22,8 @@ export default function ViewUser({currUser}) {
         userEvidence: currUser.userEvidence
     })
 
+    const [photo, setPhoto] = useState(null)
+
     const {name, email, hp, password, type, verified, evidence } = user;
 
     const [isEdit, setIsEdit] = useState(false)
@@ -37,6 +39,10 @@ export default function ViewUser({currUser}) {
         e.preventDefault()
         setShowPassword(!showPassword);
     };
+
+    const handleFileChange = (e) => {
+        setPhoto(e.target.files[0])
+    }
 
     const handleEditToggle = (e) => {
         e.preventDefault()
@@ -58,6 +64,16 @@ export default function ViewUser({currUser}) {
               };
 
               console.log(data)
+            
+            // Upload photo to local source folder
+            if (photo) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    const fileData = event.target.result;
+                    localStorage.setItem(`user-photo-${currUser.userID}`, fileData);
+                };
+                reader.readAsDataURL(photo);
+            }
               
             // Create a user with the created wallet.java
             const response = await axios.post(`http://localhost:8080/api/editUser/${currUser.userID}`, data, {
@@ -86,8 +102,10 @@ export default function ViewUser({currUser}) {
                 <h2 className="mb-4" style={{ textAlign: "left" }}>Personal Details</h2>
                
                   <form>  
+                    
                   <div className="row g-3">
-                 <div className="col-md-6 mb-3" style={{ textAlign: "left" }}>
+                    
+                  <div className="col-md-6 mb-3" style={{ textAlign: "left" }}>
                     <label
                         htmlFor="Name"
                         className="form-label">
@@ -164,6 +182,24 @@ export default function ViewUser({currUser}) {
                         </button>
                         </div>
                     </div>
+                    <div className="col-md-6 mb-3" style={{ textAlign: "left" }}>
+                    <label
+                        htmlFor="Photo"
+                        className="form-label">
+                        Profile Photo
+                    </label>
+                    <input
+                        type={"file"}
+                        className="form-control"
+                        // placeholder={`${user.userName}`}
+                        name="Photo"
+                        // value={user.userName}
+                        onChange={(event) => handleFileChange(event)}
+                        
+                        disabled={!isEdit}
+                        
+                    />
+                </div> 
                     {
                         isEdit
                         ? <button type="submit" className="btn btn-solid-dark mb-3">Save Changes</button>

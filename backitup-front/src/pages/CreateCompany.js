@@ -134,7 +134,13 @@ export default function CreateCompany({currUser}) {
                     />
                 </div>
                 <div className="col-md-6 mb-3">
+                <label
+                        htmlFor="Password"
+                        className="form-label">
+                        Password
+                    </label>
                 <div className="password-input-wrapper">
+                
                         <input 
                             type={showPassword ? 'text' : 'password'} 
                             className={showPassword ? "form-control" : "form-control password-input"}
@@ -143,7 +149,7 @@ export default function CreateCompany({currUser}) {
                             value={password}
                             onChange={(event) => handleChange(event)}
                         />
-                        <button className="btn password-toggle" onClick={handleTogglePassword}>
+                        <button type="button" className="btn password-toggle" onClick={handleTogglePassword}>
                             <img src={showPassword ? pwHide : pwShow} style={{height: 30}}/>
                         </button>
                         

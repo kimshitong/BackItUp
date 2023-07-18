@@ -163,3 +163,70 @@
   background-color: grey;
   color: #fff;
 }
+
+/* Notification drawer */
+.notification-drawer {
+    position: fixed;
+    top: 0;
+    right: -300px; /* Initial position off the screen */
+    width: 300px;
+    height: 100%;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: right 0.3s ease-in-out;
+    z-index: 999;
+  }
+  
+  .notification-drawer.open {
+    right: 0; /* Slide in from the right side when open */
+  }
+  
+  .notification-content {
+    padding: 20px;
+  }
+  
+  .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    padding: 0;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+  }
+  
+  h3 {
+    margin-top: 0;
+  }
+
+  /* Navbar Links */
+  .dropdown-link {
+    text-decoration: none; /* Remove the underline */
+    color: black; /* Set the text color to black */
+    display: inline-block; /* Ensure that the link respects the width and height properties */
+  
+    /* Add some padding and margin for better spacing (optional) */
+    padding: 8px 12px;
+    margin-right: 10px;
+    transition: color 0.3s ease-in-out 0s;
+  }
+  
+  /* Style on hover */
+  .dropdown-link:hover {
+    color: grey; /* Add grey background on hover */
+    /* You can also add more styles for the hover effect, like changing the text color, etc. */
+  }
+
+  .dropdown-links-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Align items to the start (left) of the container */
+  }
+
+  .hero-title {
+	background: linear-gradient(to right, green 0%, #CCED00 100%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	
+}

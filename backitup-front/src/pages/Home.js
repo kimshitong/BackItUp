@@ -3,8 +3,9 @@ import axios from 'axios'
 import { Link } from "react-router-dom"
 import "../styles/styles.css"
 import Search from "../components/Search"
+import rocket from "../images/rocket.png"
 
-export default function Home({setPageTitle, setUserType}) {
+export default function Home({setPageTitle, setUserType, isAuth}) {
 
     // Initialise homepage to be blank
     const [posts, setPosts] = useState([])
@@ -49,7 +50,7 @@ export default function Home({setPageTitle, setUserType}) {
   return (
     <div className='container-fluid'>
         <div className='py-4'>
-            <h1 style={{ textAlign: "left" }}>Latest Posts</h1>
+            <h1 className='hero-title display-4 fw-bold' style={{ textAlign: "left" }}>Latest Posts</h1>
             <div>
                 <Search filterBy={showAll} changeBy={handleSearchChange} filterHandler={filterHandler} setEsg={setEsg} />
             </div>
@@ -67,44 +68,21 @@ export default function Home({setPageTitle, setUserType}) {
                 </Link>
                 ))}
             </div>
-            <div class="card bg-dark text-black mt-5">
-                {/* <img class="card-img" src="..." alt="Card image" /> */}
-                <div class="card">
-                    <h5 class="card-title m-3">Can't find what you're looking for?</h5>
-                    <p class="card-text">Be the change that you want to see in the world. Create your own post to make your dreams a reality.</p>
-                    <Link class="btn card-text mb-3" to="/adduser">Start Now.</Link>
-                </div>
-            </div>
-            {/* <table className="table border shadow">
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Title</th>
-                        <th scope="col">Company</th>
-                        <th scope="col">Description</th>
-                        <th scope="col">ESG</th>
-                        <th scope="col">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {
-                        postsToShow.map((post, index) => (
-                            <tr>
-                            <th scope="row" key="index">{index + 1}</th>
-                            <td>{post.postTitle}</td>
-                            <td>{post.user.userName}</td>
-                            <td>{post.postDescription}</td>
-                            <td>{post.postSustainable ? 'Y' : 'N'}</td>
-                            <td>
-                                <Link className="btn btn-outline-primary" to={'/post/' + post.postID} >
-                                    View
-                                </Link>
-                            </td>
-                        </tr>
-                        ))
-                    }
-                </tbody>
-            </table> */}
+            <div class="card bg-dark text-white mt-5">
+  <div class="row">
+    <div class="col-md-8">
+      <div class="card-img-overlay">
+        <h5 class="card-title fw-bold m-3">Can't find what you're looking for?</h5>
+        <p class="card-text">Be the change that you want to see in the world. Create your own post to make your dreams a reality.</p>
+        <Link class="btn btn-solid-dark mb-3" to={isAuth ? "/createcompany" : "/adduser"}>{isAuth ? "Quit dreaming, start building" : "Sign up now"}</Link>
+      </div>
+    </div>
+    <div class="col-md-4 d-flex align-items-end justify-content-end" style={{ maxHeight: "300px"}} >
+      <img class="card-img" src={rocket} alt="" style={{ width: "42%", height: "100%", objectFit: "cover" }}/>
+    </div>
+  </div>
+</div>
+
         </div>
     </div>
   )

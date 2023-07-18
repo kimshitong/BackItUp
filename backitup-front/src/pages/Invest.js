@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
+import '../styles/styles.css'
 
 export default function Invest(props) {
 
@@ -44,9 +45,9 @@ export default function Invest(props) {
 
   return (
     
-    <div className="container">
+    <div className="container-center-login">
         <div className="row">
-            <div className="col-md-6 offset-md-3 border rounded p-4 mt-2 shadow">
+            <div className="col-md-12 border rounded p-4 mt-2 shadow">
                 <h2 className="text-center m-4">Back the future now!</h2>
                 <form onSubmit={(event) => onSubmit(event)}>
                     <div className="mb-3">
@@ -55,7 +56,7 @@ export default function Invest(props) {
                         </label>
                         <input type={"text"} className="form-control" placeholder="Enter a number..." name="amt" value={amt} onChange={(event) => onInputChange(event)}/>
                     </div>
-                    <button type="submit" className="btn btn-outline-primary">Invest Now!</button>
+                    <button type="submit" className="btn btn-solid-dark">Invest Now!</button>
                 </form>
             </div>
         </div>

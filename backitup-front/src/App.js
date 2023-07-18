@@ -8,7 +8,7 @@ import Post from './pages/Post'
 import Invest from './pages/Invest'
 import Admin from './pages/admin/Admin';
 import Thanks from './pages/Thanks';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import LogIn from './pages/LogIn';
 import CreatePost from './pages/CreatePost';
 import CreateCompany from './pages/CreateCompany';
@@ -28,6 +28,7 @@ import EditPost from './pages/EditPost';
 import HowToInvest from './pages/get-started/HowToInvest';
 import HowToRaise from './pages/get-started/HowToRaise';
 import About from './pages/About';
+import { gapi } from 'gapi-script'
 
 function App() {
 
@@ -51,7 +52,7 @@ function App() {
         <Routes>
 
           {/* Public routes */}
-          <Route exact path ="/" element={<Home setPageTitle={setPageTitle} setUserType={setUserType} />} />
+          <Route exact path ="/" element={<Home setPageTitle={setPageTitle} setUserType={setUserType} isAuth={isAuth} />} />
           <Route exact path ="/adduser" element={<AddUser setPageTitle={setPageTitle} />} />
           <Route path ="/post" element={<Post isAuth={isAuth} setPageTitle={setPageTitle} />} /> {/* find a way to make this a unique link for each project */}
           <Route path ="/post/:id" element={<Post isAuth={isAuth} setPageTitle={setPageTitle} />} /> {/* find a way to make this a unique link for each project */}

@@ -5,11 +5,13 @@ import { useNavigate } from 'react-router-dom'
 import pwShow from '../images/pw-show.jpg'
 import pwHide from '../images/pw-hide.jpg'
 import logoWords from "../images/logo-words.png"
+import AddUserAuth from "./auth/AddUserAuth"
+import jwt_decode from "jwt-decode";
 
 import "../styles/styles.css"
 
 // Step 1: Email and password input
-const Step1 = ({ onNext, user, handleChange }) => {
+const Step1 = ({ onNext, user, handleChange, setUser }) => {
     const handleSubmit = (e) => {
       e.preventDefault();
       // Handle form submission for Step 1
@@ -17,7 +19,41 @@ const Step1 = ({ onNext, user, handleChange }) => {
       // Call onNext to proceed to the next step
       onNext();
     };
-  
+
+    const handleCallbackResponse = (response) => {
+        console.log(response.credential);
+        var userObject = jwt_decode(response.credential)
+        console.log(userObject);
+        console.log(userObject.name);
+        // setUser({...user, userEmail: userObject.email});
+        setUser({
+            ...user,
+            userEmail: userObject.email,
+            userOauthType: 'GOOGLE',
+            userOauthIdentifier: userObject.sub,
+        });
+        console.log(user);
+        onNext();
+      }
+
+   
+      useEffect(() => {
+        /* global google */
+        google.accounts.id.initialize({
+          client_id: "502112046738-80gbpokjtcn2qqur1su4g69jp28dtvgk.apps.googleusercontent.com",
+          callback: handleCallbackResponse
+        })
+    
+        google.accounts.id.renderButton(
+          document.getElementById("signInDiv"),
+          { theme: "outline", size: "large"}
+        )
+      }, [])
+      
+      useEffect(() => {
+        console.log(user);
+      }, [user]);
+
     return (
         <div className="container-center-login">
         <div className="container">
@@ -35,30 +71,18 @@ const Step1 = ({ onNext, user, handleChange }) => {
                     type={"text"}
                     className="form-control"
                     placeholder="example@backitup.com"
-                    name="email"
-                    value={user.email}
+                    name="userEmail"
+                    value={user.userEmail}
                     onChange={(event) => handleChange(event)}
                 />
                 <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
             </div>
-            <div className="mb-3" style={{ textAlign: "left" }}>
-                <label
-                    htmlFor="Password"
-                    className="form-label">
-                    Password
-                </label>
-                <input 
-                    type={"text"} 
-                    className="form-control"
-                    placeholder="Password"
-                    name="password"
-                    value={user.password}
-                    onChange={(event) => handleChange(event)}
-                />
-                <small id="passwordHelp" class="form-text text-muted">Please choose a strong password.</small>
-            </div>
+            
         <button className="btn btn-outline-dark mb-2" type="submit">Next</button>
       </form>
+      <hr/>
+    <div id="signInDiv" className='btn btn-block mb-2'></div>
+    <br/>
       <small id="loginHelp" className="form-text text-muted">Already have an account? <a href="/login">Log in now.</a></small>
       </div></div></div></div>
     );
@@ -69,12 +93,28 @@ const Step1 = ({ onNext, user, handleChange }) => {
 const Step2 = ({ onPrevious, onSubmit, user, handleChange }) => {
      
     return (
-        <div className="container-center-signup">
+        <div className="container-center-signu mt-3 mb-5">
         <div className="container">
             <div className="row">
                 <div className="col-md-4 offset-md-4 border rounded p-4 mt-2 shadow">
       <form onSubmit={onSubmit}>
         <h2>Step 2: Personal Information</h2>
+        <div className="mb-3" style={{ textAlign: "left" }}>
+                <label
+                    htmlFor="Password"
+                    className="form-label">
+                    Password
+                </label>
+                <input 
+                    type={"text"} 
+                    className="form-control"
+                    placeholder="Password"
+                    name="userPass"
+                    value={user.userPass}
+                    onChange={(event) => handleChange(event)}
+                />
+                <small id="passwordHelp" class="form-text text-muted">Please choose a strong password.</small>
+            </div>
         <div className="mb-3" style={{ textAlign: "left" }}>
             <label
                 htmlFor="Name"
@@ -85,8 +125,8 @@ const Step2 = ({ onPrevious, onSubmit, user, handleChange }) => {
                 type={"text"}
                 className="form-control"
                 placeholder="Kim"
-                name="name"
-                value={user.name}
+                name="userName"
+                value={user.userName}
                 onChange={(event) => handleChange(event)}
             />
         </div>
@@ -100,8 +140,8 @@ const Step2 = ({ onPrevious, onSubmit, user, handleChange }) => {
                 type={"text"}
                 className="form-control"
                 placeholder="+65 9123 4567"
-                name="hp"
-                value={user.hp}
+                name="userHP"
+                value={user.userHP}
                 onChange={(event) => handleChange(event)}
             />
         </div>
@@ -111,10 +151,10 @@ const Step2 = ({ onPrevious, onSubmit, user, handleChange }) => {
                 className="form-label">
                 Account Type
             </label>
-            <select class="form-control" name="type" id="selectList" onChange={(event) => handleChange(event)}>
-                <option value="" selected disabled hidden>Click to choose one...</option>
-                <option value={user.type}>Founder</option>
-                <option value={user.type}>Investor</option>
+            <select class="form-control" name="userType" id="selectList" onChange={(event) => handleChange(event)}>
+                <option value="" defaultValue disabled hidden>Click to choose one...</option>
+                <option value={user.userType}>Founder</option>
+                <option value={user.userType}>Investor</option>
             </select>
         </div>
     
@@ -128,8 +168,8 @@ const Step2 = ({ onPrevious, onSubmit, user, handleChange }) => {
                 type={"text"}
                 className="form-control"
                 placeholder="Insert public shareable link"
-                name="evidence"
-                value={user.evidence}
+                name="userEvidence"
+                value={user.userEvidence}
                 onChange={(event) => handleChange(event)}
             />
             <small id="evidenceHelp" class="form-text text-muted">This will be cross-referenced by our admin team before we verify your account.</small>
@@ -158,11 +198,13 @@ export default function AddUser({setPageTitle}) {
         userPass: "",
         userType: "",
         userVerified: false,
-        userEvidence: ""
+        userEvidence: "",
+        userOauthType: "",
+        userOauthIdentifier: ""
     })
 
-    const {name, email, hp, password, type, verified, evidence} = user;
-
+    // const {name, email, hp, password, type, verified, evidence, oauthtype, oauthid} = user;
+  
     const handleChange = (event) => {
         setUser({...user, [event.target.name]: event.target.value});
     }
@@ -180,19 +222,21 @@ export default function AddUser({setPageTitle}) {
         event.preventDefault()
         try {
             const data = {
-                userName: name,
-                userEmail: email,
-                userHP: hp,
-                userPass: password,
-                userType: type,
-                userVerified: false,
-                userEvidence: evidence
+                userName: user.userName,
+                userEmail: user.userEmail,
+                userHP: user.userHP,
+                userPass: user.userPass,
+                userType: user.userType,
+                // userVerified: false,
+                userEvidence: user.userEvidence,
+                userOauthType: user.userOauthType,
+                userOauthIdentifier: user.userOauthIdentifier
               };
 
               console.log(data)
               
             // Create a user with the created wallet.java
-            const response = await axios.post('http://localhost:8080/api/createUser', data, {
+            const response = await axios.post('http://localhost:8080/api/createUserbyAuth', data, {
                 headers: {
                   'Content-Type': 'application/json'
                 }
@@ -212,120 +256,15 @@ export default function AddUser({setPageTitle}) {
 
   return (
     <div>
-    {/* // <div className="container-center-login">
-    //     <div className="container">
-    //         <div className="row">
-    //             <div className="col-md-4 offset-md-4 border rounded p-4 mt-2 shadow"> */}
-                    {step === 1 && <Step1 onNext={handleNext} user={user} handleChange={handleChange}/>}
-                    {step === 2 && (
-                        <Step2
-                        onPrevious={handlePrevious}
-                        onSubmit={onSubmit}
-                        handleChange={handleChange}
-                        user={user}
-                        />
-                    )}
-                    {/* <h2 className="text-center m-4">Start your journey today.</h2>
-                    <form onSubmit={(event) => onSubmit(event)}>
-                    <div className="mb-3">
-                        <label
-                            htmlFor="Name"
-                            className="form-label">
-                            Name
-                        </label>
-                        <input
-                            type={"text"}
-                            className="form-control"
-                            placeholder="Kim"
-                            name="name"
-                            value={name}
-                            onChange={(event) => handleChange(event)}
-                        />
-                    </div>
-                    <div className="mb-3">
-                        <label
-                            htmlFor="Email"
-                            className="form-label">
-                            Email
-                        </label>
-                        <input
-                            type={"text"}
-                            className="form-control"
-                            placeholder="kim@backitup.com"
-                            name="email"
-                            value={email}
-                            onChange={(event) => handleChange(event)}
-                        />
-                    </div>
-                    <div className="mb-3">
-                        <label
-                            htmlFor="HP"
-                            className="form-label">
-                            HP Number
-                        </label>
-                        <input
-                            type={"text"}
-                            className="form-control"
-                            placeholder="+65 9123 4567"
-                            name="hp"
-                            value={hp}
-                            onChange={(event) => handleChange(event)}
-                        />
-                    </div>
-                    <div className="mb-3">
-                        <label
-                            htmlFor="Password"
-                            className="form-label">
-                            Password
-                        </label>
-                        <input 
-                            type={"text"} 
-                            className="form-control"
-                            placeholder="Please choose a strong password e.g. 0Rb1tA1!"
-                            name="password"
-                            value={password}
-                            onChange={(event) => handleChange(event)}
-                        />
-                    </div>
-                    <div className="mb-3">
-                        <label
-                            htmlFor="Type"
-                            className="form-label">
-                            Account Type
-                        </label>
-                        <br></br>
-                        <select name="type" id="selectList" onChange={(event) => handleChange(event)}>
-                            <option value="" selected disabled hidden>Choose one...</option>
-                            <option value={type}>Founder</option>
-                            <option value={type}>Investor</option>
-                        </select>
-                    </div>
-                
-                    <div className="mb-3">
-                        <label
-                            htmlFor="Evidence"
-                            className="form-label">
-                            Documents
-                        </label>
-                        <input
-                            type={"text"}
-                            className="form-control"
-                            placeholder="Insert public shareable link"
-                            name="evidence"
-                            value={evidence}
-                            onChange={(event) => handleChange(event)}
-                        />
-                    </div>
-                    <button type="submit" className="btn btn-outline-primary mb-3">Submit</button>
-                    <div>
-                        <small id="loginHelp" className="form-text text-muted">Already have an account? <a href="/login">Log in now.</a></small>    
-                    </div>
-                    </form> */}
-                {/* </div>
-                
-            </div>
-        </div>
-    </div> */}
+        {step === 1 && <Step1 onNext={handleNext} user={user} handleChange={handleChange} setUser={setUser} />}
+        {step === 2 && (
+            <Step2
+            onPrevious={handlePrevious}
+            onSubmit={onSubmit}
+            handleChange={handleChange}
+            user={user}
+            />
+        )}
     </div>
 
   )

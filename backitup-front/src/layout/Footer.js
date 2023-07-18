@@ -15,7 +15,7 @@ export default function Footer() {
                     </div>
                 </div>
                 <div className="d-flex flex-column align-items-start mt-5">
-                    <h4>Get Started</h4>
+                    <h4 className='fw-bold'>Get Started</h4>
                     <Link className="mb-2" to={"/getstarted/invest"}
                         style={{
                         textDecoration: "none",
@@ -46,7 +46,7 @@ export default function Footer() {
                     </Link>
                 </div>
                 <div className="d-flex flex-column align-items-start mt-5">
-                    <h4>BackItUp</h4>
+                    <h4 className='fw-bold'>BackItUp</h4>
                     <Link className="mb-2" to={"/about"}
                         style={{
                         textDecoration: "none",
