@@ -53,16 +53,26 @@ public class notificationController {
 
     @GetMapping("/api/readNotification/{notificationid}")
     Boolean readNotification(@PathVariable("notificationid") Integer notificationid){
-        Notification noti = notificationRepository.findById(notificationid).get();
-        notificationRepository.save(notiList.get(i).readNotification());
-        return true
+        try{
+            Notification noti = notificationRepository.findById(notificationid).get();
+            notificationRepository.save(notiList.get(i).readNotification());
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+
     }
 
     @GetMapping("/api/unreadNotification/{notificationid}")
     Boolean unreadNotification(@PathVariable("notificationid") Integer notificationid){
-        Notification noti = notificationRepository.findById(notificationid).get();
-        notificationRepository.save(notiList.get(i).unreadNotification());
-        return true
+        try{
+            Notification noti = notificationRepository.findById(notificationid).get();
+            notificationRepository.save(notiList.get(i).unreadNotification());
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+
     }
 
 
