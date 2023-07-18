@@ -24,6 +24,14 @@ public class User {
     private String userType;
     @Column(name = "USER_VERIFIED", columnDefinition = "DEFAULT 0")
     private Integer userVerified;
+    @Column(name = "USER_SHOWCONTACT", columnDefinition = "DEFAULT FALSE")
+    private boolean userShowContact;
+
+    @Column(name = "USER_LINKEDINLINK", columnDefinition = "TEXT")
+    private String userLinkedinLink;
+    @Column(name = "USER_PHOTOURL", columnDefinition = "TEXT")
+    private String userPhotoURL;
+
     @Column(name = "USER_OAUTHTYPE")
     private String userOauthType;
     @Column(name = "USER_OAUTHIDENTIFIER", columnDefinition = "TEXT")
@@ -43,7 +51,7 @@ public class User {
     public User() {
     }
 
-    public User(String userName, String userEmail, String userHP, String userPass, String userType, String userEvidence) {
+    public User(String userName, String userEmail, String userHP, String userPass, String userType, String userEvidence, String userLinkedinLink, boolean userShowContact) {
         this.userName = userName;
         this.userEmail = userEmail;
         this.userHP = userHP;
@@ -52,9 +60,11 @@ public class User {
         this.userVerified = 0;
         this.userEvidence = userEvidence;
         this.userOauthType = "USER";
+        this.userLinkedinLink = userLinkedinLink;
+        this.userShowContact = userShowContact;
     }
 
-    public User(String userName, String userEmail, String userHP, String userPass) {
+    public User(String userName, String userEmail, String userHP, String userPass, String userLinkedinLink, boolean userShowContact) {
         this.userName = userName;
         this.userEmail = userEmail;
         this.userHP = userHP;
@@ -63,9 +73,11 @@ public class User {
         this.userVerified = 1;
         this.userEvidence = "Company Account";
         this.userOauthType = "USER";
+        this.userLinkedinLink = userLinkedinLink;
+        this.userShowContact = userShowContact;
     }   
 
-    public User(String userName, String userEmail, String userHP, String userPass, String userType,  String userOauthType, String userOauthIdentifier, String userEvidence) {
+    public User(String userName, String userEmail, String userHP, String userPass, String userType,  String userOauthType, String userOauthIdentifier, String userEvidence,String userLinkedinLink, boolean userShowContact) {
         this.userName = userName;
         this.userEmail = userEmail;
         this.userHP = userHP;
@@ -76,6 +88,9 @@ public class User {
         this.userEvidence = userEvidence;
         this.userVerified = 0;
         this.userDescription = "User Account by Auth:" +userType;
+
+        this.userLinkedinLink = userLinkedinLink;
+        this.userShowContact = userShowContact;
     }   
 
     public void editUser(UserEdit resp){
@@ -85,6 +100,8 @@ public class User {
         this.userPass = resp.getUserPass();
         this.userType = resp.getUserType();
         this.userEvidence = resp.getUserEvidence();
+        this.userLinkedinLink = resp.getUserLinkedinLink();
+        this.userShowContact = resp.isUserShowContact();
     }
 
     public Integer getUserID() {
@@ -105,6 +122,14 @@ public class User {
 
     public User getCreator() {
         return creator;
+    }
+
+    public String getUserPhotoURL() {
+        return userPhotoURL;
+    }
+
+    public void setUserPhotoURL(String userPhotoURL) {
+        this.userPhotoURL = userPhotoURL;
     }
 
     public void setCreator(User creator) {
@@ -190,6 +215,22 @@ public class User {
     public void setWallet(Wallet wallet) {
         this.wallet = wallet;
     }
+    public boolean isUserShowContact() {
+        return userShowContact;
+    }
+
+    public void setUserShowContact(boolean userShowContact) {
+        this.userShowContact = userShowContact;
+    }
+
+    public String getUserLinkedinLink() {
+        return userLinkedinLink;
+    }
+
+    public void setUserLinkedinLink(String userLinkedinLink) {
+        this.userLinkedinLink = userLinkedinLink;
+    }
+
 
 
 

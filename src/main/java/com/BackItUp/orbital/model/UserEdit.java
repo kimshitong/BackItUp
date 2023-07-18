@@ -8,17 +8,39 @@ public class UserEdit {
     private String userPass;
     private String userType;
     private String userEvidence;
+    private boolean userShowContact;
+    private String userLinkedinLink;
+
 
     public UserEdit() {
     }
 
-    public UserEdit(String userName, String userEmail, String userHP, String userPass, String userType, String userEvidence) {
+    public UserEdit(String userName, String userEmail, String userHP, String userPass, String userType, String userEvidence, String userLinkedinLink, boolean userShowContact) {
         this.userName = userName;
         this.userEmail = userEmail;
         this.userHP = userHP;
         this.userPass = userPass;
         this.userType = userType;
         this.userEvidence = userEvidence;
+
+        this.userLinkedinLink = userLinkedinLink;
+        this.userShowContact = userShowContact;
+    }
+
+    public boolean isUserShowContact() {
+        return userShowContact;
+    }
+
+    public void setUserShowContact(boolean userShowContact) {
+        this.userShowContact = userShowContact;
+    }
+
+    public String getUserLinkedinLink() {
+        return userLinkedinLink;
+    }
+
+    public void setUserLinkedinLink(String userLinkedinLink) {
+        this.userLinkedinLink = userLinkedinLink;
     }
 
     public String getUserName() {
@@ -68,4 +90,5 @@ public class UserEdit {
     public void setUserEvidence(String userEvidence) {
         this.userEvidence = userEvidence;
     }
+    
 }

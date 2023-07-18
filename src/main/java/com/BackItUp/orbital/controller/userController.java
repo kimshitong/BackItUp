@@ -14,7 +14,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,6 +46,7 @@ public class userController {
 
         return userRepository.save(user);
     }
+
 
     @PostMapping("/api/createUserbyAuth")
     User createUserbyAuth(@RequestBody User user) {
@@ -79,6 +85,63 @@ public class userController {
 
         return userRepository.save(user);
     }
+
+    @PostMapping("/api/user/submitEvidence/{userID}")
+    String submitEvidence(@PathVariable("userID") Integer creatorId, @RequestParam("file") MultipartFile file) {
+        try {
+            // Configure the destination directory
+            String uploadDir = "backitup-front/public/evidence";
+            String filename = file.getOriginalFilename() +"-"+ LocalDateTime.now();
+            Path filePath = Path.of(uploadDir, filename);
+
+            // Save the file to the destination directory
+            Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+
+            String url = uploadDir + "/" + filename;
+            User user = userRepository.findById(creatorId).get();
+            user.setUserEvidence(url);
+            userRepository.save(user);
+
+            // Handle success
+            System.out.println("Evidence uploaded successfully");
+            return user.getUserEvidence();
+        } catch (Exception e) {
+            // Handle error
+            System.err.println("Error uploading evidence: " + e.getMessage());
+            return "Fail";
+        }
+
+    }
+
+    @PostMapping("/api/user/submitPhoto/{userID}")
+    String submitPhoto(@PathVariable("userID") Integer userID, @RequestParam("file") MultipartFile file) {
+        try {
+            // Configure the destination directory
+            String uploadDir = "backitup-front/public/photo";
+            String filename = file.getOriginalFilename() +"-"+ LocalDateTime.now();
+
+            Path filePath = Path.of(uploadDir, filename);
+
+            // Save the file to the destination directory
+            Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+
+            String url = uploadDir + "/" + filename;
+
+            User user = userRepository.findById(userID).get();
+            user.setUserPhotoURL(url);
+            userRepository.save(user);
+
+            // Handle success
+            System.out.println("Image uploaded successfully");
+            return user.getUserEvidence();
+        } catch (Exception e) {
+            // Handle error
+            System.err.println("Error uploading image: " + e.getMessage());
+            return "Fail";
+        }
+
+    }
+
 
     //Get Lists of Unverified Founders
     @GetMapping("/api/unverifiedFounder")
@@ -214,6 +277,8 @@ public class userController {
 
         return true;
     }
+
+
 
     @GetMapping("/users")
     List<User> getAllUsers() {
