@@ -2,10 +2,12 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import extLink from '../images/ext-link.png'
+import Loader from '../components/Loader.jsx'
 
 export default function Post({isAuth, setPageTitle}) {
 
     // Initialise Post page to be blank
+    const [loading, setLoading] = useState(true)
     const [post, setPost] = useState([])
     const [share, setShare] = useState([])
     const {id} = useParams()
@@ -19,23 +21,34 @@ export default function Post({isAuth, setPageTitle}) {
 
     // Get Post details from database
     const loadPost = async () => {
-        const result = await axios.get(`http://localhost:8080/api/post/${id}`) // change the link as necessary
-        // const shareResult = await axios.get("xxx") // update link
-        setPost(result.data)
-        // setShare(shareResult.data)
-        
-        setPageTitle(`${post.postTitle} • BackItUp`)
-        setShare((post.share.shareCountCurrent) * 100 / post.share.shareCountTotal);
-        console.log(result.data);
-        console.log(share);
+        try {
+            const result = await axios.get(`http://localhost:8080/api/post/${id}`) // change the link as necessary
+            setPost(result.data);
+            setShare((result.data.share.shareCountCurrent * 100) / result.data.share.shareCountTotal);
+            setPageTitle(`${result.data.postTitle} • BackItUp`);
+            setTimeout(() => {
+                setLoading(false);
+            }, 700)
+            // console.log(result.data);
+            // console.log(share);
+        } catch (error) {
+            // console.log(error);
+        }
     }
 
     // const percent = share.SHARE_COUNT_CURRENT / share.SHARE_COUNT_TOTAL
 
   return (
     <div className='container'>
+        
+        {loading
+        
+        ? <div className='container-center-login'><Loader /></div>
+        
+        :
         <div class="container my-5">
             <div class="row p-4 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg">
+                
             <div class="col-lg-7 p-3 p-lg-5 pt-lg-3">
                 <h1 class="display-4 fw-bold lh-1" style={{ textAlign: "left" }}>{post.postTitle}</h1>
                 <p class="lead" style={{ textAlign: "left" }}>{post.postDescription}</p>
@@ -46,7 +59,7 @@ export default function Post({isAuth, setPageTitle}) {
                 </div>
             </div>
             <div class="col-lg-4 offset-lg-1 p-0 overflow-hidden shadow-lg">
-                {/* <img class="rounded-lg-3" src="bootstrap-docs.png" alt="" width="720"/> */}
+                <img class="rounded-lg-3" src="bootstrap-docs.png" alt="" width="720"/>
             </div>
             </div>
             <div>
@@ -68,7 +81,7 @@ export default function Post({isAuth, setPageTitle}) {
                     
                 </div>
                 <div className="col-md-3 offset-md-1">
-                    {/* <div style={{ textAlign: "left" }}>
+                    <div style={{ textAlign: "left" }}>
                         <p><strong>A PROUD PROJECT BY</strong></p>
                         <h3>{post.user.userName}</h3>
                         <p><strong>SHARE PRICE</strong></p>
@@ -76,15 +89,17 @@ export default function Post({isAuth, setPageTitle}) {
                         
                         <p><strong>REMAINING SHARES</strong></p>
                         <h3>{post.share.remainingShare}</h3>
-                    </div> */}
+                    </div>
                     
                     <Link className="btn btn-solid-dark btn-lg px-4 me-md-2 fw-bold mt-5 d-flex justify-content-center" to={isAuth.isLoggedIn ? `/invest/${id}` : `/oops`} >
                         Invest
                     </Link>
                 </div>
+                
             </div>
+            
         </div>
-        
+        }
     </div>
   )
 }

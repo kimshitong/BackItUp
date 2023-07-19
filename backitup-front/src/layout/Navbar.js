@@ -3,10 +3,16 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom"
 import "../styles/styles.css"
 import logo from "../images/logo-words.png"
+import bell from "../images/bell.png"
+import NotificationDrawer from "./NotificationDrawer";
+import {Container ,Dropdown,  DropdownButton} from 'react-bootstrap';  
+
+import { Button } from 'react-bootstrap';
 
 export default function Navbar({isAuth, setIsAuth, currUser, userType}) {
 
   const [isCompany, setIsCompany] = useState(false)
+  const [showNotif, setShowNotif] = useState(false)
 
   console.log(isAuth.isLoggedIn, "status of log in");
   console.log(currUser.userID, "userID is current");
@@ -26,6 +32,10 @@ export default function Navbar({isAuth, setIsAuth, currUser, userType}) {
     }
     console.log(isCompany, "MY CURENT COMPANY");
   }
+
+  const handleNotifToggle = () => {
+    setShowNotif(!showNotif);
+  };
   
   const handleLogOut = () => {
     setIsAuth({isLoggedIn: false, userID: undefined})
@@ -70,8 +80,8 @@ export default function Navbar({isAuth, setIsAuth, currUser, userType}) {
               </Link>
             </div>
           </div>
-          
-          {/* <button
+{/*           
+          <button
             className="navbar-toggler"
             type="button"
             data-bs-toggle="collapse"
@@ -84,9 +94,34 @@ export default function Navbar({isAuth, setIsAuth, currUser, userType}) {
           </button> */}
 
           <div>
+          
               {isAuth.isLoggedIn
-              ? <>
-                  {/* <p className="text-white">Hello {currUser.userName}</p> */}
+              ? <div className="d-flex">
+              <Button variant='link' onClick={handleNotifToggle}><img src={bell} style={{ height: "30px" }} /></Button>
+              
+              <Container className='p-4'>  
+                <DropdownButton variant="success" id="dropdown-basic-button" title="Settings" className="flex-column">  
+                  <div className="dropdown-links-container">
+                  <Link className='dropdown-link mx-2' to={"/profile/" + currUser.userID}>
+                    My Profile
+                  </Link>
+                  {
+                    currUser.userType !== "Company"
+                    ? <Link className="dropdown-link mx-2" to="/createcompany">
+                    Create Company
+                    </Link>
+                    : <Link className="dropdown-link mx-2" to="/create">
+                      Create Post
+                      </Link>
+                  }
+                  <Link onClick={handleLogOut} className="dropdown-link mx-2" to="/">
+                  Log Out
+                  </Link>
+                  </div>
+                </DropdownButton>  
+              </Container>
+              <NotificationDrawer show={showNotif} onClose={handleNotifToggle} currUser={currUser} />
+                  {/* <p className="text-white">Hello {currUser.userName}</p>
                   <Link className="btn btn-outline-dark m-2" to={"/profile/" + currUser.userID}>
                     Hello {currUser.userName}
                   </Link>
@@ -102,13 +137,13 @@ export default function Navbar({isAuth, setIsAuth, currUser, userType}) {
                   }
                   <Link onClick={handleLogOut} className="btn btn-outline-dark m-2" to="/">
                   Log Out
-                  </Link>
-                </>
+                  </Link> */}
+                </div>
               : <>
-                  <Link className="btn btn-outline-dark m-2" to="/login">
+                  <Link className="btn btn-outline-dark shadow-sm m-2" to="/login">
                     Log In
                   </Link> 
-                  <Link className="btn btn-outline-dark m-2" to="/adduser">
+                  <Link className="btn btn-light shadow-sm m-2" to="/adduser">
                     Sign Up
                   </Link>
                 </>

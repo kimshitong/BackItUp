@@ -7,17 +7,21 @@ import pwHide from '../images/pw-hide.png'
 import logoWords from "../images/logo-words.png"
 
 import "../styles/styles.css"
+import { GoogleLogin } from '@react-oauth/google'
+import jwt_decode from "jwt-decode"
 
 export default function LogIn({setCurrUser, setIsAuth, setPageTitle, setUserType}) {
 
     let navigate = useNavigate()
 
     useEffect(() => {
-        setPageTitle("Log In • BackItUp") 
+        setPageTitle("Log In • BackItUp")
     }, [] )
 
     const [token, setToken] = useState([])
     const [showPassword, setShowPassword] = useState(false);
+
+    const clientId = "502112046738-80gbpokjtcn2qqur1su4g69jp28dtvgk.apps.googleusercontent.com"
 
     const { email, password } = token
 
@@ -28,6 +32,45 @@ export default function LogIn({setCurrUser, setIsAuth, setPageTitle, setUserType
     const handleTogglePassword = () => {
         setShowPassword(!showPassword);
     };
+
+    // Google auth
+    const handleCallbackResponse = async (response) => {
+        console.log(response.credential);
+        var userObject = jwt_decode(response.credential)
+        console.log(userObject);
+        try {
+            console.log(userObject.sub);
+            const isVerified = await axios.get(`http://localhost:8080/api/verifyUserbyAuth/${userObject.sub}/GOOGLE`)
+                console.log(isVerified.data, "API result");
+            if (isVerified.data >= 0 ) {
+                setIsAuth({ isLoggedIn: true, userID: isVerified.data })
+                const currResponse = await axios.get(`http://localhost:8080/api/user/${isVerified.data}`).then()
+                const curr = currResponse.data
+                setCurrUser(curr)
+                setUserType(`${curr.userType}`)
+                console.log(curr.userType, "set user type to");
+                navigate("/")
+                console.log("login SUCCESS");
+            } else {
+                alert('You do not have a BackItUp account linked to this Google account.')
+            }
+        } catch (error) {
+            console.log("gooogle failed");
+        }
+    }
+  
+    useEffect(() => {
+      /* global google */
+      google.accounts.id.initialize({
+        client_id: "502112046738-80gbpokjtcn2qqur1su4g69jp28dtvgk.apps.googleusercontent.com",
+        callback: handleCallbackResponse
+      })
+  
+      google.accounts.id.renderButton(
+        document.getElementById("signInDiv"),
+        { theme: "outline", size: "large"}
+      )
+    }, [])
 
     // Post user registration info to database
     const onSubmit = async (event) => {
@@ -40,12 +83,10 @@ export default function LogIn({setCurrUser, setIsAuth, setPageTitle, setUserType
 
             console.log(password, "password submitted is")
 
-            const isVerified = await axios.get(`http://localhost:8080/api/verifyUser/${details.userEmail}/${details.userPass}`)
-            console.log(isVerified.data, "API result");
+            const isVerified = await axios.get(`http://localhost:8080/api/verifyUser/${details.userEmail}/${details.userPass}`).then()
+            // console.log(isVerified.data, "API result");
 
-            if (isVerified == "") {
-                alert('You have input an incorrect email/password. Please refresh and resubmit the form.')
-            } else {
+            
                 setIsAuth({ isLoggedIn: true, userID: isVerified.data })
                 const currResponse = await axios.get(`http://localhost:8080/api/user/${isVerified.data}`).then()
                 const curr = currResponse.data
@@ -54,10 +95,11 @@ export default function LogIn({setCurrUser, setIsAuth, setPageTitle, setUserType
                 console.log(curr.userType, "set user type to");
                 navigate("/")
                 console.log("login SUCCESS");
-            }
+            
         } catch (error) {
             console.error(error);
             console.log("diu")
+            window.alert('You have input an incorrect email/password. Please refresh and resubmit the form.')
         }
 
     };
@@ -102,13 +144,15 @@ export default function LogIn({setCurrUser, setIsAuth, setPageTitle, setUserType
                                 value={password}
                                 onChange={(event) => handleChange(event)}
                             />
-                            <button className="btn password-toggle" onClick={handleTogglePassword}>
+                            <button type="button" className="btn password-toggle" onClick={handleTogglePassword}>
                                 <img src={showPassword ? pwHide : pwShow} style={{height: 30}}/>
                             </button>
                         
                         </div>
                     </div>
                     <button type="submit" className="btn btn-solid-dark mb-3">Submit</button>
+                    <hr />
+                    <div id="signInDiv" className='btn btn-block mb-2'></div>
                     <div>
                         <small id="loginHelp" className="form-text text-muted">Don't have an account? <a href="/adduser">Sign up today.</a></small>    
                     </div>
