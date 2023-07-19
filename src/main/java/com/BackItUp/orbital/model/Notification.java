@@ -86,6 +86,11 @@ public class Notification {
         return this;
     }
 
+    public Notification unreadNotification() {
+        this.notificationRead = false;
+        return this;
+    }
+
 
     public Integer getNotificationID() {
         return notificationID;

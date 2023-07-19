@@ -55,7 +55,7 @@ public class notificationController {
     Boolean readNotification(@PathVariable("notificationid") Integer notificationid){
         try{
             Notification noti = notificationRepository.findById(notificationid).get();
-            notificationRepository.save(notiList.get(i).readNotification());
+            notificationRepository.save(noti.readNotification());
             return true;
         } catch (Exception e) {
             return false;
@@ -67,7 +67,7 @@ public class notificationController {
     Boolean unreadNotification(@PathVariable("notificationid") Integer notificationid){
         try{
             Notification noti = notificationRepository.findById(notificationid).get();
-            notificationRepository.save(notiList.get(i).unreadNotification());
+            notificationRepository.save(noti.unreadNotification());
             return true;
         } catch (Exception e) {
             return false;
