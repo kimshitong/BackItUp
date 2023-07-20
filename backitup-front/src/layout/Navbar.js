@@ -97,9 +97,9 @@ export default function Navbar({isAuth, setIsAuth, currUser, userType}) {
           
               {isAuth.isLoggedIn
               ? <div className="d-flex">
-              <Button variant='link' onClick={handleNotifToggle}><img src={bell} style={{ height: "30px" }} /></Button>
+              <button className='btn btn-link' onClick={handleNotifToggle}><img src={bell} style={{ height: "30px" }} /></button>
               
-              <Container className='p-4'>  
+              <Container className='p-2'>  
                 <DropdownButton variant="success" id="dropdown-basic-button" title="Settings" className="flex-column">  
                   <div className="dropdown-links-container">
                   <Link className='dropdown-link mx-2' to={"/profile/" + currUser.userID}>

@@ -19,12 +19,14 @@ export default function ViewUser({currUser}) {
         userPass: currUser.userPass,
         userType: currUser.userType,
         userVerified: currUser.userVerified,
-        userEvidence: currUser.userEvidence
+        userEvidence: currUser.userEvidence,
+        userLinkedinLink: currUser.userLinkedinLink,
+        userShowContact: currUser.userShowContact
     })
 
     const [photo, setPhoto] = useState(null)
 
-    const {name, email, hp, password, type, verified, evidence } = user;
+    // const {name, email, hp, password, type, verified, evidence, linkedin, show } = user;
 
     const [isEdit, setIsEdit] = useState(false)
 
@@ -33,6 +35,7 @@ export default function ViewUser({currUser}) {
 
     const handleChange = (event) => {
         setUser({...user, [event.target.name]: event.target.value});
+        console.log(user);
     }
 
     const handleTogglePassword = (e) => {
@@ -53,42 +56,55 @@ export default function ViewUser({currUser}) {
     const onSubmit = async (event) => {
         event.preventDefault()
         try {
-            const data = {
-                userName: name,
-                userEmail: email,
-                userHP: hp,
-                userPass: password,
-                userType: currUser.userType,
-                userVerified: currUser.userVerified,
-                userEvidence: currUser.userEvidence
-              };
+            // const data = {
+            //     userName: name,
+            //     userEmail: email,
+            //     userHP: hp,
+            //     userPass: password,
+            //     userType: currUser.userType,
+            //     userVerified: currUser.userVerified,
+            //     userEvidence: currUser.userEvidence,
+            //     userLinkedInLink: linkedin,
+            //     userShowContact: show
+            //   };
 
-              console.log(data)
-            
-            // Upload photo to local source folder
-            if (photo) {
-                const reader = new FileReader();
-                reader.onload = (event) => {
-                    const fileData = event.target.result;
-                    localStorage.setItem(`user-photo-${currUser.userID}`, fileData);
-                };
-                reader.readAsDataURL(photo);
-            }
+            //   console.log(data)
               
             // Create a user with the created wallet.java
-            const response = await axios.post(`http://localhost:8080/api/editUser/${currUser.userID}`, data, {
+            const response = await axios.post(`http://localhost:8080/api/editUser/${currUser.userID}`, user, {
                 headers: {
                   'Content-Type': 'application/json'
                 }
             }
             
             );
-            console.log(response.data);
+            console.log(response.data, "successss");
+            setIsEdit(!isEdit)
 
-            // console.log(response.data); // The created user object returned from the backend
           } catch (error) {
             console.error(error);
             console.log("Edit User failed")
+          }
+
+          try {
+            // Upload photo to local source folder
+            const formData = new FormData()
+            formData.append('file', photo)
+
+            axios.post(`http://localhost:8080/api/user/submitPhoto/${currUser.userID}`, formData)
+                .then((response) => {
+                    console.log("Successful image upload", response.data);
+                })
+            // if (photo) {
+            //     const reader = new FileReader();
+            //     reader.onload = (event) => {
+            //         const fileData = event.target.result;
+            //         localStorage.setItem(`user-photo-${currUser.userID}`, fileData);
+            //     };
+            //     reader.readAsDataURL(photo);
+            // }
+          } catch (error) {
+            console.log("Error uploading image", error);
           }
 
     };
@@ -115,7 +131,7 @@ export default function ViewUser({currUser}) {
                         type={"text"}
                         className="form-control"
                         placeholder={`${user.userName}`}
-                        name="name"
+                        name="userName"
                         value={user.userName}
                         onChange={(event) => handleChange(event)}
                         
@@ -130,10 +146,10 @@ export default function ViewUser({currUser}) {
                         HP Number
                     </label>
                     <input
-                        type={"text"}
+                        type={"number"} // changed from "text"
                         className="form-control"
                         placeholder={`${user.userHP}`}
-                        name="hp"
+                        name="userHP"
                         value={user.userHP}
                         onChange={(event) => handleChange(event)}
                         
@@ -150,7 +166,7 @@ export default function ViewUser({currUser}) {
                             type={"text"}
                             className="form-control"
                             placeholder={`${user.userEmail}`}
-                            name="email"
+                            name="userEmail"
                             value={user.userEmail}
                             onChange={(event) => handleChange(event)}
                             
@@ -172,7 +188,7 @@ export default function ViewUser({currUser}) {
                             type={showPassword ? 'text' : 'password'} 
                             className={showPassword ? "form-control" : "form-control password-input"}
                             placeholder={`${user.userPass}`}
-                            name="password"
+                            name="userPass"
                             value={user.userPass}
                             onChange={(event) => handleChange(event)}
                             disabled={!isEdit}
@@ -200,10 +216,27 @@ export default function ViewUser({currUser}) {
                         
                     />
                 </div> 
+                <div className="col-md-6 mb-3" style={{ textAlign: "left" }}>
+                    <label
+                        htmlFor="LinkedIn"
+                        className="form-label">
+                        LinkedIn
+                    </label>
+                    <input
+                        type={"text"}
+                        className="form-control"
+                        // placeholder={`${user.userName}`}
+                        name="userLinkedinLink"
+                        value={user.userLinkedinLink}
+                        onChange={(event) => handleChange(event)}
+                        disabled={!isEdit}
+                        
+                    />
+                </div> 
                     {
                         isEdit
-                        ? <button type="submit" className="btn btn-solid-dark mb-3">Save Changes</button>
-                        : <button className="btn btn-outline-dark mb-3" onClick={(e) => handleEditToggle(e)}>Edit Details</button>
+                        ? <button type="submit" className="btn btn-solid-dark mb-3" onClick={(e) => onSubmit(e)}>Save Changes</button>
+                        : <button type="button" className="btn btn-outline-dark mb-3" onClick={(e) => handleEditToggle(e)}>Edit Details</button>
                     }
                     </div>
                     </form>

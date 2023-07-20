@@ -97,7 +97,7 @@ public class userController {
             DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy-HH-mm-ss");
             String formatDateTime = datetime1.format(format);
 
-            String filename = formatDateTime +" - " +file.getOriginalFilename();
+            String filename = formatDateTime + "-" +file.getOriginalFilename();
             Path filePath = Path.of(uploadDir, filename);
 
             // Save the file to the destination directory
@@ -123,12 +123,12 @@ public class userController {
     String submitPhoto(@PathVariable("userID") Integer userID, @RequestParam("file") MultipartFile file) {
         try {
             // Configure the destination directory
-            String uploadDir = "backitup-front/public/photo";
+            String uploadDir = "backitup-front/public/images/user";
             LocalDateTime datetime1 = LocalDateTime.now();
             DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy-HH-mm-ss");
             String formatDateTime = datetime1.format(format);
 
-            String filename = formatDateTime +" - " +file.getOriginalFilename();
+            String filename = formatDateTime + "-" + file.getOriginalFilename();
 
             Path filePath = Path.of(uploadDir, filename);
 

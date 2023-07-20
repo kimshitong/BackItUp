@@ -4,7 +4,7 @@ import { useParams, Link } from 'react-router-dom'
 import extLink from '../images/ext-link.png'
 import Loader from '../components/Loader.jsx'
 
-export default function Post({isAuth, setPageTitle}) {
+export default function Post({isAuth, setPageTitle, userType}) {
 
     // Initialise Post page to be blank
     const [loading, setLoading] = useState(true)
@@ -14,9 +14,9 @@ export default function Post({isAuth, setPageTitle}) {
 
     console.log('id is', id);
 
+    console.log(userType);
     useEffect(() => {
         loadPost()
-        
     }, [] );
 
     // Get Post details from database
@@ -91,7 +91,7 @@ export default function Post({isAuth, setPageTitle}) {
                         <h3>{post.share.remainingShare}</h3>
                     </div>
                     
-                    <Link className="btn btn-solid-dark btn-lg px-4 me-md-2 fw-bold mt-5 d-flex justify-content-center" to={isAuth.isLoggedIn ? `/invest/${id}` : `/oops`} >
+                    <Link className={`btn btn-solid-dark btn-lg px-4 me-md-2 fw-bold mt-5 d-flex justify-content-center ${userType == 'Company' ? "disabled" : ""}`} to={isAuth.isLoggedIn ? `/invest/${id}` : `/oops`} >
                         Invest
                     </Link>
                 </div>

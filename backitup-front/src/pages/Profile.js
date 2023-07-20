@@ -12,6 +12,8 @@ export default function Profile({currUser, setPageTitle, userType }) {
     const [ displayB, setDisplayB ] = useState(false) // wallet
     const [ displayC, setDisplayC ] = useState(false) // investments OR posts
 
+    // const profileImage = ".." + currUser.userPhotoURL.slice(18)
+
     const showA = () => {
         setTimeout(() => {
             setDisplayA(true)
@@ -50,8 +52,8 @@ export default function Profile({currUser, setPageTitle, userType }) {
                         </Link> */}
                     </div>
                 </div>
-                <div class="col-lg-4 offset-lg-1 p-0 overflow-hidden shadow-lg">
-                        {/* <img class="rounded-lg-3" src="bootstrap-docs.png" alt="" width="720"/> */}
+                <div class="col-lg-4 p-0 overflow-hidden">
+                        <img class="rounded-lg-3" src={"/images/user/21-07-2023-00-32-33-cube.png"} alt="" width="30%"/>
                 </div>
             </div>
         </div>

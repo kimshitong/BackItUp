@@ -29,6 +29,7 @@ import HowToInvest from './pages/get-started/HowToInvest';
 import HowToRaise from './pages/get-started/HowToRaise';
 import About from './pages/About';
 import { gapi } from 'gapi-script'
+import AdminPassword from './pages/admin/AdminPassword'
 
 function App() {
 
@@ -54,9 +55,8 @@ function App() {
           {/* Public routes */}
           <Route exact path ="/" element={<Home setPageTitle={setPageTitle} setUserType={setUserType} isAuth={isAuth} />} />
           <Route exact path ="/adduser" element={<AddUser setPageTitle={setPageTitle} />} />
-          <Route path ="/post" element={<Post isAuth={isAuth} setPageTitle={setPageTitle} />} /> {/* find a way to make this a unique link for each project */}
-          <Route path ="/post/:id" element={<Post isAuth={isAuth} setPageTitle={setPageTitle} />} /> {/* find a way to make this a unique link for each project */}
-          <Route exact path ="/admin" element={<Admin setUserType={setUserType}/>} />
+          <Route path ="/post" element={<Post isAuth={isAuth} setPageTitle={setPageTitle} userType={userType} />} /> {/* find a way to make this a unique link for each project */}
+          <Route path ="/post/:id" element={<Post isAuth={isAuth} setPageTitle={setPageTitle} userType={userType} />} /> {/* find a way to make this a unique link for each project */}
           <Route exact path ="/thanks" element={<Thanks setPageTitle={setPageTitle}/>} />
           <Route exact path ="/login" element={<LogIn setCurrUser={setCurrUser} setIsAuth={setIsAuth} setPageTitle={setPageTitle} setUserType={setUserType}/>} />
           <Route path ="/create" element={<CreatePost currUser={currUser} setPageTitle={setPageTitle} />} />
@@ -78,7 +78,10 @@ function App() {
           <Route path ="/withdraw/thanks" element={<ThanksWithdraw setPageTitle={setPageTitle} />} />
           <Route path ="/createcompany/thanks" element={<ThanksCreateCompany setPageTitle={setPageTitle} />} />
           <Route path ="/post/:id/edit" element={<EditPost currUser={currUser} isAuth={isAuth} setPageTitle={setPageTitle} />} />
-
+          
+          <Route path ="/admin" element={<AdminPassword setUserType={setUserType}/>} />
+          <Route path ="/admin/auth" element={<Admin setUserType={setUserType}/>} />
+          
           {/* Private routes */}
           <Route path ="/invest/:id" element={<Invest isAuth={isAuth} />} />
           <Route path ="/topup" element={<Topup currUser={currUser} isAuth={isAuth} setPageTitle={setPageTitle} />} />

@@ -23,9 +23,16 @@
     "react-dom": "^18.2.0",
     "react-helmet": "^6.1.0",
     "react-markdown": "^8.0.7",
+    "react-modal": "^3.16.1",
     "react-router-dom": "^6.11.2",
     "react-scripts": "5.0.1",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "yarn": "^1.22.19"
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "axios": "axios/dist/node/axios.cjs"
+    }
   },
   "scripts": {
     "start": "react-scripts start",

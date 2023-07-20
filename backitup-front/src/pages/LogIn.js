@@ -1,11 +1,11 @@
-import axios from 'axios'
+
 import React, { useEffect, useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import Navbar from '../layout/Navbar'
 import pwShow from '../images/pw-show.png'
 import pwHide from '../images/pw-hide.png'
 import logoWords from "../images/logo-words.png"
-
+import axios from 'axios'
 import "../styles/styles.css"
 import { GoogleLogin } from '@react-oauth/google'
 import jwt_decode from "jwt-decode"
@@ -150,7 +150,7 @@ export default function LogIn({setCurrUser, setIsAuth, setPageTitle, setUserType
                         
                         </div>
                     </div>
-                    <button type="submit" className="btn btn-solid-dark mb-3">Submit</button>
+                    <button type="submit" className="btn btn-solid-dark mb-3" disabled={ !(email !== undefined && password !== undefined) } >Submit</button>
                     <hr />
                     <div id="signInDiv" className='btn btn-block mb-2'></div>
                     <div>
