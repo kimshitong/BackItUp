@@ -57,6 +57,10 @@ public class Post {
     @Column(name = "POST_COMPLETED_DT")
     private LocalDateTime postCompletedDT;
 
+    @Column(name = "POST_PHOTOURL", columnDefinition = "TEXT")
+    private String postPhotoURL;
+
+
     // Getters and setters
     public Post(){}
 
@@ -91,6 +95,14 @@ public class Post {
 
     public void setPostID(Integer postID) {
         this.postID = postID;
+    }
+
+    public String getPostPhotoURL() {
+        return postPhotoURL;
+    }
+
+    public void setPostPhotoURL(String postPhotoURL) {
+        this.postPhotoURL = postPhotoURL;
     }
 
     public User getUser() {

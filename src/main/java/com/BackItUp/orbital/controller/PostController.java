@@ -7,8 +7,13 @@ import com.BackItUp.orbital.repository.shareRepo;
 import com.BackItUp.orbital.repository.userRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -99,6 +104,39 @@ public class PostController {
         post.editPost(response);
 
         return true;
+    }
+
+    @PostMapping("/api/post/submitPhoto/{postID}")
+    String submitPhoto(@PathVariable("postID") Integer postID, @RequestParam("file") MultipartFile file) {
+        try {
+            // Configure the destination directory
+            String uploadDir = "backitup-front/public/images/post/";
+
+            LocalDateTime datetime1 = LocalDateTime.now();
+            DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy-HH-mm-ss");
+            String formatDateTime = datetime1.format(format);
+
+            String filename = formatDateTime + '-' + file.getOriginalFilename();
+            Path filePath = Path.of(uploadDir, filename);
+
+            // Save the file to the destination directory
+            Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+
+            String dbURL = "/images/post/" + filename;
+
+            Post post = postRepository.findById(postID).get();
+            post.setPostPhotoURL(dbURL);
+            postRepository.save(post);
+
+            // Handle success
+            System.out.println("Image uploaded successfully");
+            return post.getPostPhotoURL();
+        } catch (Exception e) {
+            // Handle error
+            System.err.println("Error uploading image: " + e.getMessage());
+            return "Fail";
+        }
+
     }
 
 

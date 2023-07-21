@@ -143,7 +143,7 @@ public class userController {
 
             // Handle success
             System.out.println("Image uploaded successfully");
-            return user.getUserEvidence();
+            return user.getUserPhotoURL();
         } catch (Exception e) {
             // Handle error
             System.err.println("Error uploading image: " + e.getMessage());
