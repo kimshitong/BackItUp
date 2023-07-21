@@ -91,7 +91,7 @@ public class userController {
     String submitEvidence(@PathVariable("userID") Integer creatorId, @RequestParam("file") MultipartFile file) {
         try {
             // Configure the destination directory
-            String uploadDir = "backitup-front/public/evidence";
+            String uploadDir = "backitup-front/public/images/evidence";
 
             LocalDateTime datetime1 = LocalDateTime.now();
             DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy-HH-mm-ss");
@@ -103,9 +103,9 @@ public class userController {
             // Save the file to the destination directory
             Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
 
-            String url = uploadDir + "/" + filename;
+            String dbURL = "/images/evidence/" + filename;
             User user = userRepository.findById(creatorId).get();
-            user.setUserEvidence(url);
+            user.setUserEvidence(dbURL);
             userRepository.save(user);
 
             // Handle success
@@ -123,22 +123,22 @@ public class userController {
     String submitPhoto(@PathVariable("userID") Integer userID, @RequestParam("file") MultipartFile file) {
         try {
             // Configure the destination directory
-            String uploadDir = "backitup-front/public/images/user";
+            String uploadDir = "backitup-front/public/images/user/";
+
             LocalDateTime datetime1 = LocalDateTime.now();
             DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy-HH-mm-ss");
             String formatDateTime = datetime1.format(format);
 
-            String filename = formatDateTime + "-" + file.getOriginalFilename();
-
+            String filename = formatDateTime + '-' + file.getOriginalFilename();
             Path filePath = Path.of(uploadDir, filename);
 
             // Save the file to the destination directory
             Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
 
-            String url = uploadDir + "/" + filename;
+            String dbURL = "/images/user/" + filename;
 
             User user = userRepository.findById(userID).get();
-            user.setUserPhotoURL(url);
+            user.setUserPhotoURL(dbURL);
             userRepository.save(user);
 
             // Handle success
