@@ -13,6 +13,7 @@ export default function Profile({currUser, setPageTitle, userType }) {
     const [ displayC, setDisplayC ] = useState(false) // investments OR posts
 
     // const profileImage = ".." + currUser.userPhotoURL.slice(18)
+    // must show a default one!!!!! get a generic one
 
     const showA = () => {
         setTimeout(() => {
