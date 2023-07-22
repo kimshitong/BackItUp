@@ -26,6 +26,8 @@ export default function CreatePost({currUser, setPageTitle}) {
     const [postRaiseDate, setPostRaiseDate] = useState(new Date());
     const [postEndDate, setPostEndDate] = useState(new Date());
 
+    const [photo, setPhoto] = useState(null)
+
     const {post_TITLE, post_CONTENT, post_DESCRIPTION, post_SUSTAINABLE, postURL,
         SHARE_COUNT_TOTAL, SHARE_COUNT_PRICE, SHARE_COUNT_MIN , post_RAISED_DT } = post;
 
@@ -39,6 +41,11 @@ export default function CreatePost({currUser, setPageTitle}) {
     const handleCheckChange = (event) => {
         setChecked(!checked);
     }
+
+    const handleFileChange = (e) => {
+        setPhoto(e.target.files[0])
+    }
+
 
     const handleChange = (event) => {
         // testing valuation
@@ -106,6 +113,33 @@ export default function CreatePost({currUser, setPageTitle}) {
             console.error(error);
             console.log("post creation failure")
           }
+
+          try {
+            // Upload photo to local source folder
+            const photoFormData = new FormData()
+            photoFormData.append('file', photo)
+
+            // Get current post ID
+            let count = 0
+
+            const postList = await axios.get("http://localhost:8080/api/listPosts")
+            console.log("currPOSTID:::", postList.data.length);
+
+            await axios.post(`http://localhost:8080/api/post/submitPhoto/${postList.data.length}`, photoFormData)
+                .then((response) => {
+                    console.log("Successful image upload", response.data);
+                })
+            // if (photo) {
+            //     const reader = new FileReader();
+            //     reader.onload = (event) => {
+            //         const fileData = event.target.result;
+            //         localStorage.setItem(`user-photo-${currUser.userID}`, fileData);
+            //     };
+            //     reader.readAsDataURL(photo);
+            // }
+          } catch (error) {
+            console.log("Error uploading image", error);
+          }
   
         navigate("/")
     };
@@ -125,7 +159,7 @@ export default function CreatePost({currUser, setPageTitle}) {
                             Title
                         </label>
                         <input
-                            type={"text"}
+                            required type={"text"}
                             className="form-control"
                             placeholder="My Title"
                             name="post_TITLE"
@@ -151,7 +185,7 @@ export default function CreatePost({currUser, setPageTitle}) {
                             Description
                         </label>
                         <input
-                            type={"text"}
+                            required type={"text"}
                             className="form-control"
                             placeholder="A one-line summary of your project"
                             name="post_DESCRIPTION"
@@ -173,7 +207,7 @@ export default function CreatePost({currUser, setPageTitle}) {
                         Pitch
                     </label>
                     <textarea
-                        type={"text"}
+                        required type={"text"}
                         class="form-control"
                         placeholder="A summary of why your idea will change the world. Possible things to include: goals, user flows, and innovations."
                         name="post_CONTENT"
@@ -189,7 +223,7 @@ export default function CreatePost({currUser, setPageTitle}) {
                         Link to Pitch Deck
                     </label>
                     <input
-                        type={"text"}
+                        required type={"text"}
                         className="form-control"
                         placeholder="Google Drive, Dropbox, etc"
                         name="postURL"
@@ -207,7 +241,7 @@ export default function CreatePost({currUser, setPageTitle}) {
                         Total Shares
                     </label>
                     <input 
-                        type={"text"} 
+                        required type={"text"} 
                         className="form-control"
                         placeholder="999"
                         name="SHARE_COUNT_TOTAL"
@@ -226,7 +260,7 @@ export default function CreatePost({currUser, setPageTitle}) {
                     <div class="input-group">
                     <span class="input-group-text">$</span>
                     <input 
-                        type={"text"} 
+                        required type={"text"} 
                         className="form-control"
                         placeholder="Round off to the nearest 0.01"
                         name="SHARE_COUNT_PRICE"
@@ -242,7 +276,7 @@ export default function CreatePost({currUser, setPageTitle}) {
                         Minimum Share Purchase
                     </label>
                     <input
-                        type={"text"}
+                        required type={"text"}
                         className="form-control"
                         placeholder="1"
                         name="SHARE_COUNT_MIN"
@@ -301,6 +335,21 @@ export default function CreatePost({currUser, setPageTitle}) {
                         endDate={postEndDate}
                         minDate={postRaiseDate}
                         onChange={date => setPostEndDate(date)}
+                    />
+                </div>
+
+                <div className='col-md-4'>
+                    <label className='form-label'>Photo</label>
+                    <input
+                        type={"file"}
+                        className="form-control"
+                        // placeholder={`${user.userName}`}
+                        name="Photo"
+                        // value={user.userName}
+                        onChange={(event) => handleFileChange(event)}
+                        
+                        
+                        
                     />
                 </div>
                 

@@ -12,6 +12,7 @@ export default function ViewUser({currUser}) {
 
     let navigate = useNavigate()
     
+    const [show, setShow] = useState(true);
     const [user, setUser] = useState({
         userName: currUser.userName,
         userEmail: currUser.userEmail,
@@ -25,6 +26,12 @@ export default function ViewUser({currUser}) {
     })
 
     const [photo, setPhoto] = useState(null)
+    const [evidence, setEvidence] = useState(null)
+
+    const handleEvidenceChange = (e) => {
+        setEvidence(e.target.files[0])
+    }
+
 
     // const {name, email, hp, password, type, verified, evidence, linkedin, show } = user;
 
@@ -32,6 +39,7 @@ export default function ViewUser({currUser}) {
 
     
     const [showPassword, setShowPassword] = useState(false);
+    
 
     const handleChange = (event) => {
         setUser({...user, [event.target.name]: event.target.value});
@@ -42,6 +50,11 @@ export default function ViewUser({currUser}) {
         e.preventDefault()
         setShowPassword(!showPassword);
     };
+
+    const handleShowChange = (e) => {
+        e.preventDefault()
+        setShow(!show)
+    }
 
     const handleFileChange = (e) => {
         setPhoto(e.target.files[0])
@@ -88,10 +101,10 @@ export default function ViewUser({currUser}) {
 
           try {
             // Upload photo to local source folder
-            const formData = new FormData()
-            formData.append('file', photo)
+            const photoFormData = new FormData()
+            photoFormData.append('file', photo)
 
-            axios.post(`http://localhost:8080/api/user/submitPhoto/${currUser.userID}`, formData)
+            await axios.post(`http://localhost:8080/api/user/submitPhoto/${currUser.userID}`, photoFormData)
                 .then((response) => {
                     console.log("Successful image upload", response.data);
                 })
@@ -107,6 +120,26 @@ export default function ViewUser({currUser}) {
             console.log("Error uploading image", error);
           }
 
+          try {
+            // Upload photo to local source folder
+            const evidenceFormData = new FormData()
+            evidenceFormData.append('file', evidence)
+
+            await axios.post(`http://localhost:8080/api/user/submitEvidence/${currUser.userID}`, evidenceFormData)
+                .then((response) => {
+                    console.log("Successful evidence upload", response.data);
+                })
+            // if (photo) {
+            //     const reader = new FileReader();
+            //     reader.onload = (event) => {
+            //         const fileData = event.target.result;
+            //         localStorage.setItem(`user-photo-${currUser.userID}`, fileData);
+            //     };
+            //     reader.readAsDataURL(photo);
+            // }
+          } catch (error) {
+            console.log("Error uploading evidence", error);
+          }
     };
 
   return (
@@ -215,6 +248,8 @@ export default function ViewUser({currUser}) {
                         disabled={!isEdit}
                         
                     />
+                    <small id="evidenceHelp" class="form-text text-muted">Please choose a square image.</small>
+        
                 </div> 
                 <div className="col-md-6 mb-3" style={{ textAlign: "left" }}>
                     <label
@@ -233,6 +268,44 @@ export default function ViewUser({currUser}) {
                         
                     />
                 </div> 
+                <div className="col-md-6 mb-3" style={{ textAlign: "left" }}>
+            <label
+                htmlFor="Evidence"
+                className="form-label">
+                Documents
+            </label>
+            
+                    <input
+                        type={"file"}
+                        className="form-control"
+                        // placeholder={`${user.userName}`}
+                        name="evidence"
+                        // value={user.userName}
+                        onChange={(event) => handleEvidenceChange(event)}
+                        disabled={!isEdit}
+                        
+                    />
+                 
+            <small id="evidenceHelp" class="form-text text-muted">This will be cross-referenced by our admin team before we verify your account. After that, you can create a company.</small>
+        </div>
+        <div className="col-md-6 mb-3" style={{ textAlign: "left" }}>
+            <label
+                htmlFor="show"
+                className="form-label">
+                Display contact information?
+            </label>
+            
+                    <input
+                        type="checkbox"
+                        className="btn btn-success"
+                        // placeholder={`${user.userName}`}
+                        name="show"
+                        // value={user.userName}
+                        onChange={(event) => handleShowChange(event)}
+                        disabled={!isEdit}
+                        
+                    />
+                    </div>
                     {
                         isEdit
                         ? <button type="submit" className="btn btn-solid-dark mb-3" onClick={(e) => onSubmit(e)}>Save Changes</button>

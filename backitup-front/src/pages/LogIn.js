@@ -120,7 +120,7 @@ export default function LogIn({setCurrUser, setIsAuth, setPageTitle, setUserType
                             Email
                         </label> */}
                         <input
-                            type={"text"}
+                            required type={"text"}
                             className="form-control"
                             placeholder="Email address"
                             name="email"
@@ -137,7 +137,7 @@ export default function LogIn({setCurrUser, setIsAuth, setPageTitle, setUserType
                         </label> */}
                         <div className="password-input-wrapper">
                             <input 
-                                type={showPassword ? 'text' : 'password'} 
+                                required type={showPassword ? 'text' : 'password'} 
                                 className={showPassword ? "form-control" : "form-control password-input"}
                                 placeholder="Password"
                                 name="password"

@@ -30,6 +30,7 @@ import HowToRaise from './pages/get-started/HowToRaise';
 import About from './pages/About';
 import { gapi } from 'gapi-script'
 import AdminPassword from './pages/admin/AdminPassword'
+import Resources from './pages/get-started/Resources';
 
 function App() {
 
@@ -72,6 +73,7 @@ function App() {
           <Route path = "/getstarted/invest" element={<HowToInvest setPageTitle={setPageTitle} />} />
           <Route path = "/getstarted/raise" element={<HowToRaise setPageTitle={setPageTitle} />} />
           <Route path = "/about" element={<About setPageTitle={setPageTitle} />} />
+          <Route path = "/getstarted" element={<Resources setPageTitle={setPageTitle} />} />
 
           <Route path ="/topup/thanks" element={<ThanksTopup setPageTitle={setPageTitle} />} />
           <Route path ="/adduser/thanks" element={<ThanksAddUser setPageTitle={setPageTitle} />} />

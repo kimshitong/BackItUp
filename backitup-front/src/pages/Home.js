@@ -56,16 +56,34 @@ export default function Home({setPageTitle, setUserType, isAuth}) {
             </div>
             <div className="grid-container">
               {postsToShow.map((post, index) => (
-                <Link key={index} className="card text-right" to={'/post/' + post.postID}>
-                    {/* <img class="card-img-top" src="..." alt="Card image cap"></img> */}
-                    <div class="card-body" style={{ textAlign: "left" }}>
-                        <p class="card-text" className="text-left">{post.postTitle}</p>
-                        <p class="card-text">{post.user.userName}</p>
-                        <p class="card-text">{post.postDescription}</p>
-                        <p class="card-text">{post.postSustainable ? 'Y' : 'N'}</p>
-                    </div>
-                  
-                </Link>
+                <Link key={index} className="card-container text-right" to={'/post/' + post.postID}>
+                <div className="card">
+                  <div className="image-container">
+                 
+                    <img
+                      className="card-img-top"
+                      src={post.postPhotoURL == null ? "/images/post/post-default.png" : post.postPhotoURL}
+                      alt="Card image cap"
+                    />
+                    
+                  </div>
+                  <div className="card-body" style={{ textAlign: "left" }}>
+                    <p className="card-text text-left display-6 fw-bold">{post.postTitle}</p>
+                    <p className="card-text">{post.postDescription}</p>
+                    {/* <p className="card-text">{post.postSustainable ? 'Y' : 'N'}</p> */}
+                    {post.postSustainable
+                    ?
+                      <img
+                        className="eco-icon"
+                        src="images/post/post-esg.png" // Replace with the path to your eco-friendly icon image
+                        alt="Eco-friendly Icon"
+                      />
+                    :
+                     <></>
+                    }
+                  </div>
+                </div>
+              </Link>
                 ))}
             </div>
             <div class="card bg-dark text-white mt-5">

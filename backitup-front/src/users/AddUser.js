@@ -68,7 +68,7 @@ const Step1 = ({ onNext, user, handleChange, setUser }) => {
                     Email
                 </label>
                 <input
-                    type={"text"}
+                    required type={"text"}
                     className="form-control"
                     placeholder="example@backitup.com"
                     name="userEmail"
@@ -91,6 +91,8 @@ const Step1 = ({ onNext, user, handleChange, setUser }) => {
 
 // Step 2: Other personal details
 const Step2 = ({ onPrevious, onSubmit, user, handleChange }) => {
+
+    
      
     return (
         <div className="container-center-signu mt-3 mb-5">
@@ -106,7 +108,7 @@ const Step2 = ({ onPrevious, onSubmit, user, handleChange }) => {
                     Password
                 </label>
                 <input 
-                    type={"text"} 
+                    required type={"text"} 
                     className="form-control"
                     placeholder="Password"
                     name="userPass"
@@ -122,7 +124,7 @@ const Step2 = ({ onPrevious, onSubmit, user, handleChange }) => {
                 Name
             </label>
             <input
-                type={"text"}
+                required type={"text"}
                 className="form-control"
                 placeholder="Kim"
                 name="userName"
@@ -137,6 +139,7 @@ const Step2 = ({ onPrevious, onSubmit, user, handleChange }) => {
                 HP Number
             </label>
             <input
+                required 
                 type={"text"}
                 className="form-control"
                 placeholder="+65 9123 4567"
@@ -151,29 +154,14 @@ const Step2 = ({ onPrevious, onSubmit, user, handleChange }) => {
                 className="form-label">
                 Account Type
             </label>
-            <select class="form-control" name="userType" id="selectList" onChange={(event) => handleChange(event)}>
+            <select required class="form-control" name="userType" id="selectList" onChange={(event) => handleChange(event)}>
                 <option value="" defaultValue disabled hidden>Click to choose one...</option>
                 <option value={user.userType}>Founder</option>
                 <option value={user.userType}>Investor</option>
             </select>
         </div>
     
-        <div className="mb-3" style={{ textAlign: "left" }}>
-            <label
-                htmlFor="Evidence"
-                className="form-label">
-                Documents
-            </label>
-            <input
-                type={"text"}
-                className="form-control"
-                placeholder="Insert public shareable link"
-                name="userEvidence"
-                value={user.userEvidence}
-                onChange={(event) => handleChange(event)}
-            />
-            <small id="evidenceHelp" class="form-text text-muted">This will be cross-referenced by our admin team before we verify your account.</small>
-        </div>
+        
         <button className="btn btn-outline-dark mx-1" type="button" onClick={onPrevious}>Previous</button>
         <button className="btn btn-solid-dark mx-1" type="submit">Submit</button>
       </form>
@@ -200,7 +188,8 @@ export default function AddUser({setPageTitle}) {
         userVerified: false,
         userEvidence: "",
         userOauthType: "",
-        userOauthIdentifier: ""
+        userOauthIdentifier: "",
+        userShowContact: true
     })
 
     // const {name, email, hp, password, type, verified, evidence, oauthtype, oauthid} = user;
@@ -244,6 +233,8 @@ export default function AddUser({setPageTitle}) {
             
             );
             console.log(response.data);
+
+            
 
             // console.log(response.data); // The created user object returned from the backend
           } catch (error) {

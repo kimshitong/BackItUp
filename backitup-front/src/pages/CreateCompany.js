@@ -43,7 +43,8 @@ export default function CreateCompany({currUser}) {
                 userPass: password,
                 userType: "Company",
                 userVerified: false,
-                userEvidence: evidence
+                userEvidence: evidence,
+                userShowContact: true
               };
 
               console.log(data)
@@ -156,11 +157,11 @@ export default function CreateCompany({currUser}) {
                         </div>
                 </div>
                
-                <div className="mb-3">
+                {/* <div className="col-md-6 mb-3">
                     <label
                         htmlFor="Evidence"
                         className="form-label">
-                        Documents
+                        Pitch Deck
                     </label>
                     <input
                         type={"text"}
@@ -171,7 +172,7 @@ export default function CreateCompany({currUser}) {
                         onChange={(event) => handleChange(event)}
                     />
                     <small className="form-text text-muted">Our admin team will review your company before verifying your account.</small>
-                </div>
+                </div> */}
                 <button type="submit" className="btn btn-solid-dark">Submit</button>
                 </div>
                 </form>

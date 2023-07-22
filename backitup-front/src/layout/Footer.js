@@ -16,6 +16,20 @@ export default function Footer() {
                 </div>
                 <div className="d-flex flex-column align-items-start mt-5">
                     <h4 className='fw-boldcd'>Get Started</h4>
+                    <Link className="mb-2" to={"/getstarted"}
+                        style={{
+                        textDecoration: "none",
+                        color: "white",
+                        transition: "color 0.3s ease-in-out",
+                        }}
+                        onMouseEnter={(e) => {
+                        e.target.style.color = "grey"; // Change the color on hover
+                        }}
+                        onMouseLeave={(e) => {
+                        e.target.style.color = "white"; // Revert back to the original color
+                        }}>
+                        Resources
+                    </Link>
                     <Link className="mb-2" to={"/getstarted/invest"}
                         style={{
                         textDecoration: "none",

@@ -230,3 +230,95 @@
 	-webkit-text-fill-color: transparent;
 	
 }
+
+/* Optional: Customize the size of the container if needed */
+.image-container {
+  /* width: 50px; Adjust as needed */
+  height: 200px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Apply circle cropping and shadow effect */
+.circle-crop-with-shadow {
+  border-radius: 50%; /* Make the image circular */
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.2); /* Add a small shadow */
+  overflow: hidden; /* Clip the image inside the circular div */
+}
+
+/* Adjust the image size to fit the circular div */
+.image-inside-circle {
+  width: 100%; /* Make the image fill the circular div */
+  height: 100%; /* Automatically adjust the height based on the width */
+  object-fit: cover;
+}
+
+/* Home */
+
+
+.card-container {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.card {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+  height: 100%; /* Ensures each card takes the full height of the grid row */
+}
+
+.image-container {
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+}
+
+.card-img-top {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.eco-icon {
+  z-index: 1; /* Set a higher z-index to place it above the card-photo layer */
+
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: auto; /* Adjust the width of the eco icon as per your requirement */
+  height: 30px; /* Adjust the height of the eco icon as per your requirement */
+}
+
+.card-body {
+  height: 150px; /* Set a fixed height for the card body */
+  padding: 10px; /* Add padding to separate content from edges */
+  overflow: hidden; /* Hide any overflowing content */
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.card:hover .card-img-top {
+  transform: scale(1.05); /* Slightly zoom in, you can adjust the scale value as per your preference */
+}
+
+/* Post Contact Details */
+.contact-icon {
+  font-size: 30px; /* Adjust the size of the mail icon as per your preference */
+  color: gray;
+  transition: color 0.3s ease; /* Add smooth color transition on hover */
+  margin: 5px;
+}
+
+.contact-icon:hover {
+  color: black; /* Set the color of the mail icon on hover */
+}

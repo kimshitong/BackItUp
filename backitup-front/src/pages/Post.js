@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import extLink from '../images/ext-link.png'
 import Loader from '../components/Loader.jsx'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faEnvelope, faMobile, faGlobe } from '@fortawesome/free-solid-svg-icons'
 
 export default function Post({isAuth, setPageTitle, userType}) {
 
@@ -15,6 +17,7 @@ export default function Post({isAuth, setPageTitle, userType}) {
     console.log('id is', id);
 
     console.log(userType);
+    // console.log(post.user.userEmail);
     useEffect(() => {
         loadPost()
     }, [] );
@@ -58,9 +61,6 @@ export default function Post({isAuth, setPageTitle, userType}) {
                     </Link>
                 </div>
             </div>
-            <div class="col-lg-4 offset-lg-1 p-0 overflow-hidden shadow-lg">
-                <img class="rounded-lg-3" src="bootstrap-docs.png" alt="" width="720"/>
-            </div>
             </div>
             <div>
                 
@@ -71,6 +71,8 @@ export default function Post({isAuth, setPageTitle, userType}) {
                     <div class="progress mb-3">
                         <div class="progress-bar bg-success" style={{ width: `${share}%` }} role="progressbar" aria-valuenow={{ share }} aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
+                    
+                <img class="rounded-lg-3" src={post.postPhotoURL} alt="" width="720"/>
                     <h2>{post.postDescription}</h2>
                     <p>{post.postContent}</p>
                     <a href="https://example.com/faq.html" rel="noreferrer" className='text-align-center'> { /* change the link */ }
@@ -94,6 +96,25 @@ export default function Post({isAuth, setPageTitle, userType}) {
                     <Link className={`btn btn-solid-dark btn-lg px-4 me-md-2 fw-bold mt-5 d-flex justify-content-center ${userType == 'Company' ? "disabled" : ""}`} to={isAuth.isLoggedIn ? `/invest/${id}` : `/oops`} >
                         Invest
                     </Link>
+                    <hr />
+                    <div style={{ textAlign: "left" }}>
+                        { post.user.userShowContact
+                        ? <div>
+                        <p><strong>CONTACT</strong></p>
+                        
+                        <a className="contact-icon" href={`mailto:${post.user.userEmail}`}>
+                            <FontAwesomeIcon icon={faEnvelope} />
+                        </a>
+                        <a className="contact-icon" href={`tel:${post.user.userHP}`}>
+                            <FontAwesomeIcon icon={faMobile} />
+                        </a>
+                        <a className="contact-icon" href={`${post.user.userLinkedinLink}`}>
+                            <FontAwesomeIcon icon={faGlobe} />
+                        </a>
+                        </div>
+                        : <></>
+                        }
+                    </div>
                 </div>
                 
             </div>

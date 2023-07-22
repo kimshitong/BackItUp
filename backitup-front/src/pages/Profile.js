@@ -6,14 +6,15 @@ import InvestmentUser from "./wallet/InvestmentUser"
 import ViewUser from "../users/ViewUser"
 import PostUser from './wallet/PostUser'
 
+import { Image } from 'react-bootstrap'
+
+import '../styles/styles.css'
+
 export default function Profile({currUser, setPageTitle, userType }) {
 
     const [ displayA, setDisplayA ] = useState(true) // profile
     const [ displayB, setDisplayB ] = useState(false) // wallet
     const [ displayC, setDisplayC ] = useState(false) // investments OR posts
-
-    // const profileImage = ".." + currUser.userPhotoURL.slice(18)
-    // must show a default one!!!!! get a generic one
 
     const showA = () => {
         setTimeout(() => {
@@ -38,6 +39,7 @@ export default function Profile({currUser, setPageTitle, userType }) {
     useEffect(() => {
         setPageTitle(`${currUser.userName}'s Profile • BackItUp`)
         console.log("curr user type", userType);
+        console.log("picture showing: ", currUser.userPhotoURL);
     }, [] );
 
   return (
@@ -47,14 +49,19 @@ export default function Profile({currUser, setPageTitle, userType }) {
                 <div class="col-lg-7 p-3 p-lg-5 pt-lg-3">
                     <h1 class="hero-title display-4 fw-bold lh-1" style={{ textAlign: "left" }}>Hello, {currUser.userName}.</h1>
                     <p class="lead" style={{ textAlign: "left" }}>The world is amazing because of people like you.</p>
-                    <div class="d-grid gap-2 d-md-flex justify-content-md-start mb-4 mb-lg-3">
-                        {/* <Link className="btn btn-solid-dark btn-lg px-4 me-md-2 fw-bold" to={isAuth.isLoggedIn ? `/invest/${id}` : `/oops`} >
-                            Invest
-                        </Link> */}
+                </div>
+                <div class="col-lg-4 p-3 p-lg-5 pt-lg-3 overflow-hidden">
+                <div className="image-container">
+                    <div className="circle-crop-with-shadow" style={{ width: "70%" }}>
+                        <Image
+                        src={currUser.userPhotoURL} // Replace with your image URL
+                        alt="[No Profile Photo Yet]"
+                        className="image-inside-circle"
+                        
+                        />
                     </div>
                 </div>
-                <div class="col-lg-4 p-0 overflow-hidden">
-                        <img class="rounded-lg-3" src={"/images/user/21-07-2023-00-32-33-cube.png"} alt="" width="30%"/>
+                        {/* <img class="rounded-lg-3" src={currUser.userPhotoURL} alt="" width="30%"/> */}
                 </div>
             </div>
         </div>
