@@ -17,11 +17,9 @@ export default function Profile({currUser, setPageTitle, userType }) {
     const [ displayC, setDisplayC ] = useState(false) // investments OR posts
 
     const showA = () => {
-        setTimeout(() => {
-            setDisplayA(true)
-            setDisplayB(false)
-            setDisplayC(false)
-        }, 50)
+        setDisplayA(true)
+        setDisplayB(false)
+        setDisplayC(false)
     }
 
     const showB = () => {

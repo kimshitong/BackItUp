@@ -11,7 +11,7 @@ export default function PostUser({currUser}) {
     }, [] );
     
     const loadPosts = async () => {
-        const result = await axios.get(`http://localhost:8080/api/listPosts/comp/${currUser.userID}`)
+        const result = await axios.get(`https://orbital-1690047930899.azurewebsites.net/api/listPosts/comp/${currUser.userID}`)
         setPosts(result.data)
     }
 

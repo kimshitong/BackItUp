@@ -40,11 +40,11 @@ export default function LogIn({setCurrUser, setIsAuth, setPageTitle, setUserType
         console.log(userObject);
         try {
             console.log(userObject.sub);
-            const isVerified = await axios.get(`http://localhost:8080/api/verifyUserbyAuth/${userObject.sub}/GOOGLE`)
+            const isVerified = await axios.get(`https://orbital-1690047930899.azurewebsites.net/api/verifyUserbyAuth/${userObject.sub}/GOOGLE`)
                 console.log(isVerified.data, "API result");
             if (isVerified.data >= 0 ) {
                 setIsAuth({ isLoggedIn: true, userID: isVerified.data })
-                const currResponse = await axios.get(`http://localhost:8080/api/user/${isVerified.data}`).then()
+                const currResponse = await axios.get(`https://orbital-1690047930899.azurewebsites.net/api/user/${isVerified.data}`).then()
                 const curr = currResponse.data
                 setCurrUser(curr)
                 setUserType(`${curr.userType}`)
@@ -83,12 +83,12 @@ export default function LogIn({setCurrUser, setIsAuth, setPageTitle, setUserType
 
             console.log(password, "password submitted is")
 
-            const isVerified = await axios.get(`http://localhost:8080/api/verifyUser/${details.userEmail}/${details.userPass}`).then()
+            const isVerified = await axios.get(`https://orbital-1690047930899.azurewebsites.net/api/verifyUser/${details.userEmail}/${details.userPass}`).then()
             // console.log(isVerified.data, "API result");
 
             
                 setIsAuth({ isLoggedIn: true, userID: isVerified.data })
-                const currResponse = await axios.get(`http://localhost:8080/api/user/${isVerified.data}`).then()
+                const currResponse = await axios.get(`https://orbital-1690047930899.azurewebsites.net/api/user/${isVerified.data}`).then()
                 const curr = currResponse.data
                 setCurrUser(curr)
                 setUserType(`${curr.userType}`)

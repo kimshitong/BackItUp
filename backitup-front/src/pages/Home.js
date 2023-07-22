@@ -4,10 +4,12 @@ import { Link } from "react-router-dom"
 import "../styles/styles.css"
 import Search from "../components/Search"
 import rocket from "../images/rocket.png"
+import Loader from '../components/Loader'
 
 export default function Home({setPageTitle, setUserType, isAuth}) {
 
     // Initialise homepage to be blank
+    const [loading, setLoading] = useState(true)
     const [posts, setPosts] = useState([])
     const [showAll, setShowAll] = useState('')
     const [esg, setEsg] = useState(false)
@@ -19,10 +21,11 @@ export default function Home({setPageTitle, setUserType, isAuth}) {
 
     // Get list of posts from database
     const loadPosts = async() => {
-        const result1 = await axios.get("http://localhost:8080/api/listPosts/status/1") // change the link
-        const result2 = await axios.get("http://localhost:8080/api/listPosts/status/2")
+        const result1 = await axios.get("https://orbital-1690047930899.azurewebsites.net/7930899.azurewebsites.net/api/listPosts/status/1") // change the link
+        const result2 = await axios.get("https://orbital-1690047930899.azurewebsites.net/7930899.azurewebsites.net/api/listPosts/status/2")
         setPosts([...result1.data, ...result2.data])
         setPageTitle("BackItUp • Equity crowd-funding made easy")
+        setLoading(false)
         // console.log(result.data);
     }
 
@@ -49,6 +52,8 @@ export default function Home({setPageTitle, setUserType, isAuth}) {
     
   return (
     <div className='container-fluid'>
+      { loading ? <div className='container-center-login'><Loader /></div>
+      :
         <div className='py-4'>
             <h1 className='hero-title display-4 fw-bold' style={{ textAlign: "left" }}>Latest Posts</h1>
             <div>
@@ -102,6 +107,7 @@ export default function Home({setPageTitle, setUserType, isAuth}) {
 </div>
 
         </div>
+}
     </div>
   )
 }

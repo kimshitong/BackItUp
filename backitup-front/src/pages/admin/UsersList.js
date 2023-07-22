@@ -13,19 +13,19 @@ export default function UsersList() {
 
     // Get list of users from database
     const loadUsers = async () => {
-        const result = await axios.get("http://localhost:8080/users")
+        const result = await axios.get("https://orbital-1690047930899.azurewebsites.net/users")
         console.log(result);
         setUsers(result.data)
         console.log(result.data);
     }
 
     const clickVerify = (userID) => {
-        axios.get(`http://localhost:8080/${userID}/verify`)
+        axios.get(`https://orbital-1690047930899.azurewebsites.net/${userID}/verify`)
         alert("Successfully verified! Please refresh the page.")
     }
 
     const clickUnverify = (userID) => {
-        axios.get(`http://localhost:8080/${userID}/unverify`)
+        axios.get(`https://orbital-1690047930899.azurewebsites.net/${userID}/unverify`)
         alert("Successfully unverified! Please refresh the page.")
     }
 

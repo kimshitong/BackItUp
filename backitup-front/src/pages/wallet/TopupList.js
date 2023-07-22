@@ -16,7 +16,7 @@ export default function TopupList({wallet}) {
     // Get list of users from database
     const loadTopups = async () => {
         console.log("my wallet", wallet);
-        const result = await axios.get(`http://localhost:8080/api/listTopUp/${wallet.wallet_ID}`)
+        const result = await axios.get(`https://orbital-1690047930899.azurewebsites.net/api/listTopUp/${wallet.wallet_ID}`)
         setTopups(result.data)
         setTimeout(() => {
             setLoading(false);
@@ -24,7 +24,7 @@ export default function TopupList({wallet}) {
     }
 
     // const clickVerify = (userID) => {
-    //     axios.get(`http://localhost:8080/api/invest/${shareid}/${userID}/${share_amount}/${dt}`)
+    //     axios.get(`https://orbital-1690047930899.azurewebsites.net/api/invest/${shareid}/${userID}/${share_amount}/${dt}`)
     //     alert("Successfully verified! Please refresh the page.")
     // }
 

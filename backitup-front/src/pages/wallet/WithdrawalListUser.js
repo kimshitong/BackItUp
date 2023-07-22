@@ -17,15 +17,15 @@ export default function WithdrawalListUser({wallet}) {
     const loadTopups = async () => {
         
         console.log("my wallet", wallet);
-        const result = await axios.get(`http://localhost:8080/api/listWithdrawal/${wallet.wallet_ID}`)
+        const result = await axios.get(`https://orbital-1690047930899.azurewebsites.net/api/listWithdrawal/${wallet.wallet_ID}`)
         setWds(result.data)
-        setTimeout(() => {
+        // setTimeout(() => {
             setLoading(false);
-        }, 1000)
+        // }, 1000)
     }
 
     // const clickVerify = (userID) => {
-    //     axios.get(`http://localhost:8080/api/invest/${shareid}/${userID}/${share_amount}/${dt}`)
+    //     axios.get(`https://orbital-1690047930899.azurewebsites.net/api/invest/${shareid}/${userID}/${share_amount}/${dt}`)
     //     alert("Successfully verified! Please refresh the page.")
     // }
 
