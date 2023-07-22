@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin("http://localhost:3000/")
+@CrossOrigin("https://backitup.mysql.database.azure.com/")
 public class withdrawalController {
     @Autowired
     private walletRepo WALLETRepository;

@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin("http://localhost:3000/")
+@CrossOrigin("https://backitup.mysql.database.azure.coml.database.azure.com/")
 public class userController {
     @Autowired
     private userRepo userRepository;
