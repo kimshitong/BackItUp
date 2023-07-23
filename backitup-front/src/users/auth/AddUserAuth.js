@@ -11,7 +11,7 @@ export default function AddUserAuth({ user, setUser, onNext }) {
     var userObject = jwt_decode(response.credential)
     console.log(userObject);
     console.log(userObject.name);
-    // setUser({...user, userEmail: userObject.email});
+
     setUser({
       userName: userObject.name,
       userEmail: userObject.email,
@@ -23,7 +23,7 @@ export default function AddUserAuth({ user, setUser, onNext }) {
       userOauthType: "GOOGLE",
       userOauthIdentifier: userObject.sub
     })
-    console.log(user);
+
     onNext();
   }
 
@@ -36,10 +36,10 @@ export default function AddUserAuth({ user, setUser, onNext }) {
 
     google.accounts.id.renderButton(
       document.getElementById("signInDiv"),
-      { theme: "outline", size: "large"}
+      { theme: "outline", size: "large" }
     )
   }, [])
-  
+
   useEffect(() => {
     console.log(user);
   }, [user]);

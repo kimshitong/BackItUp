@@ -110,19 +110,9 @@ export default function EditPost({currUser, isAuth, setPageTitle}) {
                   // Handle the response data
                   console.log(data);
                 })
-              
-            // // Create a user with the created wallet.java
-            // const response = await axios.post(`http://localhost:8080/api/editPost/${post.postID}`, pdata, {
-            //     headers: {
-            //       'Content-Type': 'application/json'
-            //     }
-            // }
-            
-            // );
             console.log("post creation success");
             navigate("/")
 
-            // console.log(response.data); // The created user object returned from the backend
           } catch (error) {
             console.error(error);
             console.log("post edit failure")
