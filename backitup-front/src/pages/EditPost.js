@@ -2,6 +2,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams, Link } from 'react-router-dom'
 import moment from 'moment'
+import Loader from '../components/Loader'
 
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -10,6 +11,7 @@ import '../styles/styles.css'
 export default function EditPost({currUser, isAuth, setPageTitle}) {
 
     let navigate = useNavigate()
+    const[loading, setLoading] = useState(true)
 
     // const [post, setPost] = useState({
     //     post_TITLE: "",
@@ -25,31 +27,31 @@ export default function EditPost({currUser, isAuth, setPageTitle}) {
     const [post, setPost] = useState("")
     const {id} = useParams()
 
-    const [postRaiseDate, setPostRaiseDate] = useState(post.postRaiseDT);
+    const [postRaiseDate, setPostRaiseDate] = useState(post.postCreateDT);
     const [postEndDate, setPostEndDate] = useState(post.postExpireDT);
 
     const {postTitle, postContent, postDescription, postSustainable, postURL,
         share } = post;
 
-    const { shareCountTotal, shareCountMin, shareCountCurrent, shareCountPrice } = share
+    // const { shareCountTotal, shareCountMin, shareCountCurrent, shareCountPrice } = share
 
     const [checked, setChecked] = useState(false)
     const [value, setValue] = useState("0")
 
     useEffect(() => {
         setPageTitle("Edit Post • BackItUp") 
-        setTimeout(() => {
-
+      
             loadPost()
-        }, 1000)
+       
     }, [] )
 
     const loadPost = async () => {
-        const result = await axios.get(`httpss:/orbitbi-169004api/post/${id}`) // change the link as necessary
+        const result = await axios.get(`http://localhost:8080/api/post/${id}`) // change the link as necessary
         setPost(result.data)
         // setShare((post.share.shareCountCurrent) * 100 / post.share.shareCountTotal);
         console.log(result.data);
         // console.log(share);
+        setLoading(false)
     }
 
     const handleCheckChange = (event) => {
@@ -60,7 +62,7 @@ export default function EditPost({currUser, isAuth, setPageTitle}) {
         // testing valuation
         // console.log(parseInt(SHARE_COUNT_TOTAL), "total is");
         // console.log(parseFloat(SHARE_COUNT_PRICE), "price is");
-        setValue(parseInt(shareCountTotal) * parseFloat(shareCountPrice))
+        setValue(parseInt(share.shareCountTotal) * parseFloat(share.shareCountPrice))
         setPost({...post, [event.target.name]: event.target.value});
         // console.log(SHARE_COUNT_TOTAL);
         console.log(post);
@@ -70,7 +72,7 @@ export default function EditPost({currUser, isAuth, setPageTitle}) {
     const onSubmit = async (event) => {
         event.preventDefault()
         try {
-            const apiUrl = '/api/createPost';
+            const apiUrl = `/api/editPost/${post.postID}`;
             const date = new Date();
             // const exp = new Date(date.getTime() + 7 * 24 * 60 * 60 * 1000)
             // const formattedExp = exp.toISOString().substr(0, 19)
@@ -81,41 +83,44 @@ export default function EditPost({currUser, isAuth, setPageTitle}) {
                 postContent: postContent,
                 postURL: postURL,
                 postSustainable: checked,
-                shareCountTotal: parseInt(shareCountTotal),
-                shareCountMin: parseInt(shareCountMin),
-                shareCountCurrent: shareCountCurrent,
-                shareCountPrice: parseFloat(shareCountPrice),
-                postStatus: 0,
-                postCreateDT: formattedDate,
-                postRaisedDT: postRaiseDate.toISOString().substr(0, 19),
-                postExpireDT: postEndDate.toISOString().substr(0, 19),
-                userID: currUser.userID
+                // shareCountTotal: parseInt(share.shareCountTotal),
+                // shareCountMin: parseInt(share.shareCountMin),
+                // shareCountCurrent: share.shareCountCurrent,
+                // shareCountPrice: parseFloat(share.shareCountPrice),
+                // postStatus: 0,
+                // postCreateDT: formattedDate,
+                // postRaiseDT: post.postCreateDT,
+                postExpireDT: post.postExpireDT,
+                // postRaisedDT: postRaiseDate.toISOString().substr(0, 19),
+                // postExpireDT: postEndDate.toISOString().substr(0, 19),
+                // userID: currUser.userID
               };
 
               console.log(pdata)
 
-            //   fetch(apiUrl, {
-            //     method: 'POST',
-            //     headers: {
-            //       'Content-Type': 'application/json'
-            //     },
-            //     body: JSON.stringify(pdata)
-            //   })
-            //     .then(response => response.json())
-            //     .then(data => {
-            //       // Handle the response data
-            //       console.log(data);
-            //     })
-              
-            // Create a user with the created wallet.java
-            const response = await axios.post(`httpss:/orbitbi-169004api/editPost/${post.postID}`, pdata, {
+              fetch(apiUrl, {
+                method: 'POST',
                 headers: {
                   'Content-Type': 'application/json'
-                }
-            }
+                },
+                body: JSON.stringify(pdata)
+              })
+                .then(response => response.json())
+                .then(data => {
+                  // Handle the response data
+                  console.log(data);
+                })
+              
+            // // Create a user with the created wallet.java
+            // const response = await axios.post(`http://localhost:8080/api/editPost/${post.postID}`, pdata, {
+            //     headers: {
+            //       'Content-Type': 'application/json'
+            //     }
+            // }
             
-            );
+            // );
             console.log("post creation success");
+            navigate("/")
 
             // console.log(response.data); // The created user object returned from the backend
           } catch (error) {
@@ -123,13 +128,14 @@ export default function EditPost({currUser, isAuth, setPageTitle}) {
             console.log("post edit failure")
           }
   
-        navigate("/")
+        
     };
 
   return (
     <div className="container my-5">
         <div className="col-md-8 offset-md-2 border rounded p-4 mt-2 shadow">
             <h2 className="text-center m-4">Edit Details</h2>
+            { loading ? <Loader /> :
             <form onSubmit={(event) => onSubmit(event)}>
             <div className="row g-3" style={{ textAlign: "left" }}>
                 <h4>General Information</h4>
@@ -223,11 +229,11 @@ export default function EditPost({currUser, isAuth, setPageTitle}) {
                         Total Shares
                     </label>
                     <input 
-                        type={"text"} 
+                        disabled type={"text"} 
                         className="form-control"
                         placeholder="999"
-                        name="shareCountTotal"
-                        value={shareCountTotal}
+                        name="share.shareCountTotal"
+                        value={share.shareCountTotal}
                         onChange={(event) => handleChange(event)}
                     />
                 </div>
@@ -242,11 +248,11 @@ export default function EditPost({currUser, isAuth, setPageTitle}) {
                     <div class="input-group">
                     <span class="input-group-text">$</span>
                     <input 
-                        type={"text"} 
+                        disabled type={"text"} 
                         className="form-control"
                         placeholder="Round off to the nearest 0.01"
-                        name="shareCountPrice"
-                        value={shareCountPrice}
+                        name="share.shareCountPrice"
+                        value={share.shareCountPrice}
                         onChange={(event) => handleChange(event)}
                     />
                     </div>
@@ -258,11 +264,11 @@ export default function EditPost({currUser, isAuth, setPageTitle}) {
                         Minimum Share Purchase
                     </label>
                     <input
-                        type={"text"}
+                        disabled type={"text"}
                         className="form-control"
                         placeholder="1"
-                        name="shareCountMin"
-                        value={shareCountMin}
+                        name="share.shareCountMin"
+                        value={share.shareCountMin}
                         onChange={(event) => handleChange(event)}
                     />
                 </div>
@@ -324,6 +330,7 @@ export default function EditPost({currUser, isAuth, setPageTitle}) {
                 
             </div>
             </form>
+            }
         </div>
     </div>
 

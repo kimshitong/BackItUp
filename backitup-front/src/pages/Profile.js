@@ -68,8 +68,10 @@ export default function Profile({currUser, setPageTitle, userType }) {
                 <div class="nav nav-pills bg-light rounded flex-column mt-2">
                     <button className={ displayA ? 'btn btn-admin-dark flex-fill my-2 mx-1 shadow-sm' : 'btn btn-admin-inactive flex-fill my-2 mx-1'} onClick={() => showA()}>My Info</button>
                     <button className={ displayB ? 'btn btn-admin-dark flex-fill my-2 mx-1 shadow-sm' : 'btn btn-admin-inactive flex-fill my-2 mx-1'} onClick={() => showB()}>My Wallet</button>
+                    { userType == "Founder" ? <></> :
                     <button className={ displayC ? 'btn btn-admin-dark flex-fill my-2 mx-1 shadow-sm' : 'btn btn-admin-inactive flex-fill my-2 mx-1'} onClick={() => showC()}>{ userType == "Company" ? "My Posts" : "My Portfolio" }</button>
-                </div>
+  }
+                    </div>
             </div>
             <div className="col-md-10">
                 { 

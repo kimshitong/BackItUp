@@ -156,8 +156,8 @@ const Step2 = ({ onPrevious, onSubmit, user, handleChange }) => {
             </label>
             <select required class="form-control" name="userType" id="selectList" onChange={(event) => handleChange(event)}>
                 <option value="" defaultValue disabled hidden>Click to choose one...</option>
-                <option value={user.userType}>Founder</option>
-                <option value={user.userType}>Investor</option>
+                <option value="Founder">Founder</option>
+                <option value="Investor">Investor</option>
             </select>
         </div>
     
@@ -184,7 +184,7 @@ export default function AddUser({setPageTitle}) {
         userEmail: "",
         userHP: "",
         userPass: "",
-        userType: "",
+        userType: "Founder",
         userVerified: false,
         userEvidence: "",
         userOauthType: "",
@@ -196,6 +196,7 @@ export default function AddUser({setPageTitle}) {
   
     const handleChange = (event) => {
         setUser({...user, [event.target.name]: event.target.value});
+        console.log(user.userType, "userType is");
     }
     
     const handleNext = () => {

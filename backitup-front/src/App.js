@@ -81,7 +81,7 @@ function App() {
           <Route path ="/createcompany/thanks" element={<ThanksCreateCompany setPageTitle={setPageTitle} />} />
           <Route path ="/post/:id/edit" element={<EditPost currUser={currUser} isAuth={isAuth} setPageTitle={setPageTitle} />} />
           
-          <Route path ="/admin" element={<AdminPassword setUserType={setUserType}/>} />
+          <Route path ="/admin" element={<AdminPassword setUserType={setUserType} setPageTitle={setPageTitle} />} />
           <Route path ="/admin/auth" element={<Admin setUserType={setUserType}/>} />
           
           {/* Private routes */}

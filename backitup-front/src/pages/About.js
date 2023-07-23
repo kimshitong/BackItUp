@@ -16,7 +16,7 @@ export default function About({setPageTitle}) {
                 <p className='hero-title display-6 fw-bold'>It started with a dream.</p>
                 BackItUp is a simulated equity crowdfunding platform. It was developed for Orbital 2023, after Kim and Jacob discovered a common interest in finance. We had lots of fun engineering this web app and we hope you enjoyed exploring it!
                 <br></br>
-            <a className='btn btn-solid-dark mt-3' href="https://docs.google.com/document/d/12-_cULe-n10RgImP3jAD-xc93ct4i41bA4zGIRr29H4/edit">Check out the ReadME</a> 
+            <a className='btn btn-solid-dark mt-3' href="https://docs.google.com/document/d/12-_cULe-n10RgImP3jAD-xc93ct4i41bA4zGIRr29H4/edit" target='_blank'>Check out the ReadME</a> 
             </div>
         </div>
         </div>

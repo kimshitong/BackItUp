@@ -242,7 +242,7 @@ public class userController {
     }
 
     //Verify User
-    @GetMapping("/{id}/verify")
+    @GetMapping("/api/{id}/verify")
     public Boolean verifyUser(@PathVariable("id") Integer userId) {
         // Retrieve the user record from the database
         Optional<User> optionalUser = userRepository.findById(userId);
@@ -267,7 +267,7 @@ public class userController {
     }
     
     //Unverify User
-    @GetMapping("/{id}/unverify")
+    @GetMapping("/api/{id}/unverify")
     public Boolean unverifyUser(@PathVariable("id") Integer userId) {
         // Retrieve the user record from the database
         Optional<User> optionalUser = userRepository.findById(userId);
@@ -290,7 +290,7 @@ public class userController {
 
 
 
-    @GetMapping("/users")
+    @GetMapping("/api/users")
     List<User> getAllUsers() {
         return userRepository.findAll();
     }

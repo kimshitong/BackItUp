@@ -8,7 +8,7 @@ import pwShow from '../../images/pw-show.png'
 import pwHide from '../../images/pw-hide.png'
 
 
-export default function AdminPassword({setUserType}) {
+export default function AdminPassword({setUserType, setPageTitle}) {
     
     const [password, setPassword] = useState("")
     
@@ -16,6 +16,7 @@ export default function AdminPassword({setUserType}) {
 
     const handleTogglePassword = () => {
         setShowPassword(!showPassword);
+        setPageTitle("Admin • BackItUp")
     };
 
     let navigate = useNavigate()
@@ -28,6 +29,7 @@ export default function AdminPassword({setUserType}) {
           navigate("/admin/auth")
         } else {
           // Password is incorrect, show an alert
+          alert("You have input an incorrect password. GG sir.")
           setPassword("")
         }
       };

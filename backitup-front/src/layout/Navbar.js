@@ -105,14 +105,19 @@ export default function Navbar({isAuth, setIsAuth, currUser, userType}) {
                   <Link className='dropdown-link mx-2' to={"/profile/" + currUser.userID}>
                     My Profile
                   </Link>
-                  {
-                    currUser.userType !== "Company"
-                    ? <Link className="dropdown-link mx-2" to="/createcompany">
-                    Create Company
-                    </Link>
-                    : <Link className="dropdown-link mx-2" to="/create">
+                  { currUser.userType == "Investor"
+                    ? <></>
+                    : currUser.userType == "Founder" // has to be founder
+                    ? currUser.userVerified === 1
+                      ? <Link className="dropdown-link mx-2" to="/createcompany">
+                      Create Company
+                      </Link>
+                      : <></>
+                    : currUser.userVerified === 1
+                      ? <Link className="dropdown-link mx-2" to="/create">
                       Create Post
                       </Link>
+                      : <></>
                   }
                   <Link onClick={handleLogOut} className="dropdown-link mx-2" to="/">
                   Log Out

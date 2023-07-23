@@ -85,6 +85,8 @@ export default function CreatePost({currUser, setPageTitle}) {
 
               console.log(pdata)
 
+              
+
             //   fetch(apiUrl, {
             //     method: 'POST',
             //     headers: {
@@ -106,16 +108,6 @@ export default function CreatePost({currUser, setPageTitle}) {
             }
             
             );
-            console.log("post creation success");
-
-            // console.log(response.data); // The created user object returned from the backend
-          } catch (error) {
-            console.error(error);
-            console.log("post creation failure")
-          }
-
-          try {
-            // Upload photo to local source folder
             const photoFormData = new FormData()
             photoFormData.append('file', photo)
 
@@ -137,9 +129,14 @@ export default function CreatePost({currUser, setPageTitle}) {
             //     };
             //     reader.readAsDataURL(photo);
             // }
+            console.log("post creation success");
+
+            // console.log(response.data); // The created user object returned from the backend
           } catch (error) {
-            console.log("Error uploading image", error);
+            console.error(error);
+            console.log("post creation failure")
           }
+
   
         navigate("/")
     };

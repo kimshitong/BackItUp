@@ -17,7 +17,9 @@ export default function CreateCompany({currUser}) {
         userPass: "",
         userType: "",
         userVerified: false,
-        userEvidence: ""
+        userEvidence: "",
+        userLinkedInLink: "",
+        userShowContact: true
     })
 
     const {name, email, hp, password, evidence} = company;
@@ -42,8 +44,9 @@ export default function CreateCompany({currUser}) {
                 userHP: hp,
                 userPass: password,
                 userType: "Company",
-                userVerified: false,
+                // userVerified: false,
                 userEvidence: evidence,
+                userLinkedInLink: "",
                 userShowContact: true
               };
 
@@ -58,14 +61,16 @@ export default function CreateCompany({currUser}) {
             
             );
             console.log(response.data);
+            navigate("/createcompany/thanks")
 
             // console.log(response.data); // The created user object returned from the backend
           } catch (error) {
-            console.error(error);
-            console.log("diu")
+            alert("Error occured. Please try again.")
+            // console.error(error);
+            // console.log("diu")
           }
   
-        navigate("/createcompany/thanks")
+        
     };
 
   return (
@@ -81,7 +86,7 @@ export default function CreateCompany({currUser}) {
                         Company Name
                     </label>
                     <input
-                        type={"text"}
+                        required type={"text"}
                         className="form-control"
                         placeholder=""
                         name="name"
@@ -96,7 +101,7 @@ export default function CreateCompany({currUser}) {
                         Founder
                     </label>
                     <input
-                        type={"text"}
+                        required type={"text"}
                         className="form-control"
                         placeholder={currUser.userName}
                         value={currUser.userName}
@@ -111,7 +116,7 @@ export default function CreateCompany({currUser}) {
                         Company Email
                     </label>
                     <input
-                        type={"text"}
+                        required type={"text"}
                         className="form-control"
                         placeholder=""
                         name="email"
@@ -126,7 +131,7 @@ export default function CreateCompany({currUser}) {
                         Company HP Number
                     </label>
                     <input
-                        type={"text"}
+                        required type={"text"}
                         className="form-control"
                         placeholder="+65 9123 4567"
                         name="hp"
@@ -143,7 +148,7 @@ export default function CreateCompany({currUser}) {
                 <div className="password-input-wrapper">
                 
                         <input 
-                            type={showPassword ? 'text' : 'password'} 
+                            required type={showPassword ? 'text' : 'password'} 
                             className={showPassword ? "form-control" : "form-control password-input"}
                             placeholder="Password"
                             name="password"

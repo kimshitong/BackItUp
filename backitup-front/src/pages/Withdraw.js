@@ -52,14 +52,14 @@ export default function Withdraw({currUser, isAuth, setPageTitle}) {
             );
             console.log(response.data);
             console.log("withdrawal success");
-
+            navigate("/withdraw/thanks") // update this
             // console.log(response.data); // The created user object returned from the backend
           } catch (error) {
             // console.error(error);
             console.log("withdrawal failure")
           }
   
-        navigate("/withdraw/thanks") // update this
+       
     }
 
   return (

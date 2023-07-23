@@ -92,7 +92,7 @@ export default function Post({isAuth, setPageTitle, userType}) {
                         <h3>{post.share.remainingShare}</h3>
                     </div>
                     
-                    <Link className={`btn btn-solid-dark btn-lg px-4 me-md-2 fw-bold mt-5 d-flex justify-content-center ${userType == 'Company' ? "disabled" : ""}`} to={isAuth.isLoggedIn ? `/invest/${id}` : `/oops`} >
+                    <Link className={`btn btn-solid-dark btn-lg px-4 me-md-2 fw-bold mt-5 d-flex justify-content-center ${userType !== 'Investor' ? "disabled" : ""}`} to={isAuth.isLoggedIn ? `/invest/${id}` : `/oops`} >
                         Invest
                     </Link>
                     <hr />
@@ -107,7 +107,7 @@ export default function Post({isAuth, setPageTitle, userType}) {
                         <a className="contact-icon" href={`tel:${post.user.userHP}`}>
                             <FontAwesomeIcon icon={faMobile} />
                         </a>
-                        <a className="contact-icon" href={`${post.user.userLinkedinLink}`}>
+                        <a className="contact-icon" href={post.user.userLinkedinLink} target='_blank'>
                             <FontAwesomeIcon icon={faGlobe} />
                         </a>
                         </div>

@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { Link } from "react-router-dom"
+import Loader from '../../components/Loader'
 
 export default function UsersList() {
 
     // Initialise homepage to be blank
     const [users, setUsers] = useState([])
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         loadUsers()
@@ -13,25 +15,27 @@ export default function UsersList() {
 
     // Get list of users from database
     const loadUsers = async () => {
-        const result = await axios.get("http://localhost:8080/users")
+        const result = await axios.get("http://localhost:8080/api/users")
         console.log(result);
         setUsers(result.data)
         console.log(result.data);
+        setLoading(false)
     }
 
     const clickVerify = (userID) => {
-        axios.get(`http://localhost:8080/${userID}/verify`)
+        axios.get(`http://localhost:8080/api/${userID}/verify`)
         alert("Successfully verified! Please refresh the page.")
     }
 
     const clickUnverify = (userID) => {
-        axios.get(`http://localhost:8080/${userID}/unverify`)
+        axios.get(`http://localhost:8080/api/${userID}/unverify`)
         alert("Successfully unverified! Please refresh the page.")
     }
 
   return (
     <div className='container'>
         <div className='py-4'>
+            { loading ? <Loader/> :
             <table className="table border shadow">
                 <thead>
                     <tr>
@@ -61,7 +65,7 @@ export default function UsersList() {
                                     user.userVerified ? 'Y' : 'N'
                                 }
                             </td>
-                            <td>{user.userEvidence == null ? "" : <a href={`${user.userEvidence}`} target="_blank">View</a>}</td>
+                            <td>{user.userEvidence == "" ? "" : <a href={`${user.userEvidence}`} target="_blank">View</a>}</td>
                             <td>
                                 {!user.userVerified
                                     ? <button className='btn btn-outline-success max-2' onClick={() => clickVerify(user.userID)}>Verify</button>
@@ -73,6 +77,7 @@ export default function UsersList() {
                     }
                 </tbody>
             </table>
+            }
         </div>
     </div>
   )

@@ -42,6 +42,9 @@ export default function Topup({currUser, isAuth, setPageTitle }) {
                 topupEvidence: topupEvidence
               };
 
+              if (topupAmount <= 0) {
+                throw new Error()
+              }
             // const data = {
             //   walletID: 1,
             //   topupAmount: 50.0,
@@ -67,6 +70,7 @@ export default function Topup({currUser, isAuth, setPageTitle }) {
           } catch (error) {
             // console.error(error);
             console.log("topup error")
+            alert("Please ensure you entered valid positive numbers.")
           }
           
     }

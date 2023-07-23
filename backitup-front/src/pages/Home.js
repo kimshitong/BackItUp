@@ -14,6 +14,8 @@ export default function Home({setPageTitle, setUserType, isAuth}) {
     const [showAll, setShowAll] = useState('')
     const [esg, setEsg] = useState(false)
 
+    console.log("auth status is", isAuth);
+
     useEffect(() => {
         loadPosts();
         // setUserType("")
@@ -97,7 +99,7 @@ export default function Home({setPageTitle, setUserType, isAuth}) {
       <div class="card-img-overlay">
         <h5 class="card-title fw-bold m-3">Can't find what you're looking for?</h5>
         <p class="card-text">Be the change that you want to see in the world. Create your own post to make your dreams a reality.</p>
-        <Link class="btn btn-solid-dark mb-3" to={isAuth ? "/createcompany" : "/adduser"}>{isAuth ? "Quit dreaming, start building" : "Sign up now"}</Link>
+        <Link class="btn btn-solid-dark mb-3" to={isAuth.isLoggedIn ? "/getstarted/raise" : "/adduser"}>{isAuth ? "Quit dreaming, start building" : "Sign up now"}</Link>
       </div>
     </div>
     <div class="col-md-4 d-flex align-items-end justify-content-end" style={{ maxHeight: "300px"}} >
