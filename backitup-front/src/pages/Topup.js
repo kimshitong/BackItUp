@@ -47,7 +47,7 @@ export default function Topup({ currUser, isAuth, setPageTitle }) {
       }
 
       // Create a user with the created wallet.java
-      const response = await axios.post('http://localhost:8080/api/topup', data, {
+      const response = await axios.post('https://orbital-1690142964708.azurewebsites.net/api/topup', data, {
         headers: {
           'Content-Type': 'application/json'
         }

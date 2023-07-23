@@ -78,7 +78,7 @@ export default function CreatePost({ currUser, setPageTitle }) {
       console.log(pdata)
 
       // Create a user with the created wallet.java
-      const response = await axios.post(`http://localhost:8080/api/createPost`, pdata, {
+      const response = await axios.post(`https://orbital-1690142964708.azurewebsites.net/api/createPost`, pdata, {
         headers: {
           'Content-Type': 'application/json'
         }
@@ -91,10 +91,10 @@ export default function CreatePost({ currUser, setPageTitle }) {
       // Get current post ID
       let count = 0
 
-      const postList = await axios.get("http://localhost:8080/api/listPosts")
+      const postList = await axios.get("https://orbital-1690142964708.azurewebsites.net/api/listPosts")
       console.log("currPOSTID:::", postList.data.length);
 
-      await axios.post(`http://localhost:8080/api/post/submitPhoto/${postList.data.length}`,
+      await axios.post(`https://orbital-1690142964708.azurewebsites.net/api/post/submitPhoto/${postList.data.length}`,
         photoFormData)
         .then((response) => {
           console.log("Successful image upload", response.data);

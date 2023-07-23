@@ -50,10 +50,10 @@ const NotificationDrawer = ({ show, onClose, currUser }) => {
   const loadNotif = async () => {
     try {
       const result =
-        await axios.get(`http://localhost:8080/api/listNotification/unread/${currUser.userID}`)
+        await axios.get(`https://orbital-1690142964708.azurewebsites.net/api/listNotification/unread/${currUser.userID}`)
       setNotifs(result.data);
       const result2 =
-        await axios.get(`http://localhost:8080/api/listNotification/read/${currUser.userID}`)
+        await axios.get(`https://orbital-1690142964708.azurewebsites.net/api/listNotification/read/${currUser.userID}`)
       setReads(result2.data);
     } catch (error) {
 

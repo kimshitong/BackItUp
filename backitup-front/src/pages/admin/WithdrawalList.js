@@ -13,7 +13,7 @@ export default function WithdrawalList() {
 
   // Get list of users from database
   const loadWds = async () => {
-    const result = await axios.get("http://localhost:8080/api/listWithdrawal")
+    const result = await axios.get("https://orbital-1690142964708.azurewebsites.net/api/listWithdrawal")
     console.log(result);
     setWds(result.data)
     console.log(result.data);
@@ -22,14 +22,14 @@ export default function WithdrawalList() {
   const clickVerify = (withdrawalID) => {
     const date = new Date();
     const dt = date.toISOString().substr(0, 19);
-    axios.get(`http://localhost:8080/api/withdrawal/verify/${withdrawalID}/${dt}`)
+    axios.get(`https://orbital-1690142964708.azurewebsites.net/api/withdrawal/verify/${withdrawalID}/${dt}`)
     alert("Successfully verified! Please refresh the page.")
   }
 
   const clickUnverify = (withdrawalID) => {
     const date = new Date();
     const dt = date.toISOString().substr(0, 19);
-    axios.get(`http://localhost:8080/api/withdrawal/unverify/${withdrawalID}/${dt}`)
+    axios.get(`https://orbital-1690142964708.azurewebsites.net/api/withdrawal/unverify/${withdrawalID}/${dt}`)
     alert("Successfully unverified! Please refresh the page.")
   }
 

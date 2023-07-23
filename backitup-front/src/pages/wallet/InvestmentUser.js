@@ -14,10 +14,10 @@ export default function InvestmentUser({ currUser }) {
   }, []);
 
   const loadInvs = async () => {
-    const result = await axios.get(`http://localhost:8080/api/listinvest/user/${currUser.userID}`)
+    const result = await axios.get(`https://orbital-1690142964708.azurewebsites.net/api/listinvest/user/${currUser.userID}`)
     setInvs(result.data)
 
-    // const post = await axios.get(`http://localhost:8080/api/postbyshare/${post.shareId}")`)
+    // const post = await axios.get(`https://orbital-1690142964708.azurewebsites.net/api/postbyshare/${post.shareId}")`)
     // setInvsPost(post.data)
   }
 

@@ -65,7 +65,7 @@ export default function ViewUser({ currUser }) {
     try {
 
       // Create a user with the created wallet.java
-      const response = await axios.post(`http://localhost:8080/api/editUser/${currUser.userID}`, user, {
+      const response = await axios.post(`https://orbital-1690142964708.azurewebsites.net/api/editUser/${currUser.userID}`, user, {
         headers: {
           'Content-Type': 'application/json'
         }
@@ -84,7 +84,7 @@ export default function ViewUser({ currUser }) {
       const photoFormData = new FormData()
       photoFormData.append('file', photo)
 
-      await axios.post(`http://localhost:8080/api/user/submitPhoto/${currUser.userID}`, photoFormData)
+      await axios.post(`https://orbital-1690142964708.azurewebsites.net/api/user/submitPhoto/${currUser.userID}`, photoFormData)
         .then((response) => {
           console.log("Successful image upload", response.data);
         })
@@ -98,7 +98,7 @@ export default function ViewUser({ currUser }) {
       const evidenceFormData = new FormData()
       evidenceFormData.append('file', evidence)
 
-      await axios.post(`http://localhost:8080/api/user/submitEvidence/${currUser.userID}`, evidenceFormData)
+      await axios.post(`https://orbital-1690142964708.azurewebsites.net/api/user/submitEvidence/${currUser.userID}`, evidenceFormData)
         .then((response) => {
           console.log("Successful evidence upload", response.data);
         })

@@ -239,7 +239,7 @@ export default function AddUser({ setPageTitle, setUserType }) {
       console.log(data)
 
       // Create a user with the created wallet.java
-      const response = await axios.post('http://localhost:8080/api/createUserbyAuth', data, {
+      const response = await axios.post('https://orbital-1690142964708.azurewebsites.net/api/createUserbyAuth', data, {
         headers: {
           'Content-Type': 'application/json'
         }

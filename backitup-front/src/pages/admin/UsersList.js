@@ -15,7 +15,7 @@ export default function UsersList() {
 
   // Get list of users from database
   const loadUsers = async () => {
-    const result = await axios.get("http://localhost:8080/api/users")
+    const result = await axios.get("https://orbital-1690142964708.azurewebsites.net/api/users")
     console.log(result);
     setUsers(result.data)
     console.log(result.data);
@@ -23,12 +23,12 @@ export default function UsersList() {
   }
 
   const clickVerify = (userID) => {
-    axios.get(`http://localhost:8080/api/${userID}/verify`)
+    axios.get(`https://orbital-1690142964708.azurewebsites.net/api/${userID}/verify`)
     alert("Successfully verified! Please refresh the page.")
   }
 
   const clickUnverify = (userID) => {
-    axios.get(`http://localhost:8080/api/${userID}/unverify`)
+    axios.get(`https://orbital-1690142964708.azurewebsites.net/api/${userID}/unverify`)
     alert("Successfully unverified! Please refresh the page.")
   }
 

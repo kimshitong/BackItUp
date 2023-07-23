@@ -39,7 +39,7 @@ export default function Withdraw({ currUser, isAuth, setPageTitle }) {
         withdrawalVerified: 0
       };
 
-      const response = await axios.post('http://localhost:8080/api/withdrawal', data, {
+      const response = await axios.post('https://orbital-1690142964708.azurewebsites.net/api/withdrawal', data, {
         headers: {
           'Content-Type': 'application/json'
         }

@@ -12,7 +12,7 @@ export default function InvestmentRowTitle({ inv }) {
 
   const loadInvs = async () => {
     try {
-      const post = await axios.get(`http://localhost:8080/api/postbyshare/${inv.share.shareId}`)
+      const post = await axios.get(`https://orbital-1690142964708.azurewebsites.net/api/postbyshare/${inv.share.shareId}`)
       setInvsPost(post.data)
       // console.log(post.data);
     } catch (error) {
