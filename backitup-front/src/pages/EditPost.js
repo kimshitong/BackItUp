@@ -45,7 +45,7 @@ export default function EditPost({currUser, isAuth, setPageTitle}) {
     }, [] )
 
     const loadPost = async () => {
-        const result = await axios.get(`httpss:/orbitbi-1690047930899.azurewebsitel.ne-47930899.azurewebsites.net/api/post/${id}`) // change the link as necessary
+        const result = await axios.get(`httpss:/orbitbi-169004api/post/${id}`) // change the link as necessary
         setPost(result.data)
         // setShare((post.share.shareCountCurrent) * 100 / post.share.shareCountTotal);
         console.log(result.data);
@@ -108,7 +108,7 @@ export default function EditPost({currUser, isAuth, setPageTitle}) {
             //     })
               
             // Create a user with the created wallet.java
-            const response = await axios.post(`httpss:/orbitbi-1690047930899.azurewebsitel.ne-47930899.azurewebsites.net/api/editPost/${post.postID}`, pdata, {
+            const response = await axios.post(`httpss:/orbitbi-169004api/editPost/${post.postID}`, pdata, {
                 headers: {
                   'Content-Type': 'application/json'
                 }

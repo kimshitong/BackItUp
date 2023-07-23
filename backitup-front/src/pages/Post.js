@@ -25,7 +25,7 @@ export default function Post({isAuth, setPageTitle, userType}) {
     // Get Post details from database
     const loadPost = async () => {
         try {
-            const result = await axios.get(`https://orbital-1690047930899.azurewebsites.net/api/post/${id}`) // change the link as necessary
+            const result = await axios.get(`http://localhost:8080/api/post/${id}`) // change the link as necessary
             setPost(result.data);
             setShare((result.data.share.shareCountCurrent * 100) / result.data.share.shareCountTotal);
             setPageTitle(`${result.data.postTitle} • BackItUp`);
