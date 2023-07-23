@@ -6,7 +6,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static org.assertj.core.api.Assertions.assertThat; // Correct import for assertThat
 
 
-//@SpringBootTest
 class OrbitalApplicationTests {
 
 	Calculator underTest = new Calculator();

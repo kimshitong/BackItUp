@@ -69,6 +69,17 @@ public class PostController {
         return postRepository.findById(postId).get();
     }
 
+    @GetMapping("/api/postbyshare/{id}")
+    Post findPostbyShare(@PathVariable("id") Integer shareId){
+        Optional<Share> optionalShare = shareRepository.findById(shareId);
+
+        if (optionalShare.isEmpty()) {
+            return null;
+        }
+
+        return postRepository.findByShare(optionalShare.get());
+    }
+
 
     @GetMapping("/api/post/{verification}/{id}/{dt}")
     boolean verifyPost(@PathVariable("id") Integer postId, @PathVariable("dt") LocalDateTime dt, @PathVariable("verification") String verification){

@@ -7,3 +7,4 @@ import org.springframework.context.annotation.ComponentScan;
 @ComponentScan(basePackages = "com.BackItUp.orbital.repository") // Adjust the package name to match the location of userRepo
 public class TestConfig {
 }
+
