@@ -58,6 +58,12 @@ public class Wallet {
     public Integer getWalletId() {
         return walletId;
     }
+    public void reduceFrozenBalance(double amount) {
+        this.frozenBalance -= amount;
+    }
+    public void addFrozenBalance(double amount) {
+        this.frozenBalance += amount;
+    }
 
     public double getFrozenBalance() {
         return frozenBalance;

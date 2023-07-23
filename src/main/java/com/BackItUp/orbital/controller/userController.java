@@ -38,6 +38,11 @@ public class userController {
     @PostMapping("/api/createUser")
     User newUser(@RequestBody User user) {
 
+        //if got existed email refuse to sign them up
+        if(findExistedEmail(user.getUserEmail())){
+            return null;
+        }
+
         Wallet newWallet = new Wallet(0,0);
         WALLETRepository.save(newWallet);
 
@@ -51,6 +56,7 @@ public class userController {
 
     @PostMapping("/api/createUserbyAuth")
     User createUserbyAuth(@RequestBody User user) {
+
 
         Wallet newWallet = new Wallet(0,0);
         WALLETRepository.save(newWallet);
@@ -293,6 +299,10 @@ public class userController {
     @GetMapping("/api/users")
     List<User> getAllUsers() {
         return userRepository.findAll();
+    }
+
+    boolean findExistedEmail(String email){
+        return (userRepository.findByUserEmail(email) != null);
     }
 
 }

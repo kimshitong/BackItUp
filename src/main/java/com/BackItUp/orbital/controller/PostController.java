@@ -102,6 +102,7 @@ public class PostController {
         }
 
         post.editPost(response);
+        postRepository.save(post);
 
         return true;
     }

@@ -23,8 +23,13 @@ public class topupController {
     Topup newTopup(@RequestBody TopupResponse response) {
 
         Wallet wallet = WALLETRepository.findById(response.getWalletID()).get();
+        double amount = response.getTopupAmount();
 
-        Topup topup = new Topup(wallet, response.getTopupAmount(), response.getTopupPaynow() ,response.isTopupVerified(),response.getTopupDT(),response.getTopupEvidence());
+        if(amount < 0){
+            return null;
+        }
+
+        Topup topup = new Topup(wallet, amount, response.getTopupPaynow() ,response.isTopupVerified(),response.getTopupDT(),response.getTopupEvidence());
 
         return topupRepository.save(topup);
     }
@@ -40,7 +45,16 @@ public class topupController {
 
         if(verification.equals("verify")){
             topup.verify(dt);
-            User user = userRepository.findByWallet(topup.getWallet());
+
+            Wallet wallet = topup.getWallet();
+            double amount = topup.getTopupAmount();
+
+            wallet.addActiveBalance(amount);
+            WALLETRepository.save(wallet);
+
+
+            User user = userRepository.findByWallet(wallet);
+
             notificationRepository.save(Notification.sendTopupSuccessNotification(user,topup));
 
         }else if(verification.equals("unverify")){

@@ -27,8 +27,12 @@ public class withdrawalController {
     Withdrawal newWithdrawal(@RequestBody WithdrawalResponse response) {
 
         Wallet wallet = WALLETRepository.findById(response.getWalletID()).get();
+        double amount = response.getWithdrawalAmount();
+        if(amount > wallet.getActiveBalance() || amount < 0){
+            return null;
+        }
 
-        Withdrawal withdrawal = new Withdrawal(wallet, response.getWithdrawalAmount(),response.getWithdrawalPaynow(),response.getWithdrawalDT(), response.isWithdrawalVerified());
+        Withdrawal withdrawal = new Withdrawal(wallet, amount, response.getWithdrawalPaynow(),response.getWithdrawalDT(), response.isWithdrawalVerified());
 
         return withdrawalRepository.save(withdrawal);
     }
@@ -39,10 +43,23 @@ public class withdrawalController {
         if(withdrawal == null) {
             return false;
         }
-
+x
         if(verification.equals("verify")){
             withdrawal.verify(dt);
-            User user = userRepository.findByWallet(withdrawal.getWallet());
+
+            Wallet wallet = withdrawal.getWallet();
+            double amount = withdrawal.getWithdrawalAmount();
+
+
+            if(!wallet.sufficientBalance(amount)){
+                return false;
+            }
+            wallet.reduceActiveBalance(amount);
+
+            WALLETRepository.save(wallet);
+
+
+            User user = userRepository.findByWallet(wallet);
             notificationRepository.save(Notification.sendWithdrawalSuccessNotification(user,withdrawal));
 
         }else if(verification.equals("unverify")){
