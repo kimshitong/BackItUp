@@ -40,7 +40,15 @@ export default function Invest(props) {
     if (result.data > 0) {
       navigate("/thanks")
     } else {
-      alert("Please check that you have suffient balance.")
+      result.data === -1
+      ? alert("Invalid user.")
+      : result.data === -2
+      ? alert("Invalid share.")
+      : result.data === -3
+      ? alert("Insufficient Purchasing Minimum Share Amount.")
+      : result.data === -4
+      ? alert("Insufficient Remaining Share.")
+      : alert("Insufficient Active Balance.")
     }
   }
 

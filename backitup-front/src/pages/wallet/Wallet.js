@@ -26,8 +26,6 @@ export default function Wallet({ currUser }) {
     setDisplayB(true)
   }
 
-  console.log('my current user walletid', currUser);
-
   useEffect(() => {
     loadWallet()
   }, []);
@@ -37,7 +35,6 @@ export default function Wallet({ currUser }) {
     const result = await axios.get(`http://localhost:8080/api/user/${currUser.userID}/wallet`) // change the link as necessary
     setWallet(result.data)
 
-    console.log("my wallet", wallet);
     const result2 = await axios.get(`http://localhost:8080/api/listTopUp/${id}`)
     setTopups(result2.data)
 

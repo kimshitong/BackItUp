@@ -233,7 +233,7 @@ export default function ViewUser({ currUser }) {
                 class="form-text text-muted">
                 This will be cross-referenced by our admin team before we verify your account. After that, you can create a company.</small>
             </div>
-            <div className="col-md-6 mb-3" style={{ textAlign: "left" }}>
+            {/* <div className="col-md-6 mb-3" style={{ textAlign: "left" }}>
               <label
                 htmlFor="show"
                 className="form-label">
@@ -246,7 +246,7 @@ export default function ViewUser({ currUser }) {
                 onChange={(event) => handleShowChange(event)}
                 disabled={!isEdit}
               />
-            </div>
+            </div> */}
             {
               isEdit
                 ? <button

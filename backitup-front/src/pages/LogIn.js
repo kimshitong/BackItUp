@@ -43,8 +43,8 @@ export default function LogIn({ setCurrUser, setIsAuth, setPageTitle, setUserTyp
       console.log(userObject.sub);
       const isVerified =
         await axios.get(`http://localhost:8080/api/verifyUserbyAuth/${userObject.sub}/GOOGLE`)
-      console.log(isVerified.data, "API result");
-      if (isVerified.data >= 0) {
+      console.log(isVerified.data, "API result is<<<<<<<<<<<<<<<<<<,");
+      if (parseInt(isVerified.data) >= 0) {
         setIsAuth({ isLoggedIn: true, userID: isVerified.data })
         const currResponse = await axios.get(`http://localhost:8080/api/user/${isVerified.data}`).then()
         const curr = currResponse.data
@@ -57,6 +57,7 @@ export default function LogIn({ setCurrUser, setIsAuth, setPageTitle, setUserTyp
         alert('You do not have a BackItUp account linked to this Google account.')
       }
     } catch (error) {
+      alert('You do not have a BackItUp account linked to this Google account. Please sign up!')
       console.log("gooogle failed");
     }
   }

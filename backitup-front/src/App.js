@@ -56,8 +56,8 @@ function App() {
           {/* Public routes */}
           <Route exact path="/" element={<Home setPageTitle={setPageTitle} setUserType={setUserType} isAuth={isAuth} />} />
           <Route exact path="/adduser" element={<AddUser setPageTitle={setPageTitle} setUserType={setUserType} />} />
-          <Route path="/post" element={<Post isAuth={isAuth} setPageTitle={setPageTitle} userType={userType} />} />
-          <Route path="/post/:id" element={<Post isAuth={isAuth} setPageTitle={setPageTitle} userType={userType} />} />
+          <Route path="/post" element={<Post isAuth={isAuth} setPageTitle={setPageTitle} userType={userType} currUser={currUser} />} />
+          <Route path="/post/:id" element={<Post isAuth={isAuth} setPageTitle={setPageTitle} userType={userType} currUser={currUser} />} />
           <Route exact path="/thanks" element={<Thanks setPageTitle={setPageTitle} />} />
           <Route exact path="/login" element={<LogIn setCurrUser={setCurrUser} setIsAuth={setIsAuth} setPageTitle={setPageTitle} setUserType={setUserType} />} />
           <Route path="/create" element={<CreatePost currUser={currUser} setPageTitle={setPageTitle} />} />

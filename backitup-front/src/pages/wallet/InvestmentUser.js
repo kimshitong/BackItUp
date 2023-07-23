@@ -1,10 +1,13 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
+import InvestmentRowTitle from './InvestmentRowTitle'
+import InvestmentRowView from './InvestmentRowView'
 
 export default function InvestmentUser({ currUser }) {
 
   const [invs, setInvs] = useState([])
+  const [invsPost, setInvsPost] = useState([])
 
   useEffect(() => {
     loadInvs()
@@ -13,6 +16,9 @@ export default function InvestmentUser({ currUser }) {
   const loadInvs = async () => {
     const result = await axios.get(`http://localhost:8080/api/listinvest/user/${currUser.userID}`)
     setInvs(result.data)
+
+    // const post = await axios.get(`http://localhost:8080/api/postbyshare/${post.shareId}")`)
+    // setInvsPost(post.data)
   }
 
   return (
@@ -26,8 +32,11 @@ export default function InvestmentUser({ currUser }) {
               <thead>
                 <tr>
                   <th scope="col">#</th>
+                  {/* <th scope="col">Project</th> */}
                   <th scope="col">Project</th>
                   <th scope="col">Company</th>
+                  <th scope="col">Value</th>
+                  <th scope="col">Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -35,7 +44,16 @@ export default function InvestmentUser({ currUser }) {
                   invs.map((inv, index) => (
                     <tr>
                       <th scope="row" key="index">{index + 1}</th>
-                      <td>{inv.topupID}</td> /** need to fix */
+                      {/* <InvestmentRow inv={inv} /> */}
+                      {/* <td>{inv}</td> */}
+                      <td style={{ textAlign: "center" }}>
+                        <InvestmentRowTitle inv={inv} />
+                      </td>
+                      <td>{inv.share.user.userName}</td>
+                      <td>{inv.shareAmount * inv.share.shareCountPrice}</td>
+                      <td>
+                        <InvestmentRowView inv={inv} />
+                      </td>
                     </tr>
                   ))
                 }

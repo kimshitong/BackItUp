@@ -6,7 +6,7 @@ import Loader from '../components/Loader.jsx'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope, faMobile, faGlobe } from '@fortawesome/free-solid-svg-icons'
 
-export default function Post({ isAuth, setPageTitle, userType }) {
+export default function Post({ currUser, isAuth, setPageTitle, userType }) {
 
   // Initialise Post page to be blank
   const [loading, setLoading] = useState(true)
@@ -85,11 +85,13 @@ export default function Post({ isAuth, setPageTitle, userType }) {
 
                 <p><strong>REMAINING SHARES</strong></p>
                 <h3>{post.share.remainingShare}</h3>
+                <p><strong>MINIMUM SHARE PURCHASE</strong></p>
+                <h3>{post.share.shareCountMin}</h3>
               </div>
 
               <Link
                 className={`btn btn-solid-dark btn-lg px-4 me-md-2 fw-bold mt-5 d-flex justify-content-center 
-                ${userType !== 'Investor' ? "disabled" : ""}`}
+                ${currUser.userType === 'Investor' ? "" : "disabled"}`}
                 to={isAuth.isLoggedIn ? `/invest/${id}` : `/oops`} >
                 Invest
               </Link>
