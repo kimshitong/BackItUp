@@ -49,35 +49,49 @@
 .btn-outline-dark {
     color: #000; /* Set the text color to black */
     border-color: #000; /* Set the border color to black */
+    
+    transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+
 }
   
 .btn-outline-dark:hover {
     background-color: #000; /* Set the background color to black on hover */
     color: #CCED00; /* Set the text color to white on hover */
+    transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+
 }
 
 .btn-solid-dark {
     background-color: #CCED00; /* Set the text color to black */
     border-color: #CCED00; /* Set the border color to black */
     color: #000;
+    
+    transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+
 }
 
 .btn-solid-dark:hover {
     background-color: #000; /* Set the text color to black */
     border-color: #000; /* Set the border color to black */
     color: #CCED00;
+    transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+
 }
 
 .btn-admin-dark {
     background-color: #CCED00; /* Set the text color to black */
     border-color: #CCED00; /* Set the border color to black */
     color: #000;
+    transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+
 }
 
 .btn-admin-dark:hover {
     background-color: #CCED00; /* Set the text color to black */
     border-color: #CCED00; /* Set the border color to black */
     color: #000;
+    transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+
 }
 
 .btn-admin-inactive {

@@ -55,7 +55,7 @@ function App() {
 
           {/* Public routes */}
           <Route exact path ="/" element={<Home setPageTitle={setPageTitle} setUserType={setUserType} isAuth={isAuth} />} />
-          <Route exact path ="/adduser" element={<AddUser setPageTitle={setPageTitle} />} />
+          <Route exact path ="/adduser" element={<AddUser setPageTitle={setPageTitle} setUserType={setUserType} />} />
           <Route path ="/post" element={<Post isAuth={isAuth} setPageTitle={setPageTitle} userType={userType} />} /> {/* find a way to make this a unique link for each project */}
           <Route path ="/post/:id" element={<Post isAuth={isAuth} setPageTitle={setPageTitle} userType={userType} />} /> {/* find a way to make this a unique link for each project */}
           <Route exact path ="/thanks" element={<Thanks setPageTitle={setPageTitle}/>} />
@@ -70,10 +70,10 @@ function App() {
           {/* <Route path ="/profile" element={<Profile currUser={currUser} setPageTitle={setPageTitle} />} /> */}
           <Route path ="/profile/:id/edit" element={<EditUser currUser={currUser} />} />
           
-          <Route path = "/getstarted/invest" element={<HowToInvest setPageTitle={setPageTitle} />} />
-          <Route path = "/getstarted/raise" element={<HowToRaise setPageTitle={setPageTitle} />} />
-          <Route path = "/about" element={<About setPageTitle={setPageTitle} />} />
-          <Route path = "/getstarted" element={<Resources setPageTitle={setPageTitle} />} />
+          <Route path = "/getstarted/invest" element={<HowToInvest setPageTitle={setPageTitle} setUserType={setUserType} />} />
+          <Route path = "/getstarted/raise" element={<HowToRaise setPageTitle={setPageTitle} setUserType={setUserType} />} />
+          <Route path = "/about" element={<About setPageTitle={setPageTitle} setUserType={setUserType} />} />
+          <Route path = "/getstarted" element={<Resources setPageTitle={setPageTitle} setUserType={setUserType} />} />
 
           <Route path ="/topup/thanks" element={<ThanksTopup setPageTitle={setPageTitle} />} />
           <Route path ="/adduser/thanks" element={<ThanksAddUser setPageTitle={setPageTitle} />} />

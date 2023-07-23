@@ -16,6 +16,7 @@ export default function LogIn({setCurrUser, setIsAuth, setPageTitle, setUserType
 
     useEffect(() => {
         setPageTitle("Log In • BackItUp")
+        setUserType("")
     }, [] )
 
     const [token, setToken] = useState([])

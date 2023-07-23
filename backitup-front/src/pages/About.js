@@ -3,9 +3,10 @@ import React, { useEffect } from 'react'
 import '../styles/styles.css'
 import { Link } from 'react-router-dom';
 
-export default function About({setPageTitle}) {
+export default function About({setPageTitle, setUserType}) {
 
     useEffect(() => {
+        setUserType("")
         setPageTitle("About • BackItUp ")
     }, [] );
 

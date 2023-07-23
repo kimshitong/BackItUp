@@ -170,11 +170,12 @@ const Step2 = ({ onPrevious, onSubmit, user, handleChange }) => {
   };
   
 
-export default function AddUser({setPageTitle}) {
+export default function AddUser({setPageTitle, setUserType}) {
 
     let navigate = useNavigate()
 
     useEffect(() => {
+      setUserType("")
         setPageTitle("Register • BackItUp") 
     }, [] )
     

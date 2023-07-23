@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
-export default function HowToRaise({setPageTitle}) {
+export default function HowToRaise({setPageTitle, setUserType}) {
 
     useEffect(() => {
+        setUserType("")
         setPageTitle("Features • BackItUp ")
     }, [] );
 

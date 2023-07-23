@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
-export default function Resources({setPageTitle}) {
+export default function Resources({setPageTitle, setUserType}) {
 
     useEffect(() => {
+        setUserType("")
         setPageTitle("Resources • BackItUp ")
     }, [] );
 
