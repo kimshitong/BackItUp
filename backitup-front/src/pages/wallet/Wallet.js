@@ -32,13 +32,13 @@ export default function Wallet({ currUser }) {
 
   // Get Post details from database
   const loadWallet = async () => {
-    const result = await axios.get(`https://orbital-1690142964708.azurewebsites.net/api/user/${currUser.userID}/wallet`) // change the link as necessary
+    const result = await axios.get(`https://orbital-1690146023037.azurewebsites.net/api/user/${currUser.userID}/wallet`) // change the link as necessary
     setWallet(result.data)
 
-    const result2 = await axios.get(`https://orbital-1690142964708.azurewebsites.net/api/listTopUp/${id}`)
+    const result2 = await axios.get(`https://orbital-1690146023037.azurewebsites.net/api/listTopUp/${id}`)
     setTopups(result2.data)
 
-    const result3 = await axios.get(`https://orbital-1690142964708.azurewebsites.net/api/listWithdrawal/${id}`)
+    const result3 = await axios.get(`https://orbital-1690146023037.azurewebsites.net/api/listWithdrawal/${id}`)
     setWds(result3.data)
 
   }

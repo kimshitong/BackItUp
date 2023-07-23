@@ -46,7 +46,7 @@ export default function EditPost({ currUser, isAuth, setPageTitle }) {
   }, [])
 
   const loadPost = async () => {
-    const result = await axios.get(`https://orbital-1690142964708.azurewebsites.net/api/post/${id}`) // change the link as necessary
+    const result = await axios.get(`https://orbital-1690146023037.azurewebsites.net/api/post/${id}`) // change the link as necessary
     setPost(result.data)
     // setShare((post.share.shareCountCurrent) * 100 / post.share.shareCountTotal);
     console.log(result.data);

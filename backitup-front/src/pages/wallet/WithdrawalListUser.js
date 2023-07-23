@@ -17,7 +17,7 @@ export default function WithdrawalListUser({wallet}) {
     const loadTopups = async () => {
         
         console.log("my wallet", wallet);
-        const result = await axios.get(`https://orbital-1690142964708.azurewebsites.net/api/listWithdrawal/${wallet.wallet_ID}`)
+        const result = await axios.get(`https://orbital-1690146023037.azurewebsites.net/api/listWithdrawal/${wallet.wallet_ID}`)
         setWds(result.data)
             setLoading(false);
      }
