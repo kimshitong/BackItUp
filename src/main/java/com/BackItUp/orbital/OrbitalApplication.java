@@ -21,7 +21,7 @@ public class OrbitalApplication {
 		@Override
 		public void addCorsMappings(CorsRegistry registry) {
 			registry.addMapping("/api/**")
-					.allowedOrigins("*") // Replace with the actual frontend URL
+					.allowedOriginPatterns("*") // Replace with the actual frontend URL
 					.allowedMethods("GET", "POST", "PUT", "DELETE")
 					.allowedHeaders("*")
 					.allowCredentials(true);
