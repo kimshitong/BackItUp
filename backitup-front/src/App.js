@@ -54,40 +54,40 @@ function App() {
         <Routes>
 
           {/* Public routes */}
-          <Route exact path ="/" element={<Home setPageTitle={setPageTitle} setUserType={setUserType} isAuth={isAuth} />} />
-          <Route exact path ="/adduser" element={<AddUser setPageTitle={setPageTitle} setUserType={setUserType} />} />
-          <Route path ="/post" element={<Post isAuth={isAuth} setPageTitle={setPageTitle} userType={userType} />} /> {/* find a way to make this a unique link for each project */}
-          <Route path ="/post/:id" element={<Post isAuth={isAuth} setPageTitle={setPageTitle} userType={userType} />} /> {/* find a way to make this a unique link for each project */}
-          <Route exact path ="/thanks" element={<Thanks setPageTitle={setPageTitle}/>} />
-          <Route exact path ="/login" element={<LogIn setCurrUser={setCurrUser} setIsAuth={setIsAuth} setPageTitle={setPageTitle} setUserType={setUserType}/>} />
-          <Route path ="/create" element={<CreatePost currUser={currUser} setPageTitle={setPageTitle} />} />
-          <Route path ="/createcompany" element={<CreateCompany currUser={currUser} />} />
-          <Route path ="/wallet" element={<Wallet currUser={currUser} setCurrUser={setCurrUser}/>} />
-          <Route path ="/wallet/:id" element={<Wallet currUser={currUser} />} />
-          <Route path ="/oops" element={<Oops setPageTitle={setPageTitle} />} />
-          <Route path ="/profile" element={<Profile currUser={currUser} setPageTitle={setPageTitle} userType={userType} />} />
-          <Route path ="/profile/:id" element={<Profile currUser={currUser} setPageTitle={setPageTitle} userType={userType} />} />
+          <Route exact path="/" element={<Home setPageTitle={setPageTitle} setUserType={setUserType} isAuth={isAuth} />} />
+          <Route exact path="/adduser" element={<AddUser setPageTitle={setPageTitle} setUserType={setUserType} />} />
+          <Route path="/post" element={<Post isAuth={isAuth} setPageTitle={setPageTitle} userType={userType} />} />
+          <Route path="/post/:id" element={<Post isAuth={isAuth} setPageTitle={setPageTitle} userType={userType} />} />
+          <Route exact path="/thanks" element={<Thanks setPageTitle={setPageTitle} />} />
+          <Route exact path="/login" element={<LogIn setCurrUser={setCurrUser} setIsAuth={setIsAuth} setPageTitle={setPageTitle} setUserType={setUserType} />} />
+          <Route path="/create" element={<CreatePost currUser={currUser} setPageTitle={setPageTitle} />} />
+          <Route path="/createcompany" element={<CreateCompany currUser={currUser} />} />
+          <Route path="/wallet" element={<Wallet currUser={currUser} setCurrUser={setCurrUser} />} />
+          <Route path="/wallet/:id" element={<Wallet currUser={currUser} />} />
+          <Route path="/oops" element={<Oops setPageTitle={setPageTitle} />} />
+          <Route path="/profile" element={<Profile currUser={currUser} setPageTitle={setPageTitle} userType={userType} />} />
+          <Route path="/profile/:id" element={<Profile currUser={currUser} setPageTitle={setPageTitle} userType={userType} />} />
           {/* <Route path ="/profile" element={<Profile currUser={currUser} setPageTitle={setPageTitle} />} /> */}
-          <Route path ="/profile/:id/edit" element={<EditUser currUser={currUser} />} />
-          
-          <Route path = "/getstarted/invest" element={<HowToInvest setPageTitle={setPageTitle} setUserType={setUserType} />} />
-          <Route path = "/getstarted/raise" element={<HowToRaise setPageTitle={setPageTitle} setUserType={setUserType} />} />
-          <Route path = "/about" element={<About setPageTitle={setPageTitle} setUserType={setUserType} />} />
-          <Route path = "/getstarted" element={<Resources setPageTitle={setPageTitle} setUserType={setUserType} />} />
+          <Route path="/profile/:id/edit" element={<EditUser currUser={currUser} />} />
 
-          <Route path ="/topup/thanks" element={<ThanksTopup setPageTitle={setPageTitle} />} />
-          <Route path ="/adduser/thanks" element={<ThanksAddUser setPageTitle={setPageTitle} />} />
-          <Route path ="/withdraw/thanks" element={<ThanksWithdraw setPageTitle={setPageTitle} />} />
-          <Route path ="/createcompany/thanks" element={<ThanksCreateCompany setPageTitle={setPageTitle} />} />
-          <Route path ="/post/:id/edit" element={<EditPost currUser={currUser} isAuth={isAuth} setPageTitle={setPageTitle} />} />
-          
-          <Route path ="/admin" element={<AdminPassword setUserType={setUserType} setPageTitle={setPageTitle} />} />
-          <Route path ="/admin/auth" element={<Admin setUserType={setUserType}/>} />
-          
+          <Route path="/getstarted/invest" element={<HowToInvest setPageTitle={setPageTitle} setUserType={setUserType} />} />
+          <Route path="/getstarted/raise" element={<HowToRaise setPageTitle={setPageTitle} setUserType={setUserType} />} />
+          <Route path="/about" element={<About setPageTitle={setPageTitle} setUserType={setUserType} />} />
+          <Route path="/getstarted" element={<Resources setPageTitle={setPageTitle} setUserType={setUserType} />} />
+
+          <Route path="/topup/thanks" element={<ThanksTopup setPageTitle={setPageTitle} />} />
+          <Route path="/adduser/thanks" element={<ThanksAddUser setPageTitle={setPageTitle} />} />
+          <Route path="/withdraw/thanks" element={<ThanksWithdraw setPageTitle={setPageTitle} />} />
+          <Route path="/createcompany/thanks" element={<ThanksCreateCompany setPageTitle={setPageTitle} />} />
+          <Route path="/post/:id/edit" element={<EditPost currUser={currUser} isAuth={isAuth} setPageTitle={setPageTitle} />} />
+
+          <Route path="/admin" element={<AdminPassword setUserType={setUserType} setPageTitle={setPageTitle} />} />
+          <Route path="/admin/auth" element={<Admin setUserType={setUserType} />} />
+
           {/* Private routes */}
-          <Route path ="/invest/:id" element={<Invest isAuth={isAuth} />} />
-          <Route path ="/topup" element={<Topup currUser={currUser} isAuth={isAuth} setPageTitle={setPageTitle} />} />
-          <Route path ="/withdraw" element={<Withdraw currUser={currUser} isAuth={isAuth} setPageTitle={setPageTitle} />} />
+          <Route path="/invest/:id" element={<Invest isAuth={isAuth} />} />
+          <Route path="/topup" element={<Topup currUser={currUser} isAuth={isAuth} setPageTitle={setPageTitle} />} />
+          <Route path="/withdraw" element={<Withdraw currUser={currUser} isAuth={isAuth} setPageTitle={setPageTitle} />} />
 
         </Routes>
 

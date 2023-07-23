@@ -19,15 +19,8 @@ export default function WithdrawalListUser({wallet}) {
         console.log("my wallet", wallet);
         const result = await axios.get(`http://localhost:8080/api/listWithdrawal/${wallet.wallet_ID}`)
         setWds(result.data)
-        // setTimeout(() => {
             setLoading(false);
-        // }, 1000)
-    }
-
-    // const clickVerify = (userID) => {
-    //     axios.get(`http://localhost:8080/api/invest/${shareid}/${userID}/${share_amount}/${dt}`)
-    //     alert("Successfully verified! Please refresh the page.")
-    // }
+     }
 
   return (
     <div className='container'>

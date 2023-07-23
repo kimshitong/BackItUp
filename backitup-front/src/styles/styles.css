@@ -1,166 +1,151 @@
 /* NavBar */
 
 .navbar {
-    /* margin-right: auto;
-    margin-left: auto; */
-    /* padding-right: 2vw;
-    padding-left: 2vw; */
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: flex-start;
-    background-color: #CCED00; /* Replace #007bff with the desired primary color */
-    color: #000;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: #CCED00;
+  color: #000;
 }
 
 .navbar-Admin {
-    /* margin-right: auto;
-    margin-left: auto; */
-    /* padding-right: 2vw;
-    padding-left: 2vw; */
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: flex-start;
-    background-color: lightslategray; /* Replace #007bff with the desired primary color */
-    color: #000;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: lightslategray;
+  color: #000;
 }
 
 .navbar-brand img {
-    max-height: 50px;
-    margin-left: 10px; /* Default margin value for screens larger than 768px */
-  
-    @media (max-width: 768px) {
-      margin-left: 5px; /* Adjusted margin value for screens smaller than or equal to 768px */
-    }
+  max-height: 50px;
+  margin-left: 10px;
+
+  @media (max-width: 768px) {
+    margin-left: 5px;
+  }
 }
 
 .container-fluid {
-    width: 100%;
-    padding-right: 15px;
-    padding-left: 15px;
-    margin-right: auto;
-    margin-left: auto;
-    max-width: 1280px;
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+  max-width: 1280px;
 }
 
 /* Buttons */
 
 .btn-outline-dark {
-    color: #000; /* Set the text color to black */
-    border-color: #000; /* Set the border color to black */
-    
-    transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
-
+  color: #000;
+  border-color: #000;
+  transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
 }
-  
-.btn-outline-dark:hover {
-    background-color: #000; /* Set the background color to black on hover */
-    color: #CCED00; /* Set the text color to white on hover */
-    transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
 
+.btn-outline-dark:hover {
+  background-color: #000;
+  color: #CCED00;
+  transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .btn-solid-dark {
-    background-color: #CCED00; /* Set the text color to black */
-    border-color: #CCED00; /* Set the border color to black */
-    color: #000;
-    
-    transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
-
+  background-color: #CCED00;
+  border-color: #CCED00;
+  color: #000;
+  transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .btn-solid-dark:hover {
-    background-color: #000; /* Set the text color to black */
-    border-color: #000; /* Set the border color to black */
-    color: #CCED00;
-    transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
-
+  background-color: #000;
+  border-color: #000;
+  color: #CCED00;
+  transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .btn-admin-dark {
-    background-color: #CCED00; /* Set the text color to black */
-    border-color: #CCED00; /* Set the border color to black */
-    color: #000;
-    transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
-
+  background-color: #CCED00;
+  border-color: #CCED00;
+  color: #000;
+  transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .btn-admin-dark:hover {
-    background-color: #CCED00; /* Set the text color to black */
-    border-color: #CCED00; /* Set the border color to black */
-    color: #000;
-    transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
-
+  background-color: #CCED00;
+  border-color: #CCED00;
+  color: #000;
+  transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .btn-admin-inactive {
-    color: #000;
+  color: #000;
 }
 
 .btn-admin-inactive:hover {
-    background-color: secondary; /* Set the text color to black */
-    color: #CCED00;
+  background-color: secondary;
+  color: #CCED00;
 }
 
 
 /* Footer */
 
 .footer {
-    background-color: #000;
-    padding: 20px;
-    text-align: center;
-    color: #fff;
-    font-size: 14px;
-    margin-top: auto;
+  background-color: #000;
+  padding: 20px;
+  text-align: center;
+  color: #fff;
+  font-size: 14px;
+  margin-top: auto;
 }
 
 /* Grid */
 .grid-container {
-    display: grid;
-    grid-gap: 20px;
-    grid-template-columns: repeat(3, 1fr);
-    grid-auto-flow: row;
-    grid-column-gap: 20px;
-  }
-  
-  .grid-item {
-    background-color: #f2f2f2;
-    border-radius: 10px;
-    padding: 10px;
-  }
+  display: grid;
+  grid-gap: 20px;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-flow: row;
+  grid-column-gap: 20px;
+}
 
-/* Log In */
+.grid-item {
+  background-color: #f2f2f2;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+/* Password Wrapper */
 
 .password-input {
-    -webkit-text-security: disc;
-    -moz-text-security: disc;
+  -webkit-text-security: disc;
+  -moz-text-security: disc;
 }
 
 .password-input-wrapper {
-    position: relative;
-}
-  
-.password-toggle {
-    position: absolute;
-    top: 50%;
-    right: 0px;
-    transform: translateY(-50%);
-    border: transparent
+  position: relative;
 }
 
+.password-toggle {
+  position: absolute;
+  top: 50%;
+  right: 0px;
+  transform: translateY(-50%);
+  border: transparent
+}
+
+/* Containers */
 .container-center-login {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 70vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70vh;
 }
 
 .container-center-signup {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
 }
 
 /* Create Post Datepicker */
@@ -180,74 +165,73 @@
 
 /* Notification drawer */
 .notification-drawer {
-    position: fixed;
-    top: 0;
-    right: -300px; /* Initial position off the screen */
-    width: 300px;
-    height: 100%;
-    background-color: white;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: right 0.3s ease-in-out;
-    z-index: 999;
-  }
-  
-  .notification-drawer.open {
-    right: 0; /* Slide in from the right side when open */
-  }
-  
-  .notification-content {
-    padding: 20px;
-  }
-  
-  .close-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 20px;
-    padding: 0;
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
-  }
-  
-  h3 {
-    margin-top: 0;
-  }
-
-  /* Navbar Links */
-  .dropdown-link {
-    text-decoration: none; /* Remove the underline */
-    color: black; /* Set the text color to black */
-    display: inline-block; /* Ensure that the link respects the width and height properties */
-  
-    /* Add some padding and margin for better spacing (optional) */
-    padding: 8px 12px;
-    margin-right: 10px;
-    transition: color 0.3s ease-in-out 0s;
-  }
-  
-  /* Style on hover */
-  .dropdown-link:hover {
-    color: grey; /* Add grey background on hover */
-    /* You can also add more styles for the hover effect, like changing the text color, etc. */
-  }
-
-  .dropdown-links-container {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start; /* Align items to the start (left) of the container */
-  }
-
-  .hero-title {
-	background: linear-gradient(to right, green 0%, #CCED00 100%);
-	-webkit-background-clip: text;
-	-webkit-text-fill-color: transparent;
-	
+  position: fixed;
+  top: 0;
+  right: -300px;
+  /* Initial position off the screen */
+  width: 300px;
+  height: 100%;
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: right 0.3s ease-in-out;
+  z-index: 999;
 }
 
-/* Optional: Customize the size of the container if needed */
+.notification-drawer.open {
+  right: 0;
+  /* Slide in from the right side when open */
+}
+
+.notification-content {
+  padding: 20px;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 20px;
+  padding: 0;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+h3 {
+  margin-top: 0;
+}
+
+/* Navbar Links */
+.dropdown-link {
+  text-decoration: none;
+  /* Remove the underline */
+  color: black;
+  display: inline-block;
+  padding: 8px 12px;
+  margin-right: 10px;
+  transition: color 0.3s ease-in-out 0s;
+}
+
+/* Style on hover */
+.dropdown-link:hover {
+  color: grey;
+}
+
+.dropdown-links-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.hero-title {
+  background: linear-gradient(to right, green 0%, #CCED00 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+}
+
+/* Profile Photo */
 .image-container {
-  /* width: 50px; Adjust as needed */
   height: 200px;
   align-items: center;
   display: flex;
@@ -255,23 +239,21 @@
   overflow: hidden;
 }
 
-/* Apply circle cropping and shadow effect */
+/* Circle cropping and shadow */
 .circle-crop-with-shadow {
-  border-radius: 50%; /* Make the image circular */
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.2); /* Add a small shadow */
-  overflow: hidden; /* Clip the image inside the circular div */
+  border-radius: 50%;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
 }
 
 /* Adjust the image size to fit the circular div */
 .image-inside-circle {
-  width: 100%; /* Make the image fill the circular div */
-  height: 100%; /* Automatically adjust the height based on the width */
+  width: 100%;
+  height: 100%;
   object-fit: cover;
 }
 
 /* Home */
-
-
 .card-container {
   display: block;
   text-decoration: none;
@@ -285,7 +267,7 @@
   border-radius: 5px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: box-shadow 0.3s ease;
-  height: 100%; /* Ensures each card takes the full height of the grid row */
+  height: 100%;
 }
 
 .image-container {
@@ -302,19 +284,18 @@
 }
 
 .eco-icon {
-  z-index: 1; /* Set a higher z-index to place it above the card-photo layer */
-
+  z-index: 1;
   position: absolute;
   top: 10px;
   right: 10px;
-  width: auto; /* Adjust the width of the eco icon as per your requirement */
-  height: 30px; /* Adjust the height of the eco icon as per your requirement */
+  width: auto;
+  height: 30px;
 }
 
 .card-body {
-  height: 150px; /* Set a fixed height for the card body */
-  padding: 10px; /* Add padding to separate content from edges */
-  overflow: hidden; /* Hide any overflowing content */
+  height: 150px;
+  padding: 10px;
+  overflow: hidden;
 }
 
 .card:hover {
@@ -322,17 +303,17 @@
 }
 
 .card:hover .card-img-top {
-  transform: scale(1.05); /* Slightly zoom in, you can adjust the scale value as per your preference */
+  transform: scale(1.05);
 }
 
 /* Post Contact Details */
 .contact-icon {
-  font-size: 30px; /* Adjust the size of the mail icon as per your preference */
+  font-size: 30px;
   color: gray;
-  transition: color 0.3s ease; /* Add smooth color transition on hover */
+  transition: color 0.3s ease;
   margin: 5px;
 }
 
 .contact-icon:hover {
-  color: black; /* Set the color of the mail icon on hover */
+  color: black;
 }
