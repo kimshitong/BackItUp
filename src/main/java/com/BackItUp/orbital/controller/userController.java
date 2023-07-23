@@ -56,7 +56,9 @@ public class userController {
 
     @PostMapping("/api/createUserbyAuth")
     User createUserbyAuth(@RequestBody User user) {
-
+        if(findExistedEmail(user.getUserEmail())){
+            return null;
+        }
 
         Wallet newWallet = new Wallet(0,0);
         WALLETRepository.save(newWallet);

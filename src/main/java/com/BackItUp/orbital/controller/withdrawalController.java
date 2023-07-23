@@ -43,7 +43,7 @@ public class withdrawalController {
         if(withdrawal == null) {
             return false;
         }
-x
+
         if(verification.equals("verify")){
             withdrawal.verify(dt);
 
