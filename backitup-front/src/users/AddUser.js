@@ -23,14 +23,14 @@ const Step1 = ({ onNext, user, handleChange, setUser }) => {
   const handleCallbackResponse = (response) => {
     console.log(response.credential);
     var userObject = jwt_decode(response.credential)
-    
+
     setUser({
       ...user,
       userEmail: userObject.email,
       userOauthType: 'GOOGLE',
       userOauthIdentifier: userObject.sub,
     });
-    
+
     onNext();
   }
 
@@ -73,8 +73,8 @@ const Step1 = ({ onNext, user, handleChange, setUser }) => {
                   onChange={(event) => handleChange(event)}
                 />
                 <small
-                id="emailHelp"
-                class="form-text text-muted">We'll never share your email with anyone else.</small>
+                  id="emailHelp"
+                  class="form-text text-muted">We'll never share your email with anyone else.</small>
               </div>
 
               <button className="btn btn-outline-dark mb-2" type="submit">Next</button>
@@ -82,14 +82,14 @@ const Step1 = ({ onNext, user, handleChange, setUser }) => {
             <hr />
             <div id="signInDiv" className='btn btn-block mb-2'></div>
             <br />
-            <small 
-            id="loginHelp" 
-            className="form-text text-muted">Already have an account? 
-            <a href="/login">Log in now.</a></small>
+            <small
+              id="loginHelp"
+              className="form-text text-muted">Already have an account?
+              <a href="/login">Log in now.</a></small>
           </div>
-          </div>
-          </div>
-          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 
@@ -118,9 +118,9 @@ const Step2 = ({ onPrevious, onSubmit, user, handleChange }) => {
                   value={user.userPass}
                   onChange={(event) => handleChange(event)}
                 />
-                <small 
-                id="passwordHelp" 
-                class="form-text text-muted">Please choose a strong password.</small>
+                <small
+                  id="passwordHelp"
+                  class="form-text text-muted">Please choose a strong password.</small>
               </div>
               <div className="mb-3" style={{ textAlign: "left" }}>
                 <label
@@ -159,12 +159,12 @@ const Step2 = ({ onPrevious, onSubmit, user, handleChange }) => {
                   className="form-label">
                   Account Type
                 </label>
-                <select 
-                required 
-                class="form-control" 
-                name="userType" 
-                id="selectList" 
-                onChange={(event) => handleChange(event)}>
+                <select
+                  required
+                  class="form-control"
+                  name="userType"
+                  id="selectList"
+                  onChange={(event) => handleChange(event)}>
                   <option value="" defaultValue disabled hidden>Click to choose one...</option>
                   <option value="Founder">Founder</option>
                   <option value="Investor">Investor</option>
@@ -172,13 +172,13 @@ const Step2 = ({ onPrevious, onSubmit, user, handleChange }) => {
               </div>
 
 
-              <button 
-              className="btn btn-outline-dark mx-1" 
-              type="button" 
-              onClick={onPrevious}>Previous</button>
-              <button 
-              className="btn btn-solid-dark mx-1" 
-              type="submit">Submit</button>
+              <button
+                className="btn btn-outline-dark mx-1"
+                type="button"
+                onClick={onPrevious}>Previous</button>
+              <button
+                className="btn btn-solid-dark mx-1"
+                type="submit">Submit</button>
             </form>
           </div></div></div></div>
   );
@@ -239,7 +239,7 @@ export default function AddUser({ setPageTitle, setUserType }) {
       console.log(data)
 
       // Create a user with the created wallet.java
-      const response = await axios.post('http://localhost:8080/api/createUserbyAuth', data, {
+      const response = await axios.post('https://orbital-1690146023037.azurewebsites.net/api/createUserbyAuth', data, {
         headers: {
           'Content-Type': 'application/json'
         }
@@ -247,10 +247,11 @@ export default function AddUser({ setPageTitle, setUserType }) {
       );
       navigate("/adduser/thanks")
     } catch (error) {
+      alert("The email address you entered already has an associated BackItUp account.")
       console.error(error);
     }
 
-    
+
   };
 
   return (

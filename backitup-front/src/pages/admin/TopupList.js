@@ -13,7 +13,7 @@ export default function UsersList() {
 
   // Get list of users from database
   const loadUsers = async () => {
-    const result = await axios.get("http://localhost:8080/api/listTopup")
+    const result = await axios.get("https://orbital-1690146023037.azurewebsites.net/api/listTopup")
     console.log(result);
     setUsers(result.data)
     console.log(result.data);
@@ -22,12 +22,12 @@ export default function UsersList() {
   const clickVerify = (user) => {
     const date = new Date();
     const formattedDate = date.toISOString().substr(0, 19);
-    axios.get(`http://localhost:8080/api/topup/verify/${user.topupID}/${formattedDate}`)
+    axios.get(`https://orbital-1690146023037.azurewebsites.net/api/topup/verify/${user.topupID}/${formattedDate}`)
     alert("Successfully verified! Please refresh the page.")
   }
 
   const clickUnverify = (userID) => {
-    axios.get(`http://localhost:8080/${userID}/unverify`)
+    axios.get(`https://orbital-1690146023037.azurewebsites.net/${userID}/unverify`)
     alert("Successfully unverified! Please refresh the page.")
   }
 

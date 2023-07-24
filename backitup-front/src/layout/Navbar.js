@@ -24,7 +24,7 @@ export default function Navbar({ isAuth, setIsAuth, currUser, userType }) {
 
   const loadData = async () => {
     const isCompanyResponse =
-      axios.get(`http://localhost:8080/api/verifyCompany/${currUser.userEmail}/${currUser.userPass}`)
+      axios.get(`https://orbital-1690146023037.azurewebsites.net/api/verifyCompany/${currUser.userEmail}/${currUser.userPass}`)
     const isComp = isCompanyResponse.data
     if (isComp === null || isComp === undefined) {
       setIsCompany(false)

@@ -42,11 +42,11 @@ export default function LogIn({ setCurrUser, setIsAuth, setPageTitle, setUserTyp
     try {
       console.log(userObject.sub);
       const isVerified =
-        await axios.get(`http://localhost:8080/api/verifyUserbyAuth/${userObject.sub}/GOOGLE`)
-      console.log(isVerified.data, "API result");
-      if (isVerified.data >= 0) {
+        await axios.get(`https://orbital-1690146023037.azurewebsites.net/api/verifyUserbyAuth/${userObject.sub}/GOOGLE`)
+      console.log(isVerified.data, "API result is<<<<<<<<<<<<<<<<<<,");
+      if (parseInt(isVerified.data) >= 0) {
         setIsAuth({ isLoggedIn: true, userID: isVerified.data })
-        const currResponse = await axios.get(`http://localhost:8080/api/user/${isVerified.data}`).then()
+        const currResponse = await axios.get(`https://orbital-1690146023037.azurewebsites.net/api/user/${isVerified.data}`).then()
         const curr = currResponse.data
         setCurrUser(curr)
         setUserType(`${curr.userType}`)
@@ -57,6 +57,7 @@ export default function LogIn({ setCurrUser, setIsAuth, setPageTitle, setUserTyp
         alert('You do not have a BackItUp account linked to this Google account.')
       }
     } catch (error) {
+      alert('You do not have a BackItUp account linked to this Google account. Please sign up!')
       console.log("gooogle failed");
     }
   }
@@ -86,11 +87,11 @@ export default function LogIn({ setCurrUser, setIsAuth, setPageTitle, setUserTyp
       console.log(password, "password submitted is")
 
       const isVerified =
-        await axios.get(`http://localhost:8080/api/verifyUser/${details.userEmail}/${details.userPass}`).then()
+        await axios.get(`https://orbital-1690146023037.azurewebsites.net/api/verifyUser/${details.userEmail}/${details.userPass}`).then()
       // console.log(isVerified.data, "API result");
 
       setIsAuth({ isLoggedIn: true, userID: isVerified.data })
-      const currResponse = await axios.get(`http://localhost:8080/api/user/${isVerified.data}`).then()
+      const currResponse = await axios.get(`https://orbital-1690146023037.azurewebsites.net/api/user/${isVerified.data}`).then()
       const curr = currResponse.data
       setCurrUser(curr)
       setUserType(`${curr.userType}`)

@@ -26,22 +26,19 @@ export default function Wallet({ currUser }) {
     setDisplayB(true)
   }
 
-  console.log('my current user walletid', currUser);
-
   useEffect(() => {
     loadWallet()
   }, []);
 
   // Get Post details from database
   const loadWallet = async () => {
-    const result = await axios.get(`http://localhost:8080/api/user/${currUser.userID}/wallet`) // change the link as necessary
+    const result = await axios.get(`https://orbital-1690146023037.azurewebsites.net/api/user/${currUser.userID}/wallet`) // change the link as necessary
     setWallet(result.data)
 
-    console.log("my wallet", wallet);
-    const result2 = await axios.get(`http://localhost:8080/api/listTopUp/${id}`)
+    const result2 = await axios.get(`https://orbital-1690146023037.azurewebsites.net/api/listTopUp/${id}`)
     setTopups(result2.data)
 
-    const result3 = await axios.get(`http://localhost:8080/api/listWithdrawal/${id}`)
+    const result3 = await axios.get(`https://orbital-1690146023037.azurewebsites.net/api/listWithdrawal/${id}`)
     setWds(result3.data)
 
   }

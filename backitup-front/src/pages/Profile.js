@@ -57,7 +57,6 @@ export default function Profile({ currUser, setPageTitle, userType }) {
                   src={currUser.userPhotoURL}
                   alt="[No Profile Photo Yet]"
                   className="image-inside-circle"
-
                 />
               </div>
             </div>
@@ -80,7 +79,7 @@ export default function Profile({ currUser, setPageTitle, userType }) {
               <button className={displayC
                 ? 'btn btn-admin-dark flex-fill my-2 mx-1 shadow-sm'
                 : 'btn btn-admin-inactive flex-fill my-2 mx-1'}
-                onClick={() => showC()}>{userType == "Company" ? "My Posts" : "My Portfolio"}</button>
+                onClick={() => showC()}>{currUser.userType == "Company" ? "My Posts" : "My Portfolio"}</button>
             }
           </div>
         </div>
@@ -90,7 +89,7 @@ export default function Profile({ currUser, setPageTitle, userType }) {
               ? <ViewUser currUser={currUser} />
               : displayB
                 ? <Wallet currUser={currUser} />
-                : userType === 'Company'
+                : currUser.userType === 'Company'
                   ? <PostUser currUser={currUser} />
                   : <InvestmentUser currUser={currUser} />
           }

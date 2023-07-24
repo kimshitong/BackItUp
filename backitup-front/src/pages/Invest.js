@@ -17,7 +17,7 @@ export default function Invest(props) {
 
   const loadUser = async () => {
     console.log(props.isAuth.userID);
-    const currUser = await axios.get(`http://localhost:8080/api/user/${props.isAuth.userID}`)
+    const currUser = await axios.get(`https://orbital-1690146023037.azurewebsites.net/api/user/${props.isAuth.userID}`)
     setCurr(currUser.data)
     console.log("nice you hav eloaded curr user" + currUser.userID);
   }
@@ -36,11 +36,19 @@ export default function Invest(props) {
     const formattedDate = date.toISOString().substr(0, 19);
     event.preventDefault()
     const result =
-      await axios.get(`http://localhost:8080/api/invest/${id}/${props.isAuth.userID}/${amt}/${formattedDate}`)
+      await axios.get(`https://orbital-1690146023037.azurewebsites.net/api/invest/${id}/${props.isAuth.userID}/${amt}/${formattedDate}`)
     if (result.data > 0) {
       navigate("/thanks")
     } else {
-      alert("Please check that you have suffient balance.")
+      result.data === -1
+      ? alert("Invalid user.")
+      : result.data === -2
+      ? alert("Invalid share.")
+      : result.data === -3
+      ? alert("Insufficient Purchasing Minimum Share Amount.")
+      : result.data === -4
+      ? alert("Insufficient Remaining Share.")
+      : alert("Insufficient Active Balance.")
     }
   }
 

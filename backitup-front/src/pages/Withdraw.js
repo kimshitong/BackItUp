@@ -25,7 +25,6 @@ export default function Withdraw({ currUser, isAuth, setPageTitle }) {
     setTopup({ ...topup, [e.target.name]: e.target.value })
   }
 
-  // Post user investment info to database
   const onSubmit = async (event) => {
     event.preventDefault()
     try {
@@ -40,19 +39,21 @@ export default function Withdraw({ currUser, isAuth, setPageTitle }) {
         withdrawalVerified: 0
       };
 
-      console.log(data)
-
-      const response = await axios.post('http://localhost:8080/api/withdrawal', data, {
+      const response = await axios.post('https://orbital-1690146023037.azurewebsites.net/api/withdrawal', data, {
         headers: {
           'Content-Type': 'application/json'
         }
+      });
+
+      if (response.data == "") {
+        throw new Error()
       }
 
-      );
-      console.log(response.data);
+      console.log(response, "withdrawal responseeee <>SA<D>AS<DA><DSA>D");
       console.log("withdrawal success");
       navigate("/withdraw/thanks")
     } catch (error) {
+      alert("Please enter a valid amount.")
       console.log("withdrawal failure")
     }
 

@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
-@CrossOrigin("https://backitup.mysql.database.azure.coml.database.azure.com/")
+@CrossOrigin("https://backitup.mysql.database.azure.com/")
 public class paymentController {
     @Autowired
     private walletRepo WALLETRepository;
