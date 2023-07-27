@@ -74,7 +74,7 @@ class investmentControllerTest {
         this.postOne = new Post(CompanyOne, ShareOne,PostCreationOne);
         postOne.setPostID(1);
 
-        Investment investment = new Investment(userOne, ShareOne, 10, Payment payment, LocalDateTime investDt, boolean investActive) {
+//        Investment investment = new Investment(userOne, ShareOne, 10, Payment payment, LocalDateTime investDt, boolean investActive) {
 
 
         when(userRepository.findById(1)).thenReturn(Optional.ofNullable(userOne));
@@ -92,16 +92,9 @@ class investmentControllerTest {
                 .andDo(print()).andExpect(status().isOk());
 
     }
+    @Test
+    void listinvest() throws Exception {
 
-    @GetMapping("/api/listinvest/user/{userid}")
-    List<Investment> userListInvest(@PathVariable("userid") Integer UserID){
-        Optional<User> optionalUser = userRepository.findById(UserID);
-
-        if (optionalUser.isEmpty()) {
-            return null;
-        }
-
-        return investmentRepository.findInvestmentByUser(optionalUser.get());
     }
 
 }
