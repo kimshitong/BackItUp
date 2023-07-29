@@ -98,6 +98,7 @@ public class investmentController {
         return investment;
     }
 
+
     @GetMapping("/api/listinvest/user/{userid}")
     List<Investment> userListInvest(@PathVariable("userid") Integer UserID){
         Optional<User> optionalUser = userRepository.findById(UserID);
