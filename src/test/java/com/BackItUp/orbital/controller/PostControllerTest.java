@@ -9,6 +9,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,7 +54,8 @@ class PostControllerTest {
     @MockBean
     private postRepo postRepository;
 
-
+    User CompanyOne;
+    User CompanyTwo;
     Post PostOne;
     PostCreation PostCreationOne;
     Post PostTwo;
@@ -81,7 +83,11 @@ class PostControllerTest {
 
         this.PostOne = PostOne;
         this.PostTwo = PostTwo;
+        this.CompanyOne = CompanyOne;
+        this.CompanyTwo = CompanyTwo;
 
+        when(userRepository.findById(1)).thenReturn(Optional.ofNullable(CompanyOne));
+        when(userRepository.findById(2)).thenReturn(Optional.ofNullable(CompanyTwo));
         when(postRepository.findById(1)).thenReturn(Optional.ofNullable(this.PostOne));
         when(postRepository.findById(2)).thenReturn(Optional.ofNullable(this.PostTwo));
         when(postRepository.findAll()).thenReturn(this.PostLists);
@@ -90,35 +96,34 @@ class PostControllerTest {
 
     }
 
-//    @Test
+    @Test
     void newPost() throws Exception {
 
         ObjectMapper mapper = new ObjectMapper();
-        mapper.configure(SerializationFeature.WRAP_ROOT_VALUE,false);
-        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-        String requestJSON = ow.writeValueAsString(PostCreationOne);
+        mapper.registerModule(new JavaTimeModule()); // Register Jackson JSR310 module
+        mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false); // Disable timestamp serialization
+        PostCreation PostCreationOne = new PostCreation("Title1", "Description1","Content1","url.com",true,1,5000,10,0,10, LocalDateTime.now(),LocalDateTime.now(),LocalDateTime.now());
+
 
         this.mockMvc.perform(post("/api/createPost")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(requestJSON))
+                        .content(mapper.writeValueAsString(PostCreationOne)))
                 .andDo((print())).andExpect(status().isOk());
 
     }
 
-//    @Test
+    @Test
     void editPost() throws Exception {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule()); // Register Jackson JSR310 module
+        mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false); // Disable timestamp serialization
+
         PostEdit edit = new PostEdit("test","test","test","test",true,LocalDateTime.now());
         Post post = this.PostOne;
 
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.configure(SerializationFeature.WRAP_ROOT_VALUE,false);
-        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-        String requestJSON = ow.writeValueAsString(edit);
-
-
         this.mockMvc.perform(post("/api/editPost/" + post.getPostID().toString())
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(requestJSON))
+                        .content(mapper.writeValueAsString(edit)))
                 .andDo((print())).andExpect(status().isOk());
 
     }

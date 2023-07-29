@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.cglib.core.Local;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -57,14 +58,14 @@ class investmentControllerTest {
 
         this.userOne = new User("Jacky", "jacky@gmail.com", "8175422", "password", "Founder", "", "linkedin.com", true);
         userOne.setUserID(1);
-        Wallet walletOne = new Wallet(500,0);
-        walletOne.setWallet_ID(1);
-        userOne.setWallet(walletOne);
+        Wallet userWallet = new Wallet(500,0);
+        userWallet.setWallet_ID(1);
+        userOne.setWallet(userWallet);
 
         this.CompanyOne= new User("CompanyA","companyA@gmail.com","8175422","password","linkedin.com",true);
-        Wallet walletTwo = new Wallet(500,0);
-        walletTwo.setWallet_ID(2);
-        CompanyOne.setWallet(walletTwo);
+        Wallet companyWallet = new Wallet(500,0);
+        companyWallet.setWallet_ID(2);
+        CompanyOne.setWallet(companyWallet);
 
         PostCreation PostCreationOne = new PostCreation("Title1", "Description1","Content1","url.com",true,1,5000,10,0,10, LocalDateTime.now(),LocalDateTime.now(),LocalDateTime.now());
 
@@ -74,7 +75,6 @@ class investmentControllerTest {
         this.postOne = new Post(CompanyOne, ShareOne,PostCreationOne);
         postOne.setPostID(1);
 
-//        Investment investment = new Investment(userOne, ShareOne, 10, Payment payment, LocalDateTime investDt, boolean investActive) {
 
 
         when(userRepository.findById(1)).thenReturn(Optional.ofNullable(userOne));
@@ -82,19 +82,19 @@ class investmentControllerTest {
 
         when(shareRepository.findById(1)).thenReturn(Optional.ofNullable(ShareOne));
 
-
     }
 
-//    @Test
+    @Test
     void invest() throws Exception {
-        double amount = 10;
+        int amount = 10;
         this.mockMvc.perform(get("/api/invest/"+ShareOne.getShareId()+"/"+userOne.getUserID()+"/"+amount+"/2023-06-25T10:00:00"))
                 .andDo(print()).andExpect(status().isOk());
 
     }
+
     @Test
     void listinvest() throws Exception {
-        this.mockMvc.perform(get("/api/listinvest/user/"+userOne.getUserID))
+        this.mockMvc.perform(get("/api/listinvest/user/"+userOne.getUserID()))
                 .andDo(print()).andExpect(status().isOk());
 
     }

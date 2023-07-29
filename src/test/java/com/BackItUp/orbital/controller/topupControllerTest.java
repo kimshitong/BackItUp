@@ -9,6 +9,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -99,17 +100,20 @@ class topupControllerTest {
 
     }
 
-//    @Test
+    @Test
     void newTopup() throws Exception {
+
         ObjectMapper mapper = new ObjectMapper();
-        mapper.configure(SerializationFeature.WRAP_ROOT_VALUE,false);
-        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-        String requestJSON = ow.writeValueAsString(TopupRespOne);
+        mapper.registerModule(new JavaTimeModule()); // Register Jackson JSR310 module
+        mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false); // Disable timestamp serialization
+
+        TopupResponse topupResponse = new TopupResponse(1, 5, 8173213, LocalDateTime.now(), 0, "test");
+
 
         this.mockMvc.perform(post("/api/topup")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(requestJSON))
-                .andDo((print())).andExpect(status().isOk());
+                        .content(mapper.writeValueAsString(topupResponse)))
+                .andDo(print()).andExpect(status().isOk());
 
     }
 

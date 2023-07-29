@@ -7,6 +7,7 @@ import com.BackItUp.orbital.repository.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -96,17 +98,20 @@ class withdrawalControllerTest {
 
     }
 
-    //    @Test
+    @Test
     void newWithdrawal() throws Exception {
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.configure(SerializationFeature.WRAP_ROOT_VALUE,false);
-        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-        String requestJSON = ow.writeValueAsString(WithdrawalRespOne);
 
-//        this.mockMvc.perform(post("/api/withdrawal")
-//                        .contentType(MediaType.APPLICATION_JSON)
-//                        .content(requestJSON))
-//                .andDo((print())).andExpect(status().isOk());
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule()); // Register Jackson JSR310 module
+        mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false); // Disable timestamp serialization
+
+
+
+        this.mockMvc.perform(MockMvcRequestBuilders.post("/api/withdrawal")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(mapper.writeValueAsString(WithdrawalRespOne)))
+                .andDo(print()).andExpect(status().isOk());
+
 
     }
 

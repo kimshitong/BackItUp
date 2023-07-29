@@ -52,7 +52,7 @@ public class topupController {
 //        when(userRepository.findById(2)).thenReturn(Optional.ofNullable(userTwo));
 //
 //    }
-        @PostMapping("/api/topup")
+    @PostMapping("/api/topup")
     Topup newTopup(@RequestBody TopupResponse response) {
 
         Wallet wallet = WALLETRepository.findById(response.getWalletID()).get();
