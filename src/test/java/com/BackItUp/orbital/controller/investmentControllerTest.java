@@ -94,6 +94,8 @@ class investmentControllerTest {
     }
     @Test
     void listinvest() throws Exception {
+        this.mockMvc.perform(get("/api/listinvest/user/"+userOne.getUserID))
+                .andDo(print()).andExpect(status().isOk());
 
     }
 
